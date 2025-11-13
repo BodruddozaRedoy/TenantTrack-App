@@ -1,6 +1,6 @@
 import Feather from '@expo/vector-icons/Feather';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 export default function PageTitle({
   text,
@@ -15,9 +15,9 @@ export default function PageTitle({
       <View className="flex-row items-center w-full px-5 py-5">
       
       {/* Left icon slot */}
-      <View className="w-6">
+          <TouchableOpacity className="w-6">
         {leftIcon && <Feather name="arrow-left" size={24} color="black" />}
-      </View>
+          </TouchableOpacity>
 
       {/* Title centered with flex-1 */}
           <Text className="flex-1 text-center text-title">
