@@ -12,7 +12,7 @@ export default function PageTitle({
   rightIcon?: boolean;
 }) {
   return (
-    <View className="flex-row items-center w-full px-5 py-10">
+      <View className="flex-row items-center w-full px-5 py-5">
       
       {/* Left icon slot */}
       <View className="w-6">
@@ -20,7 +20,7 @@ export default function PageTitle({
       </View>
 
       {/* Title centered with flex-1 */}
-      <Text className="flex-1 text-center text-black font-semibold text-2xl">
+          <Text className="flex-1 text-center text-title">
         {text}
       </Text>
 
