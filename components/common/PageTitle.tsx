@@ -5,22 +5,24 @@ import { Text, TouchableOpacity, View } from 'react-native';
 export default function PageTitle({
   text,
   leftIcon,
-  rightIcon
+  rightIcon,
+  leftOnPress
 }: {
   text: string;
   leftIcon?: boolean;
   rightIcon?: boolean;
+    leftOnPress?: () => void | {}
 }) {
   return (
-      <View className="flex-row items-center w-full px-5 py-5">
-      
+    <View className="flex-row items-center w-full px-5 py-5">
+
       {/* Left icon slot */}
-          <TouchableOpacity className="w-6">
+      <TouchableOpacity onPress={leftOnPress} className="w-6">
         {leftIcon && <Feather name="arrow-left" size={24} color="black" />}
-          </TouchableOpacity>
+      </TouchableOpacity>
 
       {/* Title centered with flex-1 */}
-          <Text className="flex-1 text-center text-title">
+      <Text className="flex-1 text-center text-title">
         {text}
       </Text>
 
