@@ -1,5 +1,6 @@
 import PrimaryButton from "@/components/common/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -58,7 +59,7 @@ export default function EmailVerificationScreen() {
       </View>
 
       {/* Confirm Button */}
-      <PrimaryButton title="Confirm" />
+          <PrimaryButton onPress={() => router.push("/(auth)/setup-location")} title="Confirm" />
 
       <View className="h-6" />
 
