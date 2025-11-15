@@ -127,10 +127,16 @@ export default function OnboardingScreen() {
 
                             {/* NEXT */}
                             <View className="flex-1">
-                                <PrimaryButton
-                                    title={selectedId === maxId ? "Get Started" : "Next"}
-                                    onPress={handleNext}
-                                />
+
+                                {
+                                    selectedId === maxId ? <PrimaryButton
+                                        title={"Get Started"}
+                                        onPress={() => router.push("/(auth)/register")}
+                                    /> : <PrimaryButton
+                                        title={"Next"}
+                                        onPress={handleNext}
+                                    />
+                                }
                             </View>
 
                         </View>
