@@ -27,7 +27,7 @@ export default function LoginScreen() {
 
                 {/* Icon (top-left) */}
                 <TouchableOpacity className="absolute left-6 top-6">
-                    <Ionicons name="sparkles-outline" size={22} color="black" />
+                    <Ionicons name="sparkles-outline" size={24} color="black" />
                 </TouchableOpacity>
 
                 {/* Title */}

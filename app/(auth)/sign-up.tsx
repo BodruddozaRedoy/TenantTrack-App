@@ -1,5 +1,6 @@
 import PrimaryButton from "@/components/common/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
@@ -25,7 +26,7 @@ export default function SignupScreen() {
 
         {/* Icon (top-left) */}
         <TouchableOpacity className="absolute left-6 top-6">
-          <Ionicons name="sparkles-outline" size={22} color="black" />
+                  <Ionicons name="sparkles-outline" size={24} color="black" />
         </TouchableOpacity>
 
         {/* Title */}
@@ -69,7 +70,7 @@ export default function SignupScreen() {
         />
 
         {/* Signup Button */}
-        <PrimaryButton title="Sign Up" />
+              <PrimaryButton onPress={() => router.push("/(auth)/email-verification")} title="Sign Up" />
 
         {/* Extra bottom spacing */}
         <View className="h-6" />
