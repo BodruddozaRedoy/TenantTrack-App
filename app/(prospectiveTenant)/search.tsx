@@ -14,13 +14,13 @@ export default function SearchScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark px-4 pt-2">
+    <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark  pt-2">
 
       {/* Top Navigation */}
       <PageTitle text="Search" leftIcon={true} leftOnPress={() => router.back()}/>
 
       {/* Search Input */}
-      <View className="flex-row items-center bg-gray-100 rounded-full pl-5 py-3 pr-3 mb-8">
+      <View className="flex-row items-center bg-gray-100 rounded-full pl-5 py-3 pr-3 mx-5">
         <Ionicons name="search-outline" size={20} color="#999" />
         <TextInput
           placeholder="Search anything"
@@ -30,14 +30,17 @@ export default function SearchScreen() {
         <TouchableOpacity className="bg-background p-3 rounded-full"><Ionicons name="options-outline" size={20} color="#999" /></TouchableOpacity>
       </View>
 
+      <View className="border-b border-gray-200 my-5" />
+
       {/* Recent Search Section */}
-      <Text className="text-small text-secondary dark:text-secondaryDark mb-3">
+      <Text className="text-small text-secondary dark:text-secondaryDark mb-3 px-5">
         Recent Search
       </Text>
 
       <FlatList
         data={recentLocations}
         keyExtractor={(item) => item}
+        contentContainerStyle={{ paddingHorizontal: 20 }}
         renderItem={({ item }) => (
           <View className="flex-row items-center mb-3">
             <Ionicons

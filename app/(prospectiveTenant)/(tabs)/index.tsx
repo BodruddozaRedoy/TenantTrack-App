@@ -1,3 +1,4 @@
+import { IconConstants } from "@/constants/icons.constants";
 import { Ionicons } from "@expo/vector-icons";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { router } from "expo-router";
@@ -45,23 +46,34 @@ export default function HomeScreen() {
                     Explore
                 </Text>
 
-                <TouchableOpacity>
-                    <Ionicons name="notifications-outline" size={24} color="black" />
-                </TouchableOpacity>
+                <View className="flex-row gap-3 items-center">
+                    <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/notification")}>
+                        <Image
+                            source={IconConstants.Notification}
+                            className="size-8"
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/resume")}>
+                        <Image
+                            source={IconConstants.Resume}
+                            className="size-8"
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
 
             {/* Search Input */}
-            <View className="flex-row items-center bg-gray-100 rounded-full pl-5 py-3 pr-3 mb-8 mx-4">
+            <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/search")} className="flex-row items-center bg-gray-100 rounded-full pl-5 py-3 pr-3 mb-8 mx-4">
                 <Ionicons name="search-outline" size={20} color="#999" />
                 <TextInput
-                    onPress={() => router.push("/(prospectiveTenant)/search")}
+
                     placeholder="Search anything"
                     placeholderTextColor="#9CA3AF"
-                    // disableFullscreenUI
+                    editable={false}
                     className="flex-1 ml-2 text-text dark:text-textDark"
                 />
                 <TouchableOpacity className="bg-background p-3 rounded-full"><Ionicons name="options-outline" size={20} color="#999" /></TouchableOpacity>
-            </View>
+            </TouchableOpacity>
 
             {/* Category Pills */}
             <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-8 border-b border-gray-200 pb-8 px-5">
