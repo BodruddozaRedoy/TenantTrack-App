@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 import "../global.css";
 
 // Keep the splash screen visible while we fetch resources
@@ -13,6 +14,8 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <Stack screenOptions={{ headerShown: false }} />
+    <KeyboardProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </KeyboardProvider>
   );
 }

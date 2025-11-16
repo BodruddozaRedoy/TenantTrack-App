@@ -27,7 +27,7 @@ export default function SetLocationScreen() {
       // You can also fetch the user's location here if needed
       // const userLocation = await Location.getCurrentPositionAsync({});
 
-      router.push("/confirm-location");
+        router.push("/(auth)/confirm-location?from=auto");
     } catch (error) {
       console.log(error);
       Alert.alert("Error", "Unable to access location.");
@@ -35,7 +35,7 @@ export default function SetLocationScreen() {
   };
 
   const handleManual = () => {
-    router.push("/confirm-location");
+      router.push("/(auth)/confirm-location?from=manual");
   };
 
   return (
