@@ -2,18 +2,17 @@ import PrimaryButton from "@/components/common/PrimaryButton";
 import SecondaryButton from "@/components/common/SecondaryButton";
 import { router } from "expo-router";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
 
 export default function RegistrationScreen() {
     return (
-        <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-
+        <View className="flex-1 bg-background dark:bg-backgroundDark">
+            <StatusBar barStyle={"light-content"} />
             {/* Container */}
             <View className="flex-1">
 
                 {/* Top Cover Image */}
-                <View className="w-full h-[450px]">
+                <View className="w-full h-[580px]">
                     <Image
                         source={{ uri: "https://picsum.photos/800/601" }}
                         className="w-full h-full"
@@ -22,14 +21,14 @@ export default function RegistrationScreen() {
                 </View>
 
                 {/* Bottom Card */}
-                <View className="absolute bottom-0 left-0 right-0 bg-card dark:bg-cardDark px-6 pb-10
+                <View className="absolute bottom-0 left-0 right-0 bg-card dark:bg-cardDark px-6 pb-20
                        rounded-t-3xl shadow-2xl border border-gray-200 dark:border-gray-700">
 
                     {/* Handle */}
                     <View className="w-16 h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full self-center mb-6 mt-5" />
 
                     {/* Login / Sign Up */}
-                    <View className="flex-row gap-3 items-center justify-between mb-6">
+                    <View className="flex-row gap-3 items-center justify-between mb-6 mt-5">
                         <View className="flex-1">
                             <PrimaryButton
                                 onPress={() => router.push("/(auth)/login")}
@@ -93,6 +92,6 @@ export default function RegistrationScreen() {
                 </View>
 
             </View>
-        </SafeAreaView>
+        </View>
     );
 }

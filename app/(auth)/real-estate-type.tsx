@@ -1,6 +1,7 @@
 import PageTitle from "@/components/common/PageTitle";
 import PrimaryButton from "@/components/common/PrimaryButton";
 import { IconConstants } from "@/constants/icons.constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -8,9 +9,10 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { toast } from "sonner-native";
 
 const TYPES = [
   {
@@ -54,6 +56,16 @@ const TYPES = [
 
 export default function RealEstateTypeScreen() {
   const [selected, setSelected] = useState<string | null>(null);
+
+  const handleContinue = async () => {
+    try {
+      if (!selected) return toast.error('Please select a type!!');
+      await AsyncStorage.setItem("real-estate-type", selected)
+      router.push("/prospectiveTenant)/(tabs)");
+    } catch (error) {
+
+    }
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
@@ -114,10 +126,7 @@ export default function RealEstateTypeScreen() {
         <View className="px-6 mt-4">
           <PrimaryButton
             title="Let's Get Started!"
-            onPress={() => {
-              if (!selected) return;
-              router.push("/(auth)");
-            }}
+            onPress={handleContinue}
           />
         </View>
       </ScrollView>

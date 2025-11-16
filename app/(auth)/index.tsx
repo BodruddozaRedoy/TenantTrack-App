@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Role {
   id: string;
@@ -21,6 +22,15 @@ export default function WelcomeScreen() {
     { id: "landlord", title: "Landlord", subtitle: "Property Owner" },
     { id: "agent", title: "Agent", subtitle: "Property management agent" },
   ];
+
+  const handleNext = async () => {
+    try {
+      await AsyncStorage.setItem("role", selected)
+      router.push({ pathname: "/(auth)/onboarding", params: { role: selected } })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
   return (
@@ -105,10 +115,10 @@ export default function WelcomeScreen() {
         </View>
 
         {/* NEXT BUTTON */}
-        <View  className="mt-10 mb-10">
+        <View className="mt-10 mb-10">
           <PrimaryButton
             title="Next"
-            onPress={() => router.push({pathname: "/(auth)/onboarding", params: {role: selected}})}
+            onPress={handleNext}
           />
         </View>
 

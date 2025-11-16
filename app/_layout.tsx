@@ -1,7 +1,9 @@
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
+import { Toaster } from 'sonner-native';
 import "../global.css";
 
 // Keep the splash screen visible while we fetch resources
@@ -15,7 +17,10 @@ export default function RootLayout() {
 
   return (
     <KeyboardProvider>
-      <Stack screenOptions={{ headerShown: false }} />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Stack screenOptions={{ headerShown: false }} />
+        <Toaster />
+      </GestureHandlerRootView>
     </KeyboardProvider>
   );
 }
