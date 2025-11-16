@@ -16,19 +16,24 @@ export default function TabLayout() {
                     marginBottom: 60,
                     borderRadius: 100,
                     paddingHorizontal: 10,
-                    marginHorizontal: 5
+                    marginHorizontal: 5,
+                    shadowColor: "#1a1a1a",
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 4,
+                    elevation: 5,
                 },
                 tabBarItemStyle: {
-                    marginHorizontal: 10
+                    // marginHorizontal: 30,
                 },
-
+                // tabBarBackground: () => <View style={{ backgroundColor: 'transparent' }} />
             }}
         >
             <Tabs.Screen
                 name="index"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
+                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center`}>
                             <Ionicons
                                 name="compass-outline"
                                 size={26}
