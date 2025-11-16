@@ -72,7 +72,7 @@ export default function HomeScreen() {
                     editable={false}
                     className="flex-1 ml-2 text-text dark:text-textDark"
                 />
-                <TouchableOpacity className="bg-background p-3 rounded-full"><Ionicons name="options-outline" size={20} color="#999" /></TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/filter")} className="bg-background p-3 rounded-full"><Ionicons name="options-outline" size={20} color="#999" /></TouchableOpacity>
             </TouchableOpacity>
 
             {/* Category Pills */}

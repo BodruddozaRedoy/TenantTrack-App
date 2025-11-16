@@ -77,10 +77,12 @@ export default function NotificationScreen() {
     const router = useRouter();
 
     return (
-        <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark px-4 pt-2">
+        <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark  pt-2">
 
             {/* Header */}
             <PageTitle text="Notification" leftIcon leftOnPress={() => router.back()} />
+
+            <View className="border-b border-gray-200 my-5" />
 
             {/* Notification List */}
             <FlatList
@@ -89,7 +91,7 @@ export default function NotificationScreen() {
                 contentContainerStyle={{ paddingBottom: 50 }}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                    <View className="flex-row items-center bg-[#F4F4F4] rounded-full dark:bg-cardDark p-4 mb-3">
+                    <View className="flex-row items-center bg-[#F4F4F4] rounded-full dark:bg-cardDark p-4 mb-3 mx-5">
 
                         {/* Icon Bubble */}
                         <View
