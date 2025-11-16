@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { router } from "expo-router";
 import React, { useState } from "react";
 import { Image, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
 
@@ -50,14 +51,16 @@ export default function HomeScreen() {
             </View>
 
             {/* Search Input */}
-            <View className="flex-row items-center bg-gray-100 rounded-full p-3 mb-8 mx-5">
+            <View className="flex-row items-center bg-gray-100 rounded-full pl-5 py-3 pr-3 mb-8 mx-4">
                 <Ionicons name="search-outline" size={20} color="#999" />
                 <TextInput
+                    onPress={() => router.push("/(prospectiveTenant)/search")}
                     placeholder="Search anything"
                     placeholderTextColor="#9CA3AF"
+                    // disableFullscreenUI
                     className="flex-1 ml-2 text-text dark:text-textDark"
                 />
-                <Ionicons name="options-outline" size={20} color="#999" />
+                <TouchableOpacity className="bg-background p-3 rounded-full"><Ionicons name="options-outline" size={20} color="#999" /></TouchableOpacity>
             </View>
 
             {/* Category Pills */}

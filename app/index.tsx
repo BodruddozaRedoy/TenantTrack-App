@@ -31,7 +31,7 @@ export default function Index() {
         !isAuthenticated && <Redirect href={"/(auth)"} />
       }
       {
-        isAuthenticated && role == "prospective" && <Redirect href={"/prospectiveTenant)/(tabs)"} />
+        isAuthenticated && role == "prospective" && <Redirect href={"/(prospectiveTenant)/(tabs)"} />
       }
     </View>
   );
