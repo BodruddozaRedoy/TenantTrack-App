@@ -34,7 +34,7 @@ export default function HomeScreen() {
 
     return (
         <ScrollView
-            className="flex-1 bg-background dark:bg-backgroundDark  pt-14"
+            className="flex-1 bg-background dark:bg-backgroundDark pt-14"
             showsVerticalScrollIndicator={false}
         >
             <StatusBar barStyle={"dark-content"} />
@@ -109,7 +109,7 @@ export default function HomeScreen() {
             </ScrollView>
 
             {/* Extra Bottom Space */}
-            <View className="h-20" />
+            <View className="h-20 bg-background" />
         </ScrollView>
     );
 }

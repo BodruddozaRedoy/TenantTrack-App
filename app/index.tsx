@@ -26,7 +26,7 @@ export default function Index() {
 
 
   return (
-    <View >
+    <View className="bg-background dark:bg-backgroundDark flex-1">
       {
         !isAuthenticated && <Redirect href={"/(auth)"} />
       }

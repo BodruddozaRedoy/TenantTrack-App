@@ -1,6 +1,6 @@
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 
 export default function TabLayout() {
     return (
@@ -9,50 +9,60 @@ export default function TabLayout() {
                 headerShown: false,
                 tabBarShowLabel: false,
                 tabBarStyle: {
-                    height: 70,
+                    height: 80,
+                    paddingTop: 21,
                     borderTopWidth: 0,
-                    backgroundColor: "#ffffff",
-                    marginBottom: 40
+                    backgroundColor: "#99999940",
+                    marginBottom: 60,
+                    borderRadius: 100,
+                    paddingHorizontal: 10,
+                    marginHorizontal: 5
                 },
+                tabBarItemStyle: {
+                    marginHorizontal: 10
+                },
+
             }}
         >
             <Tabs.Screen
                 name="index"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View className="items-center">
+                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
                             <Ionicons
                                 name="compass-outline"
                                 size={26}
-                                color={focused ? "black" : "#9ca3af"}
+                                color={focused ? "white" : "#CCCCCC"}
                             />
-                            {focused && <View className="w-1 h-1 rounded-full bg-black mt-1" />}
+                            {focused && <Text className="text-white font-semibold">Explore</Text>}
                         </View>
                     ),
                 }}
             />
             <Tabs.Screen
-                name="saved"
+                name="favorite"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Ionicons
-                            name="bookmark-outline"
-                            size={26}
-                            color={focused ? "black" : "#9ca3af"}
-                        />
+                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
+                            <MaterialCommunityIcons name="bookmark-minus" size={26} color={focused ? "white" : "#CCCCCC"} />
+                            {focused && <Text className="text-white font-semibold">Favorite</Text>}
+                        </View>
                     ),
                 }}
             />
 
             <Tabs.Screen
-                name="chats"
+                name="chat"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Ionicons
-                            name="chatbubble-ellipses-outline"
-                            size={26}
-                            color={focused ? "black" : "#9ca3af"}
-                        />
+                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
+                            <Ionicons
+                                name="chatbox-ellipses"
+                                size={26}
+                                color={focused ? "white" : "#CCCCCC"}
+                            />
+                            {focused && <Text className="text-white font-semibold">Chat</Text>}
+                        </View>
                     ),
                 }}
             />
@@ -63,11 +73,14 @@ export default function TabLayout() {
                 name="profile"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Ionicons
-                            name="person-circle-outline"
-                            size={28}
-                            color={focused ? "black" : "#9ca3af"}
-                        />
+                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
+                            <FontAwesome
+                                name="user-circle"
+                                size={26}
+                                color={focused ? "white" : "#CCCCCC"}
+                            />
+                            {focused && <Text className="text-white font-semibold">Profile</Text>}
+                        </View>
                     ),
                 }}
             />
