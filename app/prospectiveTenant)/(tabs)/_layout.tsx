@@ -12,7 +12,7 @@ export default function TabLayout() {
                     height: 80,
                     paddingTop: 21,
                     borderTopWidth: 0,
-                    backgroundColor: "#99999940",
+                    backgroundColor: "#99999950",
                     marginBottom: 60,
                     borderRadius: 100,
                     paddingHorizontal: 10,
@@ -22,11 +22,15 @@ export default function TabLayout() {
                     shadowOpacity: 0.1,
                     shadowRadius: 4,
                     elevation: 5,
+                    position: "absolute"
                 },
-                tabBarItemStyle: {
-                    // marginHorizontal: 30,
-                },
-                // tabBarBackground: () => <View style={{ backgroundColor: 'transparent' }} />
+                // tabBarBackground: () => (
+                //     <BlurView
+                //         intensity={70}  // adjust blur strength 0–100+
+                //         tint="default"     // "light" | "dark" | "default"
+                //         style={{ flex: 1, borderRadius: 200 }}
+                //     />
+                // ),
             }}
         >
             <Tabs.Screen

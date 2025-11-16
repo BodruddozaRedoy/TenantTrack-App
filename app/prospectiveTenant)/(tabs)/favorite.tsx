@@ -1,7 +1,7 @@
 import PageTitle from '@/components/common/PageTitle'
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import React from 'react'
-import { FlatList, Image, Pressable, Text, View } from 'react-native'
+import { FlatList, Image, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 // Sample Data (URL Images)
@@ -10,10 +10,22 @@ const favoritesData = [
     id: "1",
     title: "The Minimalist",
     location: "Brooklyn, New York",
-    image: "https://images.unsplash.com/photo-1529429617124-95b109e86a5f",
+    image: "https://images.unsplash.com/photo-1501183638710-841dd1904471",
   },
   {
     id: "2",
+    title: "The Modern Tower",
+    location: "Chicago, Illinois",
+    image: "https://images.unsplash.com/photo-1501183638710-841dd1904471",
+  },
+  {
+    id: "3",
+    title: "The Modern Tower",
+    location: "Chicago, Illinois",
+    image: "https://images.unsplash.com/photo-1501183638710-841dd1904471",
+  },
+  {
+    id: "4",
     title: "The Modern Tower",
     location: "Chicago, Illinois",
     image: "https://images.unsplash.com/photo-1501183638710-841dd1904471",
@@ -25,7 +37,7 @@ const FavoriteCard = ({ item }: any) => {
   return (
     <View className="mb-6 px-4">
       {/* Image */}
-      <View className="w-full h-60 rounded-xl overflow-hidden mb-3 bg-gray-200 dark:bg-gray-700">
+      <View className="w-full h-80 rounded-xl overflow-hidden mb-3 bg-gray-200 dark:bg-gray-700">
         <Image
           source={{ uri: item.image }}
           className="w-full h-full"
@@ -39,13 +51,7 @@ const FavoriteCard = ({ item }: any) => {
           {item.title}
         </Text>
 
-        <Pressable hitSlop={10}>
-          <MaterialCommunityIcons
-            name="bookmark"
-            size={22}
-            color={"#222"}
-          />
-        </Pressable>
+        <MaterialCommunityIcons name="bookmark-minus" size={24} color="black" />
       </View>
 
       {/* Location */}
