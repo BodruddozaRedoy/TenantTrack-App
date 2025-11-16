@@ -42,7 +42,7 @@ export default function EmailVerificationScreen() {
       </Text>
 
       {/* OTP Boxes */}
-      <View className="flex-row justify-between mb-10">
+          <View className="flex-row gap-3 justify-center mb-10">
         {otp.map((digit, index) => (
           <TextInput
             key={index}
@@ -51,7 +51,7 @@ export default function EmailVerificationScreen() {
             keyboardType="number-pad"
             value={digit}
             onChangeText={(value) => handleChange(value, index)}
-            className="size-20 rounded-xl border border-gray-300 dark:border-gray-600 
+                className="size-16 rounded-xl border border-gray-300 dark:border-gray-600 
                        text-center text-title bg-background dark:bg-backgroundDark 
                        text-text dark:text-textDark"
           />

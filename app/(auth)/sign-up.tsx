@@ -40,21 +40,21 @@ export default function SignupScreen() {
         </Text>
 
         {/* Full Name */}
-        <Text className="text-small text-secondary mb-1">Full Name *</Text>
+              <Text className="text-small text-secondary dark:text-textDark mb-1">Full Name *</Text>
         <TextInput
           className="w-full p-3 border rounded-xl border-gray-300 dark:border-gray-700
                      bg-background dark:bg-backgroundDark text-text dark:text-textDark mb-4"
         />
 
         {/* Email */}
-        <Text className="text-small text-secondary mb-1">Email Address *</Text>
+              <Text className="text-small text-secondary mb-1 dark:text-textDark">Email Address *</Text>
         <TextInput
           className="w-full p-3 border rounded-xl border-gray-300 dark:border-gray-700
                      bg-background dark:bg-backgroundDark text-text dark:text-textDark mb-4"
         />
 
         {/* Password */}
-        <Text className="text-small text-secondary mb-1">Password *</Text>
+              <Text className="text-small text-secondary mb-1 dark:text-textDark">Password *</Text>
         <TextInput
           secureTextEntry
           className="w-full p-3 border rounded-xl border-gray-300 dark:border-gray-700
@@ -62,7 +62,7 @@ export default function SignupScreen() {
         />
 
         {/* Confirm Password */}
-        <Text className="text-small text-secondary mb-1">Confirm Password *</Text>
+              <Text className="text-small text-secondary mb-1 dark:text-textDark">Confirm Password *</Text>
         <TextInput
           secureTextEntry
           className="w-full p-3 border rounded-xl border-gray-300 dark:border-gray-700
