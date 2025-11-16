@@ -250,12 +250,14 @@ export default function FilterScreen() {
                             barWidth={14}
                             spacing={6}
                             hideRules
-                            barBorderRadius={4}
+                            hideYAxisText
+                            barBorderRadius={1}
                             frontColor="#000"
                             xAxisThickness={0}
                             yAxisThickness={0}
                             height={90}
                             width={300}
+
                         />
                     </View>
 
