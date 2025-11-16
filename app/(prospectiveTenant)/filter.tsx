@@ -5,46 +5,93 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
+    Modal,
     Platform,
+    Pressable,
     ScrollView,
     Text,
     TextInput,
     TouchableOpacity,
     View,
 } from "react-native";
+import { BarChart } from "react-native-gifted-charts"; // ⬅ chart added
 import { SafeAreaView } from "react-native-safe-area-context";
 
+// Dropdown options
 const propertyTypeOptions = [
-    "All",
-    "House",
-    "Apartment",
-    "Workspace",
-    "Commercial",
-    "Villa",
-    "Cabin",
-    "Cluster",
+    "All", "House", "Apartment", "Workspace", "Commercial", "Villa", "Cabin", "Cluster",
 ];
 
 const amenitiesOptions = [
-    "Pool",
-    "Gym",
-    "Parking",
-    "Garden",
-    "Security",
-    "Central AC",
-    "Balcony",
-    "WiFi",
+    "Pool", "Gym", "Parking", "Garden", "Security", "Central AC", "Balcony", "WiFi",
 ];
 
 const securityOptions = [
-    "Gated Community",
-    "Security Cameras",
-    "24/7 Security Guard",
-    "Doorman",
-    "Compound Security",
-    "Secure Parking",
+    "Gated Community", "Security Cameras", "24/7 Security Guard", "Doorman",
+    "Compound Security", "Secure Parking",
 ];
 
+// Histogram data
+const priceChartData = [
+    { value: 20 }, { value: 35 }, { value: 25 }, { value: 45 },
+    { value: 60 }, { value: 50 }, { value: 40 }, { value: 55 },
+    { value: 32 }, { value: 28 }, { value: 20 }, { value: 15 },
+];
+
+// Select Dropdown Component
+const SelectInput = ({
+    label,
+    value,
+    options,
+    onSelect
+}: {
+    label: string;
+    value: string;
+    options: string[];
+    onSelect: (v: string) => void;
+}) => {
+    const [visible, setVisible] = useState(false);
+
+    return (
+        <View className="mb-4">
+            <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
+                {label}
+            </Text>
+
+            <TouchableOpacity
+                onPress={() => setVisible(true)}
+                className="border border-gray-200 dark:border-gray-700 rounded-xl bg-card dark:bg-cardDark px-4 py-3 flex-row items-center justify-between"
+                activeOpacity={0.8}
+            >
+                <Text className={`text-body ${value ? "text-text dark:text-textDark" : "text-gray-400"}`}>
+                    {value || "Select"}
+                </Text>
+                <Ionicons name="chevron-down" size={18} color="#9CA3AF" />
+            </TouchableOpacity>
+
+            <Modal visible={visible} transparent animationType="fade">
+                <Pressable className="flex-1 bg-black/30" onPress={() => setVisible(false)}>
+                    <View className="absolute left-5 right-5 top-1/4 bg-card dark:bg-cardDark rounded-xl p-4">
+                        {options.map((item) => (
+                            <TouchableOpacity
+                                key={item}
+                                onPress={() => {
+                                    onSelect(item);
+                                    setVisible(false);
+                                }}
+                                className="px-3 py-3 border-b border-gray-200 dark:border-gray-700"
+                            >
+                                <Text className="text-body text-text dark:text-textDark">{item}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </Pressable>
+            </Modal>
+        </View>
+    );
+};
+
+// Screen Component
 export default function FilterScreen() {
     const router = useRouter();
 
@@ -74,21 +121,18 @@ export default function FilterScreen() {
 
     const toggleArrayValue = (field: "amenities" | "securityFeatures", value: string) => {
         setFilters((prev) => {
-            const current = prev[field];
-            const exists = current.includes(value);
+            const exists = prev[field].includes(value);
             return {
                 ...prev,
                 [field]: exists
-                    ? current.filter((item: string) => item !== value)
-                    : [...current, value],
+                    ? prev[field].filter((i: string) => i !== value)
+                    : [...prev[field], value],
             };
         });
     };
 
     const onDateChange = (event: any, selectedDate?: Date) => {
-        if (Platform.OS !== "ios") {
-            setShowDatePicker(false);
-        }
+        if (Platform.OS !== "ios") setShowDatePicker(false);
         if (event?.type === "set" && selectedDate) {
             updateField("availableFrom", selectedDate);
         }
@@ -99,10 +143,7 @@ export default function FilterScreen() {
         : "";
 
     const applyFilters = () => {
-        // For now just log; later you can pass via router params or context
         console.log("Filters:", filters);
-        // Example:
-        // router.push({ pathname: "/(prospectiveTenant)/results", params: { filters: JSON.stringify(filters) } });
     };
 
     const RenderRadioOption = ({
@@ -140,10 +181,10 @@ export default function FilterScreen() {
         keyboardType?: "default" | "numeric";
     }) => (
         <View className="mb-4">
-            <Text className="text-small text-secondary dark:text-secondaryDark mb-1">
+            <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
                 {label}
             </Text>
-            <View className="border border-gray-200 dark:border-gray-700 rounded-xl bg-card dark:bg-cardDark px-4 py-3">
+            <View className="border border-gray-200 dark:border-gray-700 rounded-xl bg-card dark:bg-cardDark px-4">
                 <TextInput
                     value={value}
                     onChangeText={onChangeText}
@@ -157,12 +198,9 @@ export default function FilterScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            {/* Header */}
-            <PageTitle text="Filter" leftIcon={true} leftOnPress={() => router.back()} />
-
+            <PageTitle text="Filter" leftIcon leftOnPress={() => router.back()} />
             <View className="my-3 border-b border-gray-200" />
 
-            {/* Scrollable Content */}
             <ScrollView
                 className="flex-1"
                 contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120 }}
@@ -198,26 +236,41 @@ export default function FilterScreen() {
                     </View>
                 </View>
 
+
                 {/* Price Range */}
                 <View className="mb-6">
                     <Text className="text-subtitle text-secondary dark:text-secondaryDark mb-2">
                         Price Range
                     </Text>
 
-                    {/* Histogram placeholder */}
-                    <View className="h-24 bg-gray-200 dark:bg-gray-800 rounded-xl mb-3" />
+                    {/* Histogram Bar Chart */}
+                    <View className="items-center mb-3">
+                        <BarChart
+                            data={priceChartData}
+                            barWidth={14}
+                            spacing={6}
+                            hideRules
+                            barBorderRadius={4}
+                            frontColor="#000"
+                            xAxisThickness={0}
+                            yAxisThickness={0}
+                            height={90}
+                            width={300}
+                        />
+                    </View>
 
                     <View className="flex-row justify-between w-full">
                         <View className="rounded-full h-12 w-44 pl-7 border border-gray-200 flex-row items-center overflow-hidden">
                             <Text className="text-gray-400 font-semibold pr-5">Min</Text>
                             <TextInput
-                                className=" font-bold"
+                                className="font-bold"
                                 value={filters.priceMin}
                                 onChangeText={(t) => updateField("priceMin", t)}
                                 keyboardType="numeric"
                                 placeholder="$ 3,000"
                             />
                         </View>
+
                         <View className="rounded-full h-12 w-44 pl-7 border border-gray-200 flex-row items-center overflow-hidden">
                             <Text className="text-gray-400 font-semibold pr-5">Max</Text>
                             <TextInput
@@ -264,11 +317,14 @@ export default function FilterScreen() {
                 </View>
 
                 {/* Property Type Detail */}
-                <LabeledInput
+                {/* Property Type Detail (Dropdown) */}
+                <SelectInput
                     label="Property Type"
                     value={filters.propertyTypeDetail}
-                    onChangeText={(t) => updateField("propertyTypeDetail", t)}
+                    options={propertyTypeOptions}
+                    onSelect={(v) => updateField("propertyTypeDetail", v)}
                 />
+
 
                 {/* City / District */}
                 <View className="flex-row justify-between">
@@ -311,7 +367,7 @@ export default function FilterScreen() {
 
                 {/* Available From - Date Picker */}
                 <View className="mb-4">
-                    <Text className="text-small text-secondary dark:text-secondaryDark mb-1">
+                    <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
                         Available From
                     </Text>
                     <TouchableOpacity
@@ -341,9 +397,10 @@ export default function FilterScreen() {
 
                 {/* Amenities */}
                 <View className="mt-2 mb-4">
-                    <Text className="text-small text-secondary dark:text-secondaryDark mb-2">
+                    <Text className="text-subtitle text-secondary dark:text-secondaryDark mb-2">
                         Amenities
                     </Text>
+                    <View className="border-b border-gray-200 mb-2" />
                     <View className="flex-row flex-wrap">
                         {amenitiesOptions.map((item) => (
                             <RenderRadioOption
@@ -358,9 +415,10 @@ export default function FilterScreen() {
 
                 {/* Security Features */}
                 <View className="mb-4">
-                    <Text className="text-small text-secondary dark:text-secondaryDark mb-2">
+                    <Text className="text-subtitle text-secondary dark:text-secondaryDark mb-2">
                         Security Features
                     </Text>
+                    <View className="border-b border-gray-200 mb-2" />
                     <View className="flex-row flex-wrap">
                         {securityOptions.map((item) => (
                             <RenderRadioOption
@@ -375,17 +433,8 @@ export default function FilterScreen() {
             </ScrollView>
 
             {/* Bottom Apply Button */}
-            <View className=" left-0 right-0 bottom-0 px-4 pb-4">
-                {/* <TouchableOpacity
-                    onPress={applyFilters}
-                    className="bg-primary dark:bg-primaryDark rounded-full py-4 items-center justify-center"
-                    activeOpacity={0.8}
-                >
-                    <Text className="text-body font-semibold text-white dark:text-backgroundDark">
-                        Apply Filter
-                    </Text>
-                </TouchableOpacity> */}
-                <PrimaryButton title="Apply Filter" onPress={applyFilters}/>
+            <View className="left-0 right-0 bottom-0 px-4 pb-4">
+                <PrimaryButton title="Apply Filter" onPress={applyFilters} />
             </View>
         </SafeAreaView>
     );
