@@ -137,7 +137,7 @@ export default function HouseDetailScreen() {
                             </TouchableOpacity>
 
                             <View className="flex-row gap-3">
-                                <TouchableOpacity className="">
+                                <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/chat-detail")} className="">
                                     <AntDesign name="message" size={24} color="#999999" />
                                 </TouchableOpacity>
                                 <TouchableOpacity className="">

@@ -1,4 +1,5 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React, { useEffect, useRef } from "react";
 import {
   Animated,
@@ -103,7 +104,7 @@ export default function PropertyOwnerModal({ visible, onClose }: PropertyOwnerMo
           </View>
 
           <View className="flex-row gap-3">
-            <TouchableOpacity className="w-9 h-9 rounded-full border border-gray-300 items-center justify-center">
+            <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/chat-detail")} className="w-9 h-9 rounded-full border border-gray-300 items-center justify-center">
               <Ionicons name="chatbubble-ellipses-outline" size={18} color="#000" />
             </TouchableOpacity>
 
