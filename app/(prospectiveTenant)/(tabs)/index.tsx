@@ -56,7 +56,7 @@ export default function HomeScreen() {
                         /> */}
                         <Octicons name="bell-fill" size={24} color="#A1A1A1" />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/resume")}>
+                    <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/my-application")}>
                         <Image
                             source={IconConstants.Resume}
                             className="size-8"
