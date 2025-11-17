@@ -22,7 +22,7 @@ export default function PageTitle({
       </TouchableOpacity>
 
       {/* Title centered with flex-1 */}
-      <Text className="flex-1 text-center text-title">
+      <Text className="flex-1 text-center text-title text-text dark:text-textDark">
         {text}
       </Text>
 

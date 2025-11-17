@@ -33,7 +33,7 @@ export default function ChatScreen() {
       {/* Page Title */}
       <PageTitle text="Chat" />
 
-      <View className="border-b border-gray-200 my-5" />
+      <View className="border-b border-gray-200 mb-4 dark:border-gray-700" />
 
       <FlatList
         data={chatData}
@@ -62,7 +62,7 @@ export default function ChatScreen() {
                 <View className="flex-row items-center gap-1">
                   <Text
                     className={`text-body font-semibold
-                    ${active ? "text-white" : "text-text dark:text-textDark"}`}
+                    ${active ? "text-white dark:text-text" : "text-text dark:text-textDark"}`}
                   >
                     {item.name}
                   </Text>
@@ -74,7 +74,7 @@ export default function ChatScreen() {
                   {item.verified && (
                     <Text
                       className={`text-caption font-medium
-                      ${active ? "text-white" : "text-secondary dark:text-secondaryDark"}`}
+                      ${active ? "text-[#4DA3FF]" : "text-[#4DA3FF]"}`}
                     >
                       VERIFIED
                     </Text>
@@ -83,7 +83,7 @@ export default function ChatScreen() {
 
                 <Text
                   className={`text-caption
-                  ${active ? "text-white" : "text-secondary dark:text-secondaryDark"}`}
+                  ${active ? "text-white dark:text-secondary" : "text-secondary dark:text-secondaryDark"}`}
                 >
                   {item.role}
                 </Text>
@@ -93,7 +93,7 @@ export default function ChatScreen() {
               <View className="items-end">
                 <Text
                   className={`text-caption
-                  ${active ? "text-white" : "text-secondary dark:text-secondaryDark"}`}
+                  ${active ? "text-white dark:text-secondary" : "text-secondary dark:text-secondaryDark"}`}
                 >
                   {item.date}
                 </Text>

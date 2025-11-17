@@ -20,14 +20,14 @@ export default function SearchScreen() {
       <PageTitle text="Search" leftIcon={true} leftOnPress={() => router.back()}/>
 
       {/* Search Input */}
-      <View className="flex-row items-center bg-gray-100 rounded-full pl-5 py-3 pr-3 mx-5">
+      <View className="flex-row items-center bg-gray-100 dark:bg-[#262626] rounded-full pl-5 py-3 pr-3 mx-5">
         <Ionicons name="search-outline" size={20} color="#999" />
         <TextInput
           placeholder="Search anything"
           placeholderTextColor="#9CA3AF"
           className="flex-1 ml-2 text-text dark:text-textDark"
         />
-        <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/filter")} className="bg-background p-3 rounded-full"><Ionicons name="options-outline" size={20} color="#999" /></TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/filter")} className="bg-background dark:bg-[#404040] p-3 rounded-full"><Ionicons name="options-outline" size={20} color="#999" /></TouchableOpacity>
       </View>
 
       <View className="border-b border-gray-200 my-5" />

@@ -63,7 +63,7 @@ export default function HomeScreen() {
             </View>
 
             {/* Search Input */}
-            <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/search")} className="flex-row items-center bg-gray-100 rounded-full pl-5 py-3 pr-3 mb-8 mx-4">
+            <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/search")} className="flex-row items-center bg-gray-100 dark:bg-[#262626] rounded-full pl-5 py-3 pr-3 mb-8 mx-4">
                 <Ionicons name="search-outline" size={20} color="#999" />
                 <TextInput
 
@@ -72,22 +72,22 @@ export default function HomeScreen() {
                     editable={false}
                     className="flex-1 ml-2 text-text dark:text-textDark"
                 />
-                <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/filter")} className="bg-background p-3 rounded-full"><Ionicons name="options-outline" size={20} color="#999" /></TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/filter")} className="bg-background dark:bg-[#404040] p-3 rounded-full"><Ionicons name="options-outline" size={20} color="#999" /></TouchableOpacity>
             </TouchableOpacity>
 
             {/* Category Pills */}
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-8 border-b border-gray-200 pb-8 px-5">
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-8 border-b border-gray-200 dark:border-gray-700 pb-8 px-5">
                 {TYPES.map((item) => (
                     <TouchableOpacity
                         key={item.id}
                         onPress={() => setSelected(item.id)}
                         className={`px-5 py-2 rounded-full mr-3 border ${selected === item.id
-                            ? "bg-black border-black"
+                            ? "bg-backgroundDark dark:bg-background dark:text-text border-black"
                             : "border-gray-300"
                             }`}
                     >
                         <Text
-                            className={`text-subtitle ${selected === item.id ? "text-white" : "text-gray-700"
+                            className={`text-subtitle ${selected === item.id ? "text-textDark dark:text-text" : "text-gray-700 dark:text-textDark"
                                 }`}
                         >
                             {item.label}
@@ -124,7 +124,7 @@ export default function HomeScreen() {
             </ScrollView>
 
             {/* Extra Bottom Space */}
-            <View className="h-20 bg-background" />
+            <View className="h-20 bg-background dark:bg-backgroundDark" />
         </ScrollView>
     );
 }

@@ -12,6 +12,7 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
+    useColorScheme,
     View,
 } from "react-native";
 import { BarChart } from "react-native-gifted-charts"; // ⬅ chart added
@@ -32,11 +33,12 @@ const securityOptions = [
 ];
 
 // Histogram data
-const priceChartData = [
+const basePriceChartData = [
     { value: 20 }, { value: 35 }, { value: 25 }, { value: 45 },
     { value: 60 }, { value: 50 }, { value: 40 }, { value: 55 },
     { value: 32 }, { value: 28 }, { value: 20 }, { value: 15 },
 ];
+
 
 // Select Dropdown Component
 const SelectInput = ({
@@ -94,6 +96,14 @@ const SelectInput = ({
 // Screen Component
 export default function FilterScreen() {
     const router = useRouter();
+    const colorScheme = useColorScheme();
+    const isDark = colorScheme === "dark";
+
+    const priceChartData = basePriceChartData.map((item) => ({
+        ...item,
+        frontColor: isDark ? "#FFFFFF" : "#000000",
+    }));
+
 
     const [filters, setFilters] = useState({
         propertyType: "All",
@@ -219,13 +229,13 @@ export default function FilterScreen() {
                                     key={type}
                                     onPress={() => updateField("propertyType", type)}
                                     className={`px-4 py-2 rounded-full mr-2 mb-2 border ${selected
-                                        ? "bg-primary border-primary"
+                                        ? "bg-primary border-primary dark:bg-background"
                                         : "bg-background border-gray-200 dark:bg-cardDark dark:border-gray-700"
                                         }`}
                                     activeOpacity={0.8}
                                 >
                                     <Text
-                                        className={`text-body font-semibold ${selected ? "text-white" : "text-secondary dark:text-secondaryDark"
+                                        className={`text-body font-semibold ${selected ? "text-white dark:text-text" : "text-secondary dark:text-secondaryDark"
                                             }`}
                                     >
                                         {type}
@@ -252,7 +262,7 @@ export default function FilterScreen() {
                             hideRules
                             hideYAxisText
                             barBorderRadius={1}
-                            frontColor="#000"
+                            // frontColor="#000"
                             xAxisThickness={0}
                             yAxisThickness={0}
                             height={90}

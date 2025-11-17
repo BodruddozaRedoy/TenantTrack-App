@@ -24,13 +24,6 @@ export default function TabLayout() {
                     elevation: 5,
                     position: "absolute"
                 },
-                // tabBarBackground: () => (
-                //     <BlurView
-                //         intensity={70}  // adjust blur strength 0–100+
-                //         tint="default"     // "light" | "dark" | "default"
-                //         style={{ flex: 1, borderRadius: 200 }}
-                //     />
-                // ),
             }}
         >
             <Tabs.Screen
