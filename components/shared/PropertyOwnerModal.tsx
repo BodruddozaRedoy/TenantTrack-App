@@ -61,7 +61,7 @@ export default function PropertyOwnerModal({ visible, onClose }: PropertyOwnerMo
   ).current;
 
   return (
-    <Modal visible={visible} animationType="fade" transparent statusBarTranslucent>
+    <Modal visible={visible} animationType="slide" transparent statusBarTranslucent>
       {/* Backdrop */}
       <Pressable onPress={onClose} className="flex-1 bg-black/40" />
 
@@ -69,7 +69,7 @@ export default function PropertyOwnerModal({ visible, onClose }: PropertyOwnerMo
       <Animated.View
         style={{ transform: [{ translateY }] }}
         {...panResponder.panHandlers}
-        className="bg-background dark:bg-backgroundDark rounded-t-3xl px-5 pt-4 pb-6 max-h-[85%]"
+        className="bg-background dark:bg-backgroundDark rounded-t-3xl px-5 pt-4 pb-6 max-h-[86%]"
       >
         {/* Close Button (NEW) */}
         <TouchableOpacity
