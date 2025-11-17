@@ -1,5 +1,4 @@
 import PropertyOwnerModal from "@/components/shared/PropertyOwnerModal";
-import PropertyOwnerSheet from "@/components/shared/PropertyOwnerModal";
 import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
@@ -125,8 +124,8 @@ export default function HouseDetailScreen() {
                         <Text className="text-body font-semibold text-text dark:text-textDark mb-2">
                             Contact Person
                         </Text>
-                        <TouchableOpacity onPress={() => setShowOwner(true)} className="flex-row items-center justify-between mb-5">
-                            <View className="flex-row items-center">
+                        <View className="flex-row items-center justify-between mb-5">
+                            <TouchableOpacity onPress={() => setShowOwner(true)} className="flex-row items-center">
                                 <View className="w-12 h-12 rounded-full bg-gray-200 mr-3" />
                                 <View>
                                     <View className="flex-row items-center">
@@ -142,18 +141,17 @@ export default function HouseDetailScreen() {
                                         Property Owner
                                     </Text>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
 
                             <View className="flex-row gap-3">
                                 <TouchableOpacity className="">
-                                    {/* <Ionicons name="chatbox-ellipses-outline" size={16} /> */}
                                     <AntDesign name="message" size={24} color="#999999" />
                                 </TouchableOpacity>
                                 <TouchableOpacity className="">
                                     <Ionicons name="call-sharp" size={24} color="#999999" />
                                 </TouchableOpacity>
                             </View>
-                        </TouchableOpacity>
+                        </View>
 
                         {/* Description */}
                         <SectionTitle title="Description" />

@@ -1,9 +1,11 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
+  Animated,
   FlatList,
   Image,
   Modal,
+  PanResponder,
   Pressable,
   Text,
   TouchableOpacity,
@@ -27,25 +29,62 @@ const LISTED_PROPERTIES = [
   },
 ];
 
-export default function PropertyOwnerModal({ visible, onClose }: any) {
+interface PropertyOwnerModalProps {
+  visible: boolean;
+  onClose: () => void;
+}
+
+export default function PropertyOwnerModal({ visible, onClose }: PropertyOwnerModalProps) {
+  const translateY = useRef(new Animated.Value(0)).current;
+
+  // Reset position when opened
+  useEffect(() => {
+    if (visible) translateY.setValue(0);
+  }, [visible]);
+
+  // Swipe down gesture
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, g) => g.dy > 5,
+      onPanResponderMove: (_, g) => {
+        if (g.dy > 0) translateY.setValue(g.dy);
+      },
+      onPanResponderRelease: (_, g) => {
+        if (g.dy > 120) {
+          onClose();
+        } else {
+          Animated.spring(translateY, { toValue: 0, useNativeDriver: true }).start();
+        }
+      },
+    })
+  ).current;
+
   return (
-    <Modal visible={visible} animationType="slide" transparent>
+    <Modal visible={visible} animationType="fade" transparent statusBarTranslucent>
       {/* Backdrop */}
-      <Pressable
-        onPress={onClose}
-        style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.3)" }}
-      />
+      <Pressable onPress={onClose} className="flex-1 bg-black/40" />
 
       {/* Bottom Sheet */}
-      <View className="bg-background dark:bg-backgroundDark rounded-t-3xl px-5 pt-4 pb-6 max-h-[85%]">
+      <Animated.View
+        style={{ transform: [{ translateY }] }}
+        {...panResponder.panHandlers}
+        className="bg-background dark:bg-backgroundDark rounded-t-3xl px-5 pt-4 pb-6 max-h-[85%]"
+      >
+        {/* Close Button (NEW) */}
+        <TouchableOpacity
+          onPress={onClose}
+          className="absolute right-4 top-3 w-9 h-9 rounded-full bg-gray-200/80 dark:bg-gray-700/60 items-center justify-center z-10"
+        >
+          <Ionicons name="close" size={18} color="#000" />
+        </TouchableOpacity>
 
         {/* Drag handle */}
-        <View className="items-center mb-3">
+        <Pressable onPress={onClose} className="items-center mb-3 mt-2">
           <View className="w-10 h-1.5 rounded-full bg-gray-300" />
-        </View>
+        </Pressable>
 
-        {/* Owner info */}
-        <View className="flex-row items-center mb-5">
+        {/* Owner Info */}
+        <View className="flex-row items-center mb-5 mt-5">
           <Image
             source={{ uri: "https://i.pravatar.cc/150?img=12" }}
             className="w-12 h-12 rounded-full mr-3"
@@ -65,12 +104,9 @@ export default function PropertyOwnerModal({ visible, onClose }: any) {
 
           <View className="flex-row gap-3">
             <TouchableOpacity className="w-9 h-9 rounded-full border border-gray-300 items-center justify-center">
-              <Ionicons
-                name="chatbubble-ellipses-outline"
-                size={18}
-                color="#000"
-              />
+              <Ionicons name="chatbubble-ellipses-outline" size={18} color="#000" />
             </TouchableOpacity>
+
             <TouchableOpacity className="w-9 h-9 rounded-full border border-gray-300 items-center justify-center">
               <Ionicons name="call-outline" size={18} color="#000" />
             </TouchableOpacity>
@@ -83,17 +119,14 @@ export default function PropertyOwnerModal({ visible, onClose }: any) {
         </Text>
         <Text className="text-small leading-5 text-secondary dark:text-secondaryDark mb-5">
           Meet Steven Adams, the owner of this charming townhouse located in
-          Brooklyn's Park Slope neighborhood. With a deep-rooted passion
-          for real estate, Steven has carefully curated and maintained this
-          property to provide a comfortable and stylish living experience.
+          Brooklyn's Park Slope neighborhood...
         </Text>
 
-        {/* Listed Property title */}
+        {/* Listed Property */}
         <Text className="text-body font-semibold text-text dark:text-textDark mb-3">
           Listed Property
         </Text>
 
-        {/* Horizontal List */}
         <View style={{ height: 200 }}>
           <FlatList
             data={LISTED_PROPERTIES}
@@ -102,7 +135,6 @@ export default function PropertyOwnerModal({ visible, onClose }: any) {
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id}
             ItemSeparatorComponent={() => <View className="w-3" />}
-            contentContainerStyle={{ paddingRight: 24 }}
             renderItem={({ item }) => (
               <View className="w-[220px]">
                 <Image
@@ -115,7 +147,6 @@ export default function PropertyOwnerModal({ visible, onClose }: any) {
                 <Text className="text-caption text-secondary dark:text-secondaryDark">
                   {item.location}
                 </Text>
-
                 <TouchableOpacity className="absolute top-2 right-2 bg-black/40 p-1.5 rounded-full">
                   <Ionicons name="bookmark-outline" size={18} color="#fff" />
                 </TouchableOpacity>
@@ -123,8 +154,7 @@ export default function PropertyOwnerModal({ visible, onClose }: any) {
             )}
           />
         </View>
-
-      </View>
+      </Animated.View>
     </Modal>
   );
 }
