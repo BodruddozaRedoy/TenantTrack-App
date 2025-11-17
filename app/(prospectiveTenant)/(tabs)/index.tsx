@@ -79,7 +79,7 @@ export default function HomeScreen() {
             </TouchableOpacity>
 
             {/* Category Pills */}
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-8 border-b border-gray-200 dark:border-gray-700 pb-8 px-5">
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-6 border-b border-gray-200 dark:border-gray-700 pb-6 px-5">
                 {TYPES.map((item) => (
                     <TouchableOpacity
                         key={item.id}
