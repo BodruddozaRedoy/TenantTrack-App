@@ -188,7 +188,7 @@ export default function HouseDetailScreen() {
                             <Text className="text-body font-semibold text-text dark:text-textDark">
                                 Photo
                             </Text>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/photo-details")}>
                                 <Text className="text-small font-semibold text-secondary dark:text-secondaryDark">
                                     See All
                                 </Text>
