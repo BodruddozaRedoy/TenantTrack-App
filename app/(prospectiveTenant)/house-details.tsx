@@ -53,14 +53,7 @@ export default function HouseDetailScreen() {
                         <Ionicons name="chevron-back" size={22} color="#000" />
                     </TouchableOpacity>
 
-                    {/* <View className="flex-row gap-3">
-            <TouchableOpacity className="w-10 h-10 rounded-full bg-background/80 items-center justify-center">
-              <Ionicons name="share-social-outline" size={20} color="#000" />
-            </TouchableOpacity>
-            <TouchableOpacity className="w-10 h-10 rounded-full bg-background/80 items-center justify-center">
-              <Ionicons name="bookmark-outline" size={20} color="#000" />
-            </TouchableOpacity>
-          </View> */}
+
                 </View>
             </View>
 
@@ -216,12 +209,12 @@ export default function HouseDetailScreen() {
                 {/* Bottom sticky buttons */}
                 <View className="absolute left-0 right-0 bottom-0 bg-background dark:bg-backgroundDark px-5 pb-10 pt-3">
                     <View className="flex-row gap-3">
-                        <TouchableOpacity className="flex-1 h-12 rounded-full border border-gray-300 items-center justify-center">
+                        <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/appointment-request")} className="flex-1 h-12 rounded-full border border-gray-300 items-center justify-center">
                             <Text className="text-body text-text dark:text-textDark">
                                 Request
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity className="flex-1 h-12 rounded-full bg-text dark:bg-textDark items-center justify-center">
+                        <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/appointment-apply")} className="flex-1 h-12 rounded-full bg-text dark:bg-textDark items-center justify-center">
                             <Text className="text-body text-background dark:text-backgroundDark">
                                 Apply
                             </Text>
