@@ -102,7 +102,7 @@ export default function HouseDetailScreen() {
                         </View>
 
                         {/* Rating row */}
-                        <View className="flex-row items-center">
+                        <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/rating")} className="flex-row items-center">
                             <Ionicons name="star" size={16} color="#FACC15" />
                             <Text className="ml-1 text-small font-semibold text-text dark:text-textDark">
                                 4.8
@@ -110,7 +110,7 @@ export default function HouseDetailScreen() {
                             <Text className="ml-2 text-small text-secondary dark:text-secondaryDark">
                                 (168 Reviews)
                             </Text>
-                        </View>
+                        </TouchableOpacity>
                         <View className="my-4 border-b border-gray-200 dark:border-gray-700" />
 
                         {/* Contact person */}
