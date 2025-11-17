@@ -1,6 +1,7 @@
 import { IconConstants } from "@/constants/icons.constants";
 import { Ionicons } from "@expo/vector-icons";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Octicons from '@expo/vector-icons/Octicons';
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { Image, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -34,6 +35,7 @@ const FEATURED = [
 export default function HomeScreen() {
     const [selected, setSelected] = useState("house");
 
+
     return (
         <ScrollView
             className="flex-1 bg-background dark:bg-backgroundDark pt-14"
@@ -48,10 +50,11 @@ export default function HomeScreen() {
 
                 <View className="flex-row gap-3 items-center">
                     <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/notification")}>
-                        <Image
+                        {/* <Image
                             source={IconConstants.Notification}
                             className="size-8"
-                        />
+                        /> */}
+                        <Octicons name="bell-fill" size={24} color="#A1A1A1" />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/resume")}>
                         <Image

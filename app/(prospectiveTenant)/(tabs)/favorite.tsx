@@ -1,7 +1,7 @@
 import PageTitle from '@/components/common/PageTitle'
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import React from 'react'
-import { FlatList, Image, Text, View } from 'react-native'
+import { FlatList, Image, Text, useColorScheme, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 // Sample Data (URL Images)
@@ -34,6 +34,8 @@ const favoritesData = [
 
 // Favorite Card
 const FavoriteCard = ({ item }: any) => {
+  const color = useColorScheme()
+  const isDark = color === "dark"
   return (
     <View className="mb-6 px-4">
       {/* Image */}
@@ -51,7 +53,7 @@ const FavoriteCard = ({ item }: any) => {
           {item.title}
         </Text>
 
-        <MaterialCommunityIcons name="bookmark-minus" size={24} color="black" />
+        <MaterialCommunityIcons name="bookmark-minus" size={24} color={isDark ? "#CCCCCC" : "black"} />
       </View>
 
       {/* Location */}

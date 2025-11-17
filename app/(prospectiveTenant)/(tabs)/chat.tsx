@@ -47,7 +47,7 @@ export default function ChatScreen() {
               className={`flex-row items-center mb-4 rounded-full px-3 py-3
               ${active
                   ? "bg-primary dark:bg-primaryDark"
-                  : "bg-[#99999940] dark:bg-cardDark"
+                : "bg-[#99999940]"
                 }
               `}
             >
@@ -99,7 +99,7 @@ export default function ChatScreen() {
                 </Text>
 
                 {active && (
-                  <View className="size-5 rounded-full bg-white items-center justify-center mt-1 absolute -top-9">
+                  <View className="size-5 rounded-full bg-white dark:bg-backgroundDark items-center justify-center mt-1 absolute -top-9">
                     <View className="size-4 rounded-full bg-red-500 " />
                   </View>
                 )}
