@@ -66,7 +66,7 @@ const FavoriteCard = ({ item }: any) => {
 
 export default function FavoriteScreen() {
   return (
-    <SafeAreaView className='flex-1 bg-background dark:bg-backgroundDark'>
+    <SafeAreaView className='flex-1 bg-background dark:bg-backgroundDark mb-5'>
       <PageTitle text='Favorites' />
       <View className='border-b border-gray-200 dark:border-gray-700 mb-4' />
 
