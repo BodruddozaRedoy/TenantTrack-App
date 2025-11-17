@@ -4,7 +4,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Octicons from '@expo/vector-icons/Octicons';
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { Image, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const TYPES = [
     { id: "house", label: "House" },
@@ -104,9 +104,16 @@ export default function HomeScreen() {
                 Featured
             </Text>
 
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="px-5">
-                {FEATURED.map((item) => (
-                    <View key={item.id} className="mr-5 w-[250px]">
+
+            <FlatList
+                data={FEATURED}
+                keyExtractor={(item) => item.id}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ paddingHorizontal: 20 }}
+                ItemSeparatorComponent={() => <View className="w-5" />}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/house-details")} className="w-[250px]">
                         <Image
                             source={{ uri: item.image }}
                             className="w-full h-60 rounded-2xl"
@@ -122,9 +129,9 @@ export default function HomeScreen() {
                                 <MaterialCommunityIcons name="bookmark-minus" size={24} color="#CCCCCC" />
                             </TouchableOpacity>
                         </View>
-                    </View>
-                ))}
-            </ScrollView>
+                    </TouchableOpacity>
+                )}
+            />
 
             {/* Extra Bottom Space */}
             <View className="h-20 bg-background dark:bg-backgroundDark" />
