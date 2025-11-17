@@ -1,5 +1,6 @@
 import PageTitle from "@/components/common/PageTitle"; // If you already have it
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
   ScrollView,
@@ -41,7 +42,9 @@ export default function ProfileScreen() {
               browm@dumpmail.com
             </Text>
           </View>
-          <MaterialIcons name="edit-square" size={22} color="#999999" />
+          <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/profile-details")}>
+            <MaterialIcons name="edit-square" size={22} color="#999999" />
+          </TouchableOpacity>
         </View>
 
         {/* General Section */}
@@ -162,7 +165,7 @@ export default function ProfileScreen() {
             <Text className="text-small font-semibold text-red-500 mr-2">
               Sign Out
             </Text>
-            <MaterialCommunityIcons name="logout" size={18} color="red" />
+            <MaterialCommunityIcons name="logout" size={20} color="red" />
           </TouchableOpacity>
         </View>
       </ScrollView>
