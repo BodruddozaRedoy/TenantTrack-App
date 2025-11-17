@@ -52,7 +52,7 @@ export default function ChatDetailScreen() {
     <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={80}
+              keyboardVerticalOffset={0}
         style={{ flex: 1 }}
       >
         {/* Header */}
@@ -142,10 +142,10 @@ export default function ChatDetailScreen() {
 
         {/* Input Box */}
         <View className="flex-row items-center px-4 py-3 border-t border-gray-200 dark:border-gray-800">
-          <Ionicons name="happy-outline" size={24} color="#9CA3AF" />
+                  {/* <Ionicons name="happy-outline" size={24} color="#9CA3AF" /> */}
 
           <TextInput
-            className="flex-1 mx-3 bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2 text-text dark:text-textDark"
+                      className="flex-1 mx-3 bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-4 text-text dark:text-textDark"
             placeholder="Write a message ..."
             placeholderTextColor="#9CA3AF"
             value={input}
