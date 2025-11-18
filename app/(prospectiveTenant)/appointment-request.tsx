@@ -1,3 +1,4 @@
+import BottomButtonsFixed from "@/components/common/BottomButtonsFixed";
 import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router } from "expo-router";
@@ -179,11 +180,13 @@ export default function AppointmentRequestScreen() {
             </ScrollView>
 
             {/* Continue Button */}
-            <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/appointment-success")} className="absolute bottom-6 left-4 right-4 bg-text dark:bg-white py-4 rounded-full items-center">
+            {/* <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/appointment-success")} className="absolute bottom-6 left-4 right-4 bg-text dark:bg-white py-4 rounded-full items-center">
                 <Text className="text-body font-semibold text-white dark:text-backgroundDark">
                     Continue
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <BottomButtonsFixed secondButtonText="Continue" secondButtonOnPress={() => router.push("/(prospectiveTenant)/appointment-success")} />
+
         </View>
     );
 }

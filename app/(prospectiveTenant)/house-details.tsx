@@ -1,3 +1,4 @@
+import BottomButtonsFixed from "@/components/common/BottomButtonsFixed";
 import PropertyOwnerModal from "@/components/shared/PropertyOwnerModal";
 import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -28,6 +29,7 @@ const PHOTOS = [
 ];
 
 export default function HouseDetailScreen() {
+
     const [showOwner, setShowOwner] = useState(false);
 
     return (
@@ -205,29 +207,19 @@ export default function HouseDetailScreen() {
                         />
                     </View>
                 </ScrollView>
-
                 {/* Bottom sticky buttons */}
-                <View className="absolute left-0 right-0 bottom-0 bg-background dark:bg-backgroundDark px-5 pb-10 pt-3">
-                    <View className="flex-row gap-3">
-                        <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/appointment-request")} className="flex-1 h-12 rounded-full border border-gray-300 items-center justify-center">
-                            <Text className="text-body text-text dark:text-textDark">
-                                Request
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/appointment-apply")} className="flex-1 h-12 rounded-full bg-text dark:bg-textDark items-center justify-center">
-                            <Text className="text-body text-background dark:text-backgroundDark">
-                                Apply
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                <BottomButtonsFixed
+                    firstButtonText="Request"
+                    firstButtonOnPress={() => router.push("/(prospectiveTenant)/appointment-request")}
+                    secondButtonText="Apply"
+                    secondButtonOnPress={() => router.push("/(prospectiveTenant)/appointment-apply")}
+                />
 
+                {/* modal */}
                 <PropertyOwnerModal
                     visible={showOwner}
                     onClose={() => setShowOwner(false)}
                 />
-
-
             </View>
         </View>
     );

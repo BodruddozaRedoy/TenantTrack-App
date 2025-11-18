@@ -13,11 +13,13 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const PAYMENT_TERMS = ["Monthly", "Quarterly", "Yearly"];
 const PURPOSES = ["Rent", "Lease", "Business", "Other"];
 
 export default function AppointmentApplyScreen() {
+    const insets = useSafeAreaInsets()
     const [form, setForm] = useState({
         name: "",
         phone: "",
@@ -147,12 +149,28 @@ export default function AppointmentApplyScreen() {
 
             </ScrollView>
 
-            {/* Continue Button */}
-            <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/appointment-success")} className="absolute bottom-6 left-4 right-4 bg-text dark:bg-white py-4 rounded-full items-center">
-                <Text className="text-body font-semibold text-white dark:text-backgroundDark">
-                    Continue
-                </Text>
-            </TouchableOpacity>
+            {/* Fixed Bottom Button */}
+            <View
+                style={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    paddingBottom: (insets.bottom || 16),
+                    paddingHorizontal: 16,
+                    backgroundColor: "transparent",
+                }}
+            >
+                <TouchableOpacity
+                    onPress={() => router.push("/(prospectiveTenant)/appointment-success")}
+                    className="bg-text dark:bg-white py-4 rounded-full items-center"
+                >
+                    <Text className="text-body font-semibold text-white dark:text-backgroundDark">
+                        Continue
+                    </Text>
+                </TouchableOpacity>
+            </View>
+
         </View>
     );
 }
