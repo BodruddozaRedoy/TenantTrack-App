@@ -1,6 +1,7 @@
 import PageTitle from "@/components/common/PageTitle";
 import PrimaryButton from "@/components/common/PrimaryButton";
 import { AntDesign, Entypo, Feather, FontAwesome5, FontAwesome6, Foundation, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
 import React from "react";
 import {
@@ -125,7 +126,7 @@ export default function AnalyticsDashboard() {
                         Property Analytics
                     </Text>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => router.push("/(landlord)/property-analytics")}>
                         <Text className="text-small text-secondary dark:text-secondaryDark">
                             See more
                         </Text>
