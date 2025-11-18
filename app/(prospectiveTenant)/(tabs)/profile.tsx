@@ -20,7 +20,7 @@ export default function ProfileScreen() {
   const handleSignOut = async () => {
     try {
       await AsyncStorage.removeItem("role")
-      router.replace("/")
+      router.replace("/(auth)")
     } catch (error) {
       console.log(error)
     }
