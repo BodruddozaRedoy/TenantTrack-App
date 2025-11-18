@@ -1,6 +1,6 @@
 import PageTitle from "@/components/common/PageTitle";
 import PrimaryButton from "@/components/common/PrimaryButton";
-import { Entypo, Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, Entypo, Feather, FontAwesome5, FontAwesome6, Foundation, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import React from "react";
 import {
@@ -202,31 +202,46 @@ export default function AnalyticsDashboard() {
                     data={operationalAnalytics}
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ gap: 12, paddingVertical: 10, marginHorizontal: 20 }}
+                    contentContainerStyle={{ paddingHorizontal: 20, gap: 12, paddingTop: 10 }}
                     renderItem={({ item }) => (
-                        <View className="w-40 bg-card dark:bg-cardDark p-4 rounded-2xl">
-                            <View className="flex-row items-center gap-2">
-                                <View className="w-8 h-8 bg-blue-100 rounded-full" />
-                                <Text className="text-small text-secondary dark:text-secondaryDark">
-                                    {item.label}
-                                </Text>
+                        <View className="w-40 border border-gray-200 dark:bg-cardDark p-4 rounded-2xl">
+
+                            {/* ICON */}
+                            <View
+                                style={{
+                                    width: 40,
+                                    height: 40,
+                                    borderRadius: 12,
+                                    backgroundColor: `${item.iconColor}20`,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginBottom: 12,
+                                }}
+                            >
+                                <item.icon name={item.iconName} size={22} color={item.iconColor} />
                             </View>
 
-                            <Text className="text-title font-bold text-text dark:text-textDark mt-2">
+                            {/* LABEL */}
+                            <Text className="text-small text-gray-400 mt-1">
+                                {item.label}
+                            </Text>
+
+                            {/* VALUE */}
+                            <Text className="text-title font-bold text-text dark:text-textDark mt-1">
                                 {item.value}
                             </Text>
 
+                            {/* CHANGE */}
                             <Text
-                                className={`text-caption ${item.trend === "up"
-                                    ? "text-green-600"
-                                    : "text-red-500"
-                                    } mt-1`}
+                                className={`text-caption mt-1 ${item.change.startsWith("+") ? "text-green-600" : "text-red-500"
+                                    }`}
                             >
                                 {item.change}
                             </Text>
                         </View>
                     )}
                 />
+
 
                 {/* Tenant Experience */}
                 <View className="flex-row justify-between items-center mt-6 mb-2 mx-5">
@@ -250,7 +265,9 @@ export default function AnalyticsDashboard() {
                             <View className="flex-row justify-between items-center">
                                 <View>
                                     <View className="flex-row items-center gap-2">
-                                        <View className="w-8 h-8 bg-green-100 rounded-full" />
+                                        <View style={{ backgroundColor: `${item.iconColor}20` }} className={`size-12 justify-center items-center rounded-2xl`}>
+                                            <item.icon name={item.iconName} size={22} color={item.iconColor} />
+                                        </View>
                                         <Text className="text-small text-secondary dark:text-secondaryDark">
                                             {item.label}
                                         </Text>
@@ -270,7 +287,9 @@ export default function AnalyticsDashboard() {
                                         {item.change}
                                     </Text>
 
-                                    <View className="w-12 h-10 bg-green-100 rounded-lg mt-1" />
+                                    <View className="w-12 h-10 bg-green-100 rounded-lg mt-1 items-center justify-center">
+                                        <Ionicons name="stats-chart" size={24} color="#22c55e" />
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -293,26 +312,43 @@ export default function AnalyticsDashboard() {
                     data={portfolioOverview}
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ gap: 12, paddingVertical: 10, marginHorizontal: 16 }}
+                    contentContainerStyle={{ paddingHorizontal: 20, gap: 12, paddingTop: 10 }}
                     renderItem={({ item }) => (
-                        <View className="w-40 bg-card dark:bg-cardDark p-4 rounded-2xl">
-                            <View className="flex-row items-center gap-2">
-                                <View className="w-8 h-8 bg-green-100 rounded-full" />
-                                <Text className="text-small text-secondary dark:text-secondaryDark">
-                                    {item.label}
-                                </Text>
+                        <View className="w-40 border border-gray-200 dark:bg-cardDark p-4 rounded-2xl">
+
+                            {/* ICON */}
+                            <View
+                                style={{
+                                    width: 40,
+                                    height: 40,
+                                    borderRadius: 12,
+                                    backgroundColor: `${item.iconColor}20`,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginBottom: 12,
+                                }}
+                            >
+                                <item.icon name={item.iconName} size={22} color={item.iconColor} />
                             </View>
 
-                            <Text className="text-title font-bold text-text dark:text-textDark mt-2">
+                            {/* LABEL */}
+                            <Text className="text-small text-gray-400 mt-1">
+                                {item.label}
+                            </Text>
+
+                            {/* VALUE */}
+                            <Text className="text-title font-bold text-text dark:text-textDark mt-1">
                                 {item.value}
                             </Text>
 
+                            {/* CHANGE */}
                             <Text className="text-caption text-green-600 mt-1">
                                 {item.change}
                             </Text>
                         </View>
                     )}
                 />
+
 
                 {/* Add Information */}
                 <Text className="text-subtitle font-semibold text-text dark:text-textDark mt-8 mx-5">
@@ -362,9 +398,32 @@ const propertyAnalytics = [
 ];
 
 const operationalAnalytics = [
-    { label: "Work Orders Complete", value: "87%", change: "+12%", trend: "up" },
-    { label: "Avg Response Time", value: "4.2h", change: "-8%", trend: "down" },
+    {
+        label: "Work Orders Complete",
+        value: "87%",
+        change: "+12%",
+        icon: MaterialIcons,
+        iconName: "work-outline",
+        iconColor: "#2563EB",
+    },
+    {
+        label: "Avg Response Time",
+        value: "4.2h",
+        change: "-8%",
+        icon: Feather,
+        iconName: "clock",
+        iconColor: "#EF4444",
+    },
+    {
+        label: "Work Orders Complete",
+        value: "87%",
+        change: "+12%",
+        icon: MaterialIcons,
+        iconName: "work-outline",
+        iconColor: "#2563EB",
+    },
 ];
+
 
 const tenantExperience = [
     {
@@ -372,44 +431,73 @@ const tenantExperience = [
         value: "8.7",
         desc: "out of 10",
         change: "+5%",
-        icon: Ionicons,
-        iconName: "home-outline",
+        icon: AntDesign,
+        iconName: "heart",
+        iconColor: "#22c55e", // green
     },
     {
         label: "Retention Rate",
         value: "89%",
         desc: "12-month average",
         change: "+3%",
-        icon: Ionicons,
-        iconName: "home-outline",
+        icon: FontAwesome6,
+        iconName: "people-group",
+        iconColor: "#3b82f6", // blue
     },
     {
         label: "Renewal Ratio",
         value: "3.2:1",
         desc: "renewals vs new",
         change: "+2%",
-        icon: Ionicons,
-        iconName: "home-outline",
+        icon: FontAwesome5,
+        iconName: "home",
+        iconColor: "#8b5cf6", // purple
     },
     {
         label: "Complaints/Tenant",
         value: "0.3",
         desc: "per month",
         change: "-12%",
-        icon: Ionicons,
-        iconName: "home-outline",
+        icon: Foundation,
+        iconName: "alert",
+        iconColor: "#ef4444", // red
     },
     {
         label: "Digital Engagement",
         value: "76%",
         desc: "active users",
         change: "+8%",
-        icon: Ionicons,
-        iconName: "home-outline",
+        icon: Entypo,
+        iconName: "mobile",
+        iconColor: "#f59e0b", // amber
     },
 ];
 
+
 const portfolioOverview = [
-    { label: "Portfolio Occupancy", value: "94.2%", change: "+2.3%" },
-    { label: "Revenue per Sq.Ft", value: "$42.8", change: "+5.1%" },
+    {
+        label: "Portfolio Occupancy",
+        value: "94.2%",
+        change: "+2.3%",
+        icon: Ionicons,
+        iconName: "business-outline",
+        iconColor: "#22c55e",
+    },
+    {
+        label: "Revenue per Sq.Ft",
+        value: "$42.8",
+        change: "+5.1%",
+        icon: MaterialIcons,
+        iconName: "monetization-on",
+        iconColor: "#3b82f6",
+    },
+    {
+        label: "Portfolio Occupancy",
+        value: "94.2%",
+        change: "+2.3%",
+        icon: Ionicons,
+        iconName: "business-outline",
+        iconColor: "#22c55e",
+    },
 ];
+
