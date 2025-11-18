@@ -1,29 +1,91 @@
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
-import { View } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { KeyboardProvider } from "react-native-keyboard-controller";
-import { Toaster } from 'sonner-native';
-import "../global.css";
+import { FontAwesome, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import { Text, View } from "react-native";
 
-// Keep the splash screen visible while we fetch resources
-SplashScreen.preventAutoHideAsync();
+export default function TabLayout() {
+    return (
+        <Tabs
+            screenOptions={{
+                headerShown: false,
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    height: 80,
+                    paddingTop: 21,
+                    borderTopWidth: 0,
+                    backgroundColor: "#99999950",
+                    marginBottom: 60,
+                    borderRadius: 100,
+                    paddingHorizontal: 10,
+                    marginHorizontal: 5,
+                    shadowColor: "#1a1a1a",
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 4,
+                    elevation: 5,
+                    position: "absolute"
+                },
+            }}
+        >
+            <Tabs.Screen
+                name="index"
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center`}>
+                            <Ionicons
+                                name="compass-outline"
+                                size={26}
+                                color={focused ? "white" : "#CCCCCC"}
+                            />
+                            {focused && <Text className="text-white font-semibold">Explore</Text>}
+                        </View>
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="favorite"
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
+                            <MaterialCommunityIcons name="bookmark-minus" size={26} color={focused ? "white" : "#CCCCCC"} />
+                            {focused && <Text className="text-white font-semibold">Favorite</Text>}
+                        </View>
+                    ),
+                }}
+            />
 
-export default function RootLayout() {
-  useEffect(() => {
-    // Hide the splash screen once the layout is ready
-    SplashScreen.hideAsync();
-  }, []);
+            <Tabs.Screen
+                name="chat"
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
+                            <Ionicons
+                                name="chatbox-ellipses"
+                                size={26}
+                                color={focused ? "white" : "#CCCCCC"}
+                            />
+                            {focused && <Text className="text-white font-semibold">Chat</Text>}
+                        </View>
+                    ),
+                }}
+            />
 
-  return (
-    <View className="bg-background dark:bg-backgroundDark flex-1">
-      <KeyboardProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Stack screenOptions={{ headerShown: false }} />
-        <Toaster />
-      </GestureHandlerRootView>
-    </KeyboardProvider>
-    </View>
-  );
+
+
+            <Tabs.Screen
+                name="profile"
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
+                            <FontAwesome
+                                name="user-circle"
+                                size={26}
+                                color={focused ? "white" : "#CCCCCC"}
+                            />
+                            {focused && <Text className="text-white font-semibold">Profile</Text>}
+                        </View>
+                    ),
+                }}
+            />
+        </Tabs>
+    );
 }
