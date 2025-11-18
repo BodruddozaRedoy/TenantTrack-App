@@ -1,5 +1,5 @@
+import BottomButtonsFixed from "@/components/common/BottomButtonsFixed";
 import PageTitle from "@/components/common/PageTitle";
-import PrimaryButton from "@/components/common/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
@@ -445,9 +445,7 @@ export default function FilterScreen() {
             </ScrollView>
 
             {/* Bottom Apply Button */}
-            <View className="left-0 right-0 bottom-0 px-4 pb-4">
-                <PrimaryButton title="Apply Filter" onPress={applyFilters} />
-            </View>
+            <BottomButtonsFixed secondButtonOnPress={applyFilters} secondButtonText="Apply Filter" />
         </SafeAreaView>
     );
 }
