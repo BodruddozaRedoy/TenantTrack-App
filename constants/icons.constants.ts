@@ -8,4 +8,9 @@ export const IconConstants = {
   FourSideArrow,
   Notification,
   Resume,
+  Property: require("../assets/icons/property.png"),
+  Bag: require("../assets/icons/bag.png"),
+  Calender: require("../assets/icons/calendar.png"),
+  Clock: require("../assets/icons/clock.png"),
+  List: require("../assets/icons/list.png"),
 };

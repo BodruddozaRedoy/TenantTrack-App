@@ -1,4 +1,4 @@
-import { FontAwesome, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { Text, View } from "react-native";
 
@@ -31,23 +31,19 @@ export default function TabLayout() {
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center`}>
-                            <Ionicons
-                                name="compass-outline"
-                                size={26}
-                                color={focused ? "white" : "#CCCCCC"}
-                            />
-                            {focused && <Text className="text-white font-semibold">Explore</Text>}
+                            <FontAwesome5 name="building" size={26} color={focused ? "white" : "#CCCCCC"} />
+                            {/* {focused && <Text className="text-white font-semibold">Home</Text>} */}
                         </View>
                     ),
                 }}
             />
             <Tabs.Screen
-                name="favorite"
+                name="dashboard"
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
-                            <MaterialCommunityIcons name="bookmark-minus" size={26} color={focused ? "white" : "#CCCCCC"} />
-                            {focused && <Text className="text-white font-semibold">Favorite</Text>}
+                            <Ionicons name="grid" size={24} color={focused ? "white" : "#CCCCCC"} />
+                            {/* {focused && <Text className="text-white font-semibold">Rent</Text>} */}
                         </View>
                     ),
                 }}
