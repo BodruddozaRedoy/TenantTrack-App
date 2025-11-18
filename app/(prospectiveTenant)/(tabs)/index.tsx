@@ -50,10 +50,6 @@ export default function HomeScreen() {
 
                 <View className="flex-row gap-3 items-center">
                     <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/notification")}>
-                        {/* <Image
-                            source={IconConstants.Notification}
-                            className="size-8"
-                        /> */}
                         <Octicons name="bell-fill" size={24} color="#A1A1A1" />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/my-application")}>
