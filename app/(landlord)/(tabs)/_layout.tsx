@@ -1,8 +1,11 @@
 import { FontAwesome, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
+    const insets = useSafeAreaInsets();
+
     return (
         <Tabs
             screenOptions={{
@@ -13,7 +16,7 @@ export default function TabLayout() {
                     paddingTop: 21,
                     borderTopWidth: 0,
                     backgroundColor: "#99999950",
-                    marginBottom: 60,
+                    marginBottom: insets.bottom + 10, // ⬅ Dynamic space
                     borderRadius: 100,
                     paddingHorizontal: 10,
                     marginHorizontal: 5,
@@ -22,7 +25,7 @@ export default function TabLayout() {
                     shadowOpacity: 0.1,
                     shadowRadius: 4,
                     elevation: 5,
-                    position: "absolute"
+                    position: "absolute",
                 },
             }}
         >
@@ -30,20 +33,25 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center`}>
+                        <View
+                            className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"
+                                } rounded-full justify-center`}
+                        >
                             <FontAwesome5 name="building" size={26} color={focused ? "white" : "#CCCCCC"} />
-                            {/* {focused && <Text className="text-white font-semibold">Home</Text>} */}
                         </View>
                     ),
                 }}
             />
+
             <Tabs.Screen
                 name="dashboard"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
+                        <View
+                            className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"
+                                } rounded-full justify-center`}
+                        >
                             <Ionicons name="grid" size={24} color={focused ? "white" : "#CCCCCC"} />
-                            {/* {focused && <Text className="text-white font-semibold">Rent</Text>} */}
                         </View>
                     ),
                 }}
@@ -53,30 +61,26 @@ export default function TabLayout() {
                 name="chat"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
-                            <Ionicons
-                                name="chatbox-ellipses"
-                                size={26}
-                                color={focused ? "white" : "#CCCCCC"}
-                            />
+                        <View
+                            className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"
+                                } rounded-full justify-center`}
+                        >
+                            <Ionicons name="chatbox-ellipses" size={26} color={focused ? "white" : "#CCCCCC"} />
                             {focused && <Text className="text-white font-semibold">Chat</Text>}
                         </View>
                     ),
                 }}
             />
 
-
-
             <Tabs.Screen
                 name="profile"
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
-                            <FontAwesome
-                                name="user-circle"
-                                size={26}
-                                color={focused ? "white" : "#CCCCCC"}
-                            />
+                        <View
+                            className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"
+                                } rounded-full justify-center`}
+                        >
+                            <FontAwesome name="user-circle" size={26} color={focused ? "white" : "#CCCCCC"} />
                             {focused && <Text className="text-white font-semibold">Profile</Text>}
                         </View>
                     ),
