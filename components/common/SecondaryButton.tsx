@@ -15,7 +15,7 @@ export default function SecondaryButton({
     <TouchableOpacity
       {...props}
       className={clsx(
-          "py-4 border border-gray-300 dark:border-gray-600 rounded-full mr-4 bg-white dark:bg-cardDark",
+        "py-4 border border-gray-300 dark:border-gray-600 rounded-full bg-white dark:bg-cardDark flex-1",
         className
       )}
     >

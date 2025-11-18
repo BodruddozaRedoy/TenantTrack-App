@@ -96,8 +96,8 @@ export default function TenantHomeScreen() {
                     <Text className="text-body font-semibold text-text dark:text-textDark mb-3">Services</Text>
                     <View className=" flex-row justify-between mb-6">
                         <ServiceCard icon="receipt-outline" label="Pay Rent" />
-                        <ServiceCard icon="settings-outline" label="Service" />
-                        <ServiceCard icon="document-text-outline" label="Lease" />
+                        <ServiceCard icon="settings-outline" label="Service" onPress={() => router.push("/(tenant)/service-request")} />
+                        <ServiceCard icon="document-text-outline" label="Lease" onPress={() => router.push("/(tenant)/lease-documents")} />
                     </View>
                 </View>
 
@@ -137,9 +137,9 @@ function InfoRow({ label, value }: any) {
     );
 }
 
-function ServiceCard({ icon, label }: any) {
+function ServiceCard({ icon, label, onPress }: any) {
     return (
-        <TouchableOpacity className="w-[30%] bg-[#E5E5E5]  rounded-xl items-center overflow-hidden pt-5 border border-gray-200 dark:border-gray-800">
+        <TouchableOpacity onPress={onPress} className="w-[30%] bg-[#E5E5E5]  rounded-xl items-center overflow-hidden pt-5 border border-gray-200 dark:border-gray-800">
             <Ionicons name={icon} size={36} color="#000" />
             <View className="w-full mt-3 py-1 bg-black items-center justify-center">
                 <Text className=" text-small font-medium text-textDark dark:text-text">{label}</Text>
