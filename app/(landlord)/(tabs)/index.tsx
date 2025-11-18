@@ -178,9 +178,9 @@ export default function LandlordHomeScreen() {
                 </View>
 
                 {/* UPDATES */}
-                <View className="bg-card dark:bg-cardDark px-4 rounded-2xl mt-5">
+                <View className="bg-card dark:bg-cardDark px-2 rounded-2xl mt-5">
                     <Text className="text-title text-center mt-4">Updates & Tips</Text>
-                    <View className="bg-card dark:bg-cardDark p-4 rounded-2xl mt-3">
+                    <View className="bg-card dark:bg-cardDark p-2 rounded-2xl mt-3">
                         {updates.map((u, idx) => (
                             <UpdateItem key={idx} {...u} />
                         ))}
@@ -294,14 +294,15 @@ const UpdateItem = ({
     bg,
     color,
 }: UpdateItemProps) => (
-    <View className="flex-row items-center mb-4">
-        <View className={`w-12 h-12 rounded-xl items-center justify-center ${bg}`}>
+    <View className="flex-row items-center mb-4 bg-[#e5e5e5] p-2
+     rounded-lg">
+        <View className={`p-5 rounded-xl items-center justify-center ${bg}`}>
             <Ionicons name={icon} size={22} color={color} />
         </View>
 
         <View className="ml-3 flex-1">
             <Text className="text-body font-semibold text-text dark:text-textDark">{title}</Text>
-            <Text className="text-small text-secondary dark:text-secondaryDark">{msg}</Text>
+            <Text className="text-sm text-secondary dark:text-secondaryDark">{msg}</Text>
             <Text className="text-caption text-secondary dark:text-secondaryDark mt-1">{date}</Text>
         </View>
     </View>
@@ -313,8 +314,8 @@ const SectionHeader = ({
     seeAll
 }: {
     title: string;
-    onPress: () => void;
-    seeAll: boolean
+        onPress?: () => void;
+        seeAll?: boolean
 }) => (
     <View className="flex-row justify-between items-center mt-6">
         <Text className="text-subtitle font-bold text-text dark:text-textDark">{title}</Text>
@@ -410,8 +411,8 @@ const updates: UpdateItemProps[] = [
         title: "Receipt Released",
         msg: "Your receipt has been released",
         date: "20/07/2024",
-        bg: "bg-gray-200 dark:bg-gray-700",
-        color: "#000",
+        bg: "bg-black",
+        color: "#fff",
     },
     {
         icon: "checkmark-done-outline",
