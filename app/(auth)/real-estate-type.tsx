@@ -62,8 +62,8 @@ export default function RealEstateTypeScreen() {
       if (!selected) return toast.error('Please select a type!!');
       await AsyncStorage.setItem("real-estate-type", selected)
       router.push("/(prospectiveTenant)/(tabs)");
-    } catch (error) {
-
+    } catch {
+      // Error handling if needed
     }
   }
 

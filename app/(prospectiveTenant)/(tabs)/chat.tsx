@@ -1,6 +1,7 @@
 import PageTitle from "@/components/common/PageTitle";
 import { MaterialIcons } from "@expo/vector-icons";
-import { FlatList, Image, StatusBar, Text, View } from "react-native";
+import { router } from "expo-router";
+import { FlatList, Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const chatData = [
@@ -43,7 +44,8 @@ export default function ChatScreen() {
           const active = item.unread;
 
           return (
-            <View
+            <TouchableOpacity
+              onPress={() => router.push("/(prospectiveTenant)/chat-detail")}
               className={`flex-row items-center mb-4 rounded-full px-3 py-3
               ${active
                   ? "bg-primary dark:bg-primaryDark"
@@ -104,7 +106,7 @@ export default function ChatScreen() {
                   </View>
                 )}
               </View>
-            </View>
+            </TouchableOpacity>
           );
         }}
       />

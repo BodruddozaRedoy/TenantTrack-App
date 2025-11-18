@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-export default function BottomButtonsFixed({ firstButtonText, secondButtonText, firstButtonOnPress, secondButtonOnPress }: { firstButtonText?: string, secondButtonText?: string, firstButtonOnPress?: () => void | {}, secondButtonOnPress?: () => void | {} }) {
+export default function BottomButtonsFixed({ firstButtonText, secondButtonText, firstButtonOnPress, secondButtonOnPress }: { firstButtonText?: string, secondButtonText?: string, firstButtonOnPress?: () => void, secondButtonOnPress?: () => void }) {
     const insets = useSafeAreaInsets()
     return (
         <View style={{ paddingBottom: insets.bottom || 16 }} className="absolute left-0 right-0 bottom-0 bg-background dark:bg-backgroundDark px-5 pb-10 pt-3">

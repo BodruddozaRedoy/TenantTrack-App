@@ -16,7 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function AddReviewScreen() {
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
-    const [image, setImage] = useState<string | null>(null);
+    const [image] = useState<string | null>(null);
 
     const handlePickImage = async () => {
         // ⚠ Optional: integrate expo-image-picker

@@ -41,7 +41,7 @@ export default function PropertyOwnerModal({ visible, onClose }: PropertyOwnerMo
   // Reset position when opened
   useEffect(() => {
     if (visible) translateY.setValue(0);
-  }, [visible]);
+  }, [visible, translateY]);
 
   // Swipe down gesture
   const panResponder = useRef(
@@ -120,7 +120,7 @@ export default function PropertyOwnerModal({ visible, onClose }: PropertyOwnerMo
         </Text>
         <Text className="text-small leading-5 text-secondary dark:text-secondaryDark mb-5">
           Meet Steven Adams, the owner of this charming townhouse located in
-          Brooklyn's Park Slope neighborhood...
+          Brooklyn&apos;s Park Slope neighborhood...
         </Text>
 
         {/* Listed Property */}

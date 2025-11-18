@@ -34,7 +34,7 @@ export default function OnboardingScreen() {
     useEffect(() => {
         const current = list.find((item) => item.id === selectedId);
         setOnboardingContent(current);
-    }, [selectedId]);
+    }, [selectedId, list]);
 
     // 🔹 NEXT button logic (prevent going past last)
     const handleNext = () => {

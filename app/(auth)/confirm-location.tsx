@@ -61,7 +61,6 @@ export default function ConfirmLocationScreen() {
   const { from } = useLocalSearchParams<{ from?: FromParam }>();
 
     const isAuto = from === "auto";
-    const isManual = !isAuto;
 
     const [loading, setLoading] = useState(true);
     const [cameraPosition, setCameraPosition] =

@@ -14,13 +14,11 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const PAYMENT_TERMS = ["Monthly", "Quarterly", "Yearly"];
 const PURPOSES = ["Rent", "Lease", "Business", "Other"];
 
 export default function AppointmentApplyScreen() {
-    const insets = useSafeAreaInsets()
     const [form, setForm] = useState({
         name: "",
         phone: "",

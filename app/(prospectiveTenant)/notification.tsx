@@ -69,7 +69,7 @@ const RenderIcon = ({ title, size, color }: any) => {
     }
     if (lib === "mi")
         return <MaterialIcons name={name} size={size} color={color} />
-    if (lib == "io")
+    if (lib === "io")
         return <Ionicons name={name} size={size} color={color} />;
 };
 

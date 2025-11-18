@@ -11,7 +11,7 @@ export default function PageTitle({
   text: string;
   leftIcon?: boolean;
   rightIcon?: boolean;
-    leftOnPress?: () => void | {}
+    leftOnPress?: () => void
 }) {
   return (
     <View className="flex-row items-center w-full px-5 py-5">

@@ -7,15 +7,11 @@ import {
   Switch,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ProfileScreen() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === "dark";
-
   const [darkMode, setDarkMode] = useState(false);
   const [allowSMS, setAllowSMS] = useState(false);
   const [allowEmail, setAllowEmail] = useState(true);

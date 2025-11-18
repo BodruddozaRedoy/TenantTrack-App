@@ -13,7 +13,7 @@ export default function SignupScreen() {
                 <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                     style={{ flex: 1 }}
-                    keyboardVerticalOffset={Platform.OS == "ios" ? 80 : 0}
+                    keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
                 >
                     {/* Top Cover Image */}
                     <View className="w-full h-[380px] bg-gray-200 dark:bg-gray-700">
@@ -43,7 +43,7 @@ export default function SignupScreen() {
 
                         {/* Subtitle */}
                         <Text className="text-small text-secondary dark:text-secondaryDark mb-6">
-                            Let's start your educational journey together, where every step forward is a step towards a brighter future!
+                            Let&apos;s start your educational journey together, where every step forward is a step towards a brighter future!
                         </Text>
 
                         {/* Full Name */}

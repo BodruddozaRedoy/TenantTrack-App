@@ -7,7 +7,6 @@ import { toast } from "sonner-native";
 export default function Index() {
   const [role, setRole] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [realEstateType, setRealEstateType] = useState<string | null>(null)
   const isAuthenticated = true;
   useEffect(() => {
     const fetchStorage = async () => {
@@ -16,7 +15,6 @@ export default function Index() {
         const role: string | null = await AsyncStorage.getItem("role")
         const realEstateType = await AsyncStorage.getItem("real-estate-type")
         setRole(role)
-        setRealEstateType(realEstateType)
         setLoading(false)
         console.log(role, realEstateType)
       } catch (error) {
@@ -38,10 +36,10 @@ export default function Index() {
         !isAuthenticated && <Redirect href={"/(auth)"} />
       }
       {
-        isAuthenticated && role == null && <Redirect href={"/(auth)"} />
+        isAuthenticated && role === null && <Redirect href={"/(auth)"} />
       }
       {
-        isAuthenticated && role == "prospective" && <Redirect href={"/(prospectiveTenant)/(tabs)"} />
+        isAuthenticated && role === "prospective" && <Redirect href={"/(prospectiveTenant)/(tabs)"} />
       }
     </View>
   );

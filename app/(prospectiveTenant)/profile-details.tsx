@@ -17,7 +17,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function ProfileDetailScreen() {
     const colorScheme = useColorScheme();
     const isDark = colorScheme === "dark";
-    const [showCountryModal, setShowCountryModal] = useState(false)
 
     const [selectedTab, setSelectedTab] = useState<"general" | "locations">(
         "general"
