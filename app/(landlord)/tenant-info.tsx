@@ -57,7 +57,7 @@ export default function TenantInfoScreen() {
                     {/* Back button */}
                     <TouchableOpacity
                         onPress={() => router.back()}
-                        className="absolute top-4 left-4 z-20 bg-black/40 p-2 rounded-full"
+                        className="absolute top-4 left-4 z-20 bg-black/40 p-2 rounded-full mt-10"
                     >
                         <Ionicons name="chevron-back" size={22} color="#fff" />
                     </TouchableOpacity>
@@ -65,7 +65,7 @@ export default function TenantInfoScreen() {
                     {/* Cover Photo */}
                     <Image
                         source={{ uri: tenant.avatar }}
-                        className="w-full h-64"
+                        className="w-full h-[350px]"
                         resizeMode="cover"
                     />
 
