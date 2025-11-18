@@ -1,3 +1,4 @@
+import PageTitle from "@/components/common/PageTitle";
 import { Entypo, Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
@@ -49,24 +50,8 @@ export default function PropertyAnalyticsScreen() {
                 className="px-5"
             >
                 {/* HEADER */}
-                <View className="flex-row items-center mt-4 mb-4">
-                    <TouchableOpacity
-                        onPress={() => router.back()}
-                        className="p-2 rounded-full"
-                    >
-                        <Ionicons
-                            name="chevron-back"
-                            size={26}
-                            color={isDark ? "#fff" : "#000"}
-                        />
-                    </TouchableOpacity>
-
-                    <Text className="flex-1 text-center text-title font-bold text-text dark:text-textDark">
-                        Property Analytics
-                    </Text>
-
-                    <View className="w-6" />
-                </View>
+                <PageTitle leftIcon text="Property Analytics" leftOnPress={() => router.back()} />
+                <View className="border-b border-gray-200 dark:border-gray-700 mb-5" />
 
                 {/* TOP CARDS GRID (NO FLATLIST) */}
                 <View className="flex-row flex-wrap justify-between">

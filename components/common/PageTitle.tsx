@@ -14,7 +14,7 @@ export default function PageTitle({
     leftOnPress?: () => void
 }) {
   return (
-    <View className="flex-row items-center w-full px-5 py-5">
+    <View className="flex-row items-center w-full px-4 py-5">
 
       {/* Left icon slot */}
       <TouchableOpacity onPress={leftOnPress} className="w-6">

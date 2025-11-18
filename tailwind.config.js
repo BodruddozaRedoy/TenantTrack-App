@@ -26,7 +26,7 @@ module.exports = {
       // ⭐ Add reusable text classes here
       fontSize: {
         headline: ["32px", { lineHeight: "40px", fontWeight: "700" }],
-        title: ["24px", { lineHeight: "32px", fontWeight: "700" }],
+        title: ["22px", { lineHeight: "32px", fontWeight: "700" }],
         subtitle: ["18px", { lineHeight: "24px", fontWeight: "500" }],
         body: ["16px", { lineHeight: "22px" }],
         small: ["14px", { lineHeight: "20px" }],

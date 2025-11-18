@@ -192,7 +192,7 @@ export default function AnalyticsDashboard() {
                         Operational Dashboard
                     </Text>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => router.push("/(landlord)/operational-dashboard")}>
                         <Text className="text-small text-secondary dark:text-secondaryDark">
                             See more
                         </Text>
