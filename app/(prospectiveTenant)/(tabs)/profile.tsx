@@ -1,5 +1,6 @@
 import PageTitle from "@/components/common/PageTitle"; // If you already have it
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
@@ -15,6 +16,15 @@ export default function ProfileScreen() {
   const [darkMode, setDarkMode] = useState(false);
   const [allowSMS, setAllowSMS] = useState(false);
   const [allowEmail, setAllowEmail] = useState(true);
+
+  const handleSignOut = async () => {
+    try {
+      await AsyncStorage.removeItem("role")
+      router.replace("/")
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark ">
@@ -157,7 +167,7 @@ export default function ProfileScreen() {
             Sign Out
           </Text>
 
-          <TouchableOpacity className="flex-row items-center justify-between">
+          <TouchableOpacity onPress={handleSignOut} className="flex-row items-center justify-between">
             <Text className="text-small font-semibold text-red-500 mr-2">
               Sign Out
             </Text>
