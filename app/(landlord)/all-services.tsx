@@ -20,7 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 type PropertyCardProps = {
     title: string;
     image: string;
-    status: "Rental" | "Viewing";
+    status: "Low" | "High" | "Normal";
     location: string;
     price: number;
     person: string;
@@ -30,7 +30,7 @@ type PropertyCardProps = {
 // SCREEN
 //
 
-export default function MyListingsScreen() {
+export default function AllServicesScreen() {
     const { colorScheme } = useColorScheme();
     const isDark = colorScheme === "dark";
 
@@ -44,23 +44,14 @@ export default function MyListingsScreen() {
                 contentContainerStyle={{ paddingBottom: 50 }}
             >
                 {/* Header */}
-                <PageTitle text="My Listings" leftIcon leftOnPress={() => router.back()} />
+                <PageTitle text="All Services" leftIcon leftOnPress={() => router.back()}/>
                 <View className="border-b border-gray-200 dark:border-gray-700" />
 
-                {/* Add Properties Button */}
-                <TouchableOpacity
-                    onPress={() => router.push("/(landlord)/add-properties")}
-                    className="bg-primary dark:bg-primaryDark rounded-full py-4 mt-5 mx-5"
-                >
-                    <Text className="text-center text-body font-semibold text-background dark:text-backgroundDark">
-                        Add Properties
-                    </Text>
-                </TouchableOpacity>
 
                 {/* Section Title */}
                 <View className="flex-row justify-between items-center mt-7 mx-5">
                     <Text className="text-subtitle font-bold text-text dark:text-textDark">
-                        Total Properties
+                        Total Services
                     </Text>
 
                     <TouchableOpacity onPress={() => { }}>
@@ -107,7 +98,7 @@ const ListingCard = ({
             <Image source={{ uri: image }} className="w-full h-28 absolute top-0" />
 
             <View className="py-1 px-3 rounded-lg bg-black/30 absolute top-2 right-2">
-                <Text className={`text-xs ${status == "Viewing" ? "text-yellow-500" : "text-green-500"} font-semibold`}>
+                <Text className={`text-xs ${status == "Normal" && "text-yellow-500"} ${status == "Low" && "text-green-500"} ${status == "High" && "text-red-500"} font-semibold`}>
                     {status}
                 </Text>
             </View>
@@ -130,7 +121,7 @@ const listingData: PropertyCardProps[] = [
     {
         title: "House 5454",
         image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-        status: "Rental",
+        status: "High",
         location: "Modern Apartment",
         person: "Sarah Abdullah",
         price: 100,
@@ -138,7 +129,7 @@ const listingData: PropertyCardProps[] = [
     {
         title: "House 5454",
         image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-        status: "Viewing",
+        status: "Low",
         location: "Modern Apartment",
         person: "Sarah Abdullah",
         price: 100,
@@ -146,7 +137,7 @@ const listingData: PropertyCardProps[] = [
     {
         title: "House 5454",
         image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-        status: "Viewing",
+        status: "Normal",
         location: "Modern Apartment",
         person: "Sarah Abdullah",
         price: 100,
@@ -154,7 +145,7 @@ const listingData: PropertyCardProps[] = [
     {
         title: "House 5454",
         image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-        status: "Viewing",
+        status: "Low",
         location: "Modern Apartment",
         person: "Sarah Abdullah",
         price: 100,

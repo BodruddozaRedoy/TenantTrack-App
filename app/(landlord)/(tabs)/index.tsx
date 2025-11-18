@@ -127,7 +127,7 @@ export default function LandlordHomeScreen() {
 
                 {/* MY TENANT */}
                 <View className="bg-card dark:bg-cardDark px-4 rounded-2xl">
-                    <SectionHeader title="My Tenant" onPress={() => router.push("/(landlord)/my-tenant")} />
+                    <SectionHeader title="My Tenant" seeAll onPress={() => router.push("/(landlord)/my-tenant")} />
                     <View className="mt-3 mb-6">
                         {tenantList.map((t, idx) => (
                             <TenantItem key={idx} {...t} />
@@ -136,46 +136,86 @@ export default function LandlordHomeScreen() {
                 </View>
 
                 {/* RECENT APPLICATIONS */}
-                <View className="bg-card dark:bg-cardDark px-4 rounded-2xl mt-5">
+                <View className="bg-card pb-4 dark:bg-cardDark px-4 rounded-2xl mt-5">
                     <SectionHeader
                         title="Recent Applications"
                         onPress={() => router.push("/(landlord)/my-listing")}
                         seeAll={true}
                     />
 
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-3 mb-6">
-                        <View className="flex-row gap-4">
-                            {chunkTwo(properties).map((column, colIndex) => (
-                                <View key={colIndex} className="flex-col gap-4">
-                                    {column.map((item, rowIndex) => (
-                                        <PropertyCard key={`${colIndex}-${rowIndex}`} {...item} />
-                                    ))}
-                                </View>
-                            ))}
+                    <View className="mt-4">
+                        {/* Row 1 */}
+                        <View className="flex-row justify-between mb-4 gap-2">
+                            <TouchableOpacity className="">
+                                <PropertyCard {...properties[0]} />
+                            </TouchableOpacity>
+
+                            {properties[1] && (
+                                <TouchableOpacity className="">
+                                    <PropertyCard {...properties[1]} />
+                                </TouchableOpacity>
+                            )}
                         </View>
-                    </ScrollView>
+
+                        {/* Row 2 */}
+                        <View className="flex-row justify-between">
+                            {properties[2] && (
+                                <TouchableOpacity className="">
+                                    <PropertyCard {...properties[2]} />
+                                </TouchableOpacity>
+                            )}
+
+                            {properties[3] && (
+                                <TouchableOpacity className="">
+                                    <PropertyCard {...properties[3]} />
+                                </TouchableOpacity>
+                            )}
+                        </View>
+                    </View>
                 </View>
 
+
+
                 {/* SERVICE REQUESTS */}
-                <View className="bg-card dark:bg-cardDark px-4 rounded-2xl mt-5">
+                <View className="bg-card dark:bg-cardDark px-4 rounded-2xl mt-5 pb-4">
                     <SectionHeader
                         title="Service Requests"
-                        onPress={() => router.push("/(landlord)/my-listing")}
+                        onPress={() => router.push("/(landlord)/all-services")}
                         seeAll={true}
                     />
 
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-3 mb-6">
-                        <View className="flex-row gap-4">
-                            {chunkTwo(services).map((column, colIndex) => (
-                                <View key={colIndex} className="flex-col gap-4">
-                                    {column.map((item, rowIndex) => (
-                                        <ServiceCard key={`${colIndex}-${rowIndex}`} {...item} />
-                                    ))}
-                                </View>
-                            ))}
+                    <View className="mt-4">
+                        {/* Row 1 */}
+                        <View className="flex-row justify-between mb-4">
+                            <TouchableOpacity className="">
+                                <ServiceCard {...services[0]} />
+                            </TouchableOpacity>
+
+                            {services[1] && (
+                                <TouchableOpacity className="">
+                                    <ServiceCard {...services[1]} />
+                                </TouchableOpacity>
+                            )}
                         </View>
-                    </ScrollView>
+
+                        {/* Row 2 */}
+                        <View className="flex-row justify-between">
+                            {services[2] && (
+                                <TouchableOpacity className="">
+                                    <ServiceCard {...services[2]} />
+                                </TouchableOpacity>
+                            )}
+
+                            {services[3] && (
+                                <TouchableOpacity className="">
+                                    <ServiceCard {...services[3]} />
+                                </TouchableOpacity>
+                            )}
+                        </View>
+                    </View>
                 </View>
+
+
 
                 {/* UPDATES */}
                 <View className="bg-card dark:bg-cardDark px-2 rounded-2xl mt-5">
@@ -215,7 +255,7 @@ const StatCard = ({ icon, value, label }: StatCardProps) => (
 );
 
 const TenantItem = ({ name, due, next }: TenantItemProps) => (
-    <View className="bg-[#E5E5E5] p-4 rounded-xl mb-3 flex-row items-center gap-4">
+    <TouchableOpacity onPress={() => router.push("/(landlord)/tenant-info")} className="bg-[#E5E5E5] p-4 rounded-xl mb-3 flex-row items-center gap-4">
         <View className="w-12 h-12 rounded-lg bg-gray-400" />
         <View>
             <Text className="text-body font-semibold text-text dark:text-textDark">
@@ -228,7 +268,7 @@ const TenantItem = ({ name, due, next }: TenantItemProps) => (
                 Next Payment : {next}
             </Text>
         </View>
-    </View>
+    </TouchableOpacity>
 );
 
 const PropertyCard = ({
@@ -239,7 +279,7 @@ const PropertyCard = ({
     person,
     status,
 }: PropertyCardProps) => (
-    <View className="w-44 rounded-2xl overflow-hidden pt-24 relative">
+    <View className="w-40 rounded-2xl overflow-hidden pt-24 relative">
         <Image source={{ uri: image }} className="w-full h-28 absolute top-0" />
 
         <View className="py-1 px-3 rounded-lg bg-black/30 absolute top-2 right-2">
@@ -264,7 +304,7 @@ const ServiceCard = ({
     location,
     image,
 }: ServiceCardProps) => (
-    <View className="w-44 rounded-2xl overflow-hidden pt-24 relative">
+    <View className="w-40 rounded-2xl overflow-hidden pt-24 relative">
         <Image source={{ uri: image }} className="w-full h-28 absolute top-0" />
 
         <View
@@ -321,8 +361,8 @@ const SectionHeader = ({
         <Text className="text-subtitle font-bold text-text dark:text-textDark">{title}</Text>
         {
             seeAll && <TouchableOpacity onPress={onPress}>
-            <Text className="text-small text-secondary dark:text-secondaryDark">See All</Text>
-        </TouchableOpacity>
+                <Text className="text-small text-secondary dark:text-secondaryDark">See All</Text>
+            </TouchableOpacity>
         }
     </View>
 );
