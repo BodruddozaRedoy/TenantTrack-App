@@ -1,5 +1,5 @@
+import BottomButtonsFixed from "@/components/common/BottomButtonsFixed";
 import PageTitle from "@/components/common/PageTitle";
-import PrimaryButton from "@/components/common/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
@@ -131,9 +131,7 @@ export default function RatingsScreen() {
             </ScrollView>
 
             {/* Add Review Button */}
-            <View className="px-5 pb-6">
-                <PrimaryButton onPress={() => router.push("/(prospectiveTenant)/add-review")} title="Add Review" />
-            </View>
+            <BottomButtonsFixed secondButtonOnPress={() => router.push("/(prospectiveTenant)/add-review")} secondButtonText="Add Review" />
         </SafeAreaView>
     );
 }

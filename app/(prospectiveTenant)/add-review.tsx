@@ -1,5 +1,5 @@
+import BottomButtonsFixed from "@/components/common/BottomButtonsFixed";
 import PageTitle from "@/components/common/PageTitle";
-import PrimaryButton from "@/components/common/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
@@ -40,7 +40,7 @@ export default function AddReviewScreen() {
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
             {/* Header */}
-            <PageTitle text="Ratings" leftIcon={true} leftOnPress={() => router.back()} />
+            <PageTitle text="Add Review" leftIcon={true} leftOnPress={() => router.back()} />
             <View className="border-b border-gray-200 dark:border-gray-700" />
 
             <ScrollView
@@ -102,9 +102,7 @@ export default function AddReviewScreen() {
             </ScrollView>
 
             {/* Submit Button */}
-            <View className="absolute bottom-6 left-0 right-0 px-4">
-                <PrimaryButton title="Submit" onPress={handleSubmit} />
-            </View>
+            <BottomButtonsFixed secondButtonOnPress={handleSubmit} secondButtonText="Submit" />
         </SafeAreaView>
     );
 }
