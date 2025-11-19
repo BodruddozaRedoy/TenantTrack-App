@@ -85,7 +85,7 @@ export default function AnalyticsDashboard() {
                     keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle={{ paddingHorizontal: 20, gap: 12, paddingTop: 10 }}
                     renderItem={({ item }) => (
-                        <View className="w-40 border border-gray-200  dark:bg-cardDark p-4 items-start rounded-2xl">
+                        <View className="w-40 border border-gray-200 dark:border-gray-700  dark:bg-cardDark p-4 items-start rounded-2xl">
 
                             {/* ICON */}
                             <View className="w-10 h-10  mb-3">
@@ -139,7 +139,7 @@ export default function AnalyticsDashboard() {
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ paddingHorizontal: 20, gap: 12, paddingTop: 10 }}
                     renderItem={({ item }) => (
-                        <View className="w-40 border border-gray-200  dark:bg-cardDark p-4 items-start rounded-2xl">
+                        <View className="w-40 border border-gray-200 dark:border-gray-700  dark:bg-cardDark p-4 items-start rounded-2xl">
 
                             {/* ICON */}
                             <View
@@ -205,7 +205,7 @@ export default function AnalyticsDashboard() {
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ paddingHorizontal: 20, gap: 12, paddingTop: 10 }}
                     renderItem={({ item }) => (
-                        <View className="w-40 border border-gray-200 dark:bg-cardDark p-4 rounded-2xl">
+                        <View className="w-40 border border-gray-200 dark:border-gray-700 dark:bg-cardDark p-4 rounded-2xl">
 
                             {/* ICON */}
                             <View
@@ -315,7 +315,7 @@ export default function AnalyticsDashboard() {
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ paddingHorizontal: 20, gap: 12, paddingTop: 10 }}
                     renderItem={({ item }) => (
-                        <View className="w-40 border border-gray-200 dark:bg-cardDark p-4 rounded-2xl">
+                        <View className="w-40 border border-gray-200 dark:border-gray-700 dark:bg-cardDark p-4 rounded-2xl">
 
                             {/* ICON */}
                             <View
