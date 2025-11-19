@@ -372,7 +372,7 @@ export default function AnalyticsDashboard() {
                 </View>
 
                 <View className="mx-5 ">
-                    <PrimaryButton title="Add Manually" />
+                    <PrimaryButton title="Add Manually" onPress={() => router.push("/(landlord)/add-manual-dashboard")} />
                 </View>
             </ScrollView>
         </SafeAreaView>

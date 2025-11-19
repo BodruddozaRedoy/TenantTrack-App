@@ -48,7 +48,7 @@ export default function Index() {
         isAuthenticated && role === "landlord" && <Redirect href={"/(landlord)/(tabs)"} />
       }
       {
-        isAuthenticated && role === "agent" && <Redirect href={"/(agent)/(tabs)"} />
+        isAuthenticated && role === "agent" && <Redirect href={"/(landlord)/(tabs)"} />
       }
     </View>
   );
