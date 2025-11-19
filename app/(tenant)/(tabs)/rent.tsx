@@ -20,7 +20,7 @@ export default function RentScreen() {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 className="mx-5"
-                contentContainerStyle={{ paddingBottom: 120 }}
+                contentContainerStyle={{ paddingBottom: 130 }}
             >
                 {/* Next Payment Card */}
                 <View className="bg-card dark:bg-cardDark p-4 rounded-2xl mb-6">
@@ -80,24 +80,24 @@ export default function RentScreen() {
                         </View>
 
                         <TouchableOpacity className="mr-3">
-                            <Ionicons name="chatbubble-ellipses-outline" size={20} color="#000" />
+                            <Ionicons name="chatbubble-ellipses-outline" size={20} color={isDark ? "#fff" : "#000"} />
                         </TouchableOpacity>
                     </View>
 
                     {/* Information */}
                     <View className="mt-6">
                         <Text className="text-body font-semibold text-text dark:text-textDark mb-2">Information</Text>
-                        <Text className="mb-1 flex-row gap-2 items-center">
-                            <Text className="font-semibold">Next Payment:</Text> 10/14/2025
+                        <Text className="mb-1 flex-row gap-2 items-center text-text dark:text-textDark">
+                            <Text className="text-caption font-semibold text-gray-400">Next Payment:</Text> 10/14/2025
                         </Text>
-                        <Text className="mb-1 flex-row gap-2 items-center">
-                            <Text className="font-semibold">Payment Term:</Text> Monthly
+                        <Text className="mb-1 flex-row gap-2 items-center text-text dark:text-textDark">
+                            <Text className="text-caption font-semibold text-gray-400">Payment Term:</Text> Monthly
                         </Text>
-                        <Text className="mb-1 flex-row gap-2 items-center">
-                            <Text className="font-semibold">Lease Duration:</Text> 12 months
+                        <Text className="mb-1 flex-row gap-2 items-center text-text dark:text-textDark">
+                            <Text className="text-caption font-semibold text-gray-400">Lease Duration:</Text> 12 months
                         </Text>
-                        <Text className="mb-1 flex-row gap-2 items-center">
-                            <Text className="font-semibold">Size:</Text> 120 m²
+                        <Text className="mb-1 flex-row gap-2 items-center text-text dark:text-textDark">
+                            <Text className="text-caption font-semibold text-gray-400">Size:</Text> 120 m²
                         </Text>
                     </View>
 
