@@ -15,6 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function PropertyAnalyticsScreen() {
     const { colorScheme } = useColorScheme();
     const isDark = colorScheme === "dark";
+
     const [dropdownOpen, setDropdownOpen] = React.useState(false);
     const [selectedRegion, setSelectedRegion] = React.useState("By City");
     const [regionalData, setRegionalData] = React.useState(regionalBars);
@@ -41,7 +42,6 @@ export default function PropertyAnalyticsScreen() {
         },
     ];
 
-
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
             <ScrollView
@@ -50,15 +50,19 @@ export default function PropertyAnalyticsScreen() {
                 className="px-5"
             >
                 {/* HEADER */}
-                <PageTitle leftIcon text="Property Analytics" leftOnPress={() => router.back()} />
+                <PageTitle
+                    leftIcon
+                    text="Property Analytics"
+                    leftOnPress={() => router.back()}
+                />
                 <View className="border-b border-gray-200 dark:border-gray-700 mb-5" />
 
-                {/* TOP CARDS GRID (NO FLATLIST) */}
+                {/* TOP CARDS GRID */}
                 <View className="flex-row flex-wrap justify-between">
                     {topCards.map((item) => (
                         <View
                             key={item.id}
-                            className="w-[48%] border border-gray-200 dark:border-gray-700 p-4 rounded-2xl mb-4"
+                            className="w-[48%] border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mb-4"
                         >
                             {/* ICON */}
                             <View
@@ -88,8 +92,8 @@ export default function PropertyAnalyticsScreen() {
 
                             <Text
                                 className={`text-caption mt-1 ${item.change.startsWith("+")
-                                    ? "text-green-600"
-                                    : "text-red-500"
+                                        ? "text-green-600"
+                                        : "text-red-500"
                                     }`}
                             >
                                 {item.change}
@@ -99,7 +103,7 @@ export default function PropertyAnalyticsScreen() {
                 </View>
 
                 {/* CASH FLOW FORECAST */}
-                <View className="border border-gray-200  p-4 rounded-2xl mt-4">
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-4">
                     <Text className="text-subtitle font-bold text-text dark:text-textDark mb-2">
                         Cash Flow Forecast
                     </Text>
@@ -116,7 +120,7 @@ export default function PropertyAnalyticsScreen() {
                         maxValue={2000}
                         noOfSections={5}
                         backgroundColor="transparent"
-                        rulesColor="#e5e7eb"
+                        rulesColor={isDark ? "#374151" : "#e5e7eb"}
                         yAxisColor="transparent"
                         xAxisColor="transparent"
                     />
@@ -124,32 +128,34 @@ export default function PropertyAnalyticsScreen() {
                     <View className="flex-row justify-center gap-6 mt-3">
                         <View className="flex-row items-center gap-2">
                             <View className="w-3 h-3 rounded-full bg-green-500" />
-                            <Text className="text-small">Income</Text>
+                            <Text className="text-small text-text dark:text-textDark">Income</Text>
                         </View>
                         <View className="flex-row items-center gap-2">
                             <View className="w-3 h-3 rounded-full bg-red-500" />
-                            <Text className="text-small">Expenses</Text>
+                            <Text className="text-small text-text dark:text-textDark">Expenses</Text>
                         </View>
                     </View>
                 </View>
 
                 {/* AR AGING ANALYSIS */}
-                <View className="border border-gray-200 p-4 rounded-2xl mt-6">
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-6">
                     <View className="flex-row justify-between">
-                        <Text className="text-subtitle font-bold">AR Aging Analysis</Text>
+                        <Text className="text-subtitle font-bold text-text dark:text-textDark">
+                            AR Aging Analysis
+                        </Text>
                         <Text className="text-small text-blue-500">Export</Text>
                     </View>
 
-                    {/* Table */}
                     <View className="mt-4">
                         {arAgingData.map((row, idx) => (
                             <View key={idx} className="flex-row justify-between mb-2">
-                                <Text className="text-small">{row.period}</Text>
-                                <Text className="text-small font-semibold">{row.amount}</Text>
-                                <Text
-                                    className={`text-small font-semibold ${row.color
-                                        }`}
-                                >
+                                <Text className="text-small text-text dark:text-textDark">
+                                    {row.period}
+                                </Text>
+                                <Text className="text-small font-semibold text-text dark:text-textDark">
+                                    {row.amount}
+                                </Text>
+                                <Text className={`text-small font-semibold ${row.color}`}>
                                     {row.percent}
                                 </Text>
                             </View>
@@ -163,16 +169,15 @@ export default function PropertyAnalyticsScreen() {
                         yAxisThickness={0}
                         xAxisThickness={0}
                         noOfSections={4}
-                        roundToDigits={0}
                         barBorderRadius={6}
-                        frontColor="green"
+                        roundToDigits={0}
+                        rulesColor={isDark ? "#374151" : "#e5e7eb"}
                         isAnimated
-                        animationDuration={800}
                     />
                 </View>
 
                 {/* REGIONAL PERFORMANCE */}
-                <View className="border border-gray-200 p-4 rounded-2xl mt-6">
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-6">
                     <View className="flex-row justify-between items-center mb-2">
                         <Text className="text-subtitle font-bold text-text dark:text-textDark">
                             Regional Performance
@@ -184,18 +189,18 @@ export default function PropertyAnalyticsScreen() {
                                 className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-lg flex-row items-center"
                                 onPress={() => setDropdownOpen(!dropdownOpen)}
                             >
-                                <Text className="text-caption mr-1">
+                                <Text className="text-caption text-text dark:text-textDark mr-1">
                                     {selectedRegion}
                                 </Text>
                                 <Ionicons
                                     name={dropdownOpen ? "chevron-up" : "chevron-down"}
                                     size={14}
-                                    color="#555"
+                                    color={isDark ? "#fff" : "#555"}
                                 />
                             </TouchableOpacity>
 
                             {dropdownOpen && (
-                                <View className="absolute right-0 mt-2 bg-white dark:bg-cardDark border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg z-10 w-32">
+                                <View className="absolute right-0 mt-2 bg-white dark:bg-cardDark border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10 w-32">
                                     {regionOptions.map((region, index) => (
                                         <TouchableOpacity
                                             key={index}
@@ -225,27 +230,27 @@ export default function PropertyAnalyticsScreen() {
                         yAxisThickness={0}
                         xAxisThickness={0}
                         frontColor="#2563eb"
+                        rulesColor={isDark ? "#374151" : "#e5e7eb"}
                         isAnimated
                     />
                 </View>
 
-
                 {/* EXPENSE BREAKDOWN */}
-                <View className="border border-gray-200 p-4 rounded-2xl mt-6">
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-6 mb-16">
                     <Text className="text-subtitle font-bold mb-2 text-text dark:text-textDark">
                         Expense Breakdown
                     </Text>
 
                     <View className="items-center justify-center">
                         <PieChart
-                        data={expenseBreakdown}
-                        donut
-                        radius={80}
-                        innerRadius={45}
-                        showText
-                        textColor="white"
-                        focusOnPress
-                    />
+                            data={expenseBreakdown}
+                            donut
+                            radius={80}
+                            innerRadius={45}
+                            showText
+                            textColor="white"
+                            focusOnPress
+                        />
                     </View>
 
                     <View className="mt-4 flex-row flex-wrap justify-center gap-6">
@@ -255,7 +260,9 @@ export default function PropertyAnalyticsScreen() {
                                     className="w-3 h-3 rounded-full"
                                     style={{ backgroundColor: item.color }}
                                 />
-                                <Text className="text-small">{item.label}</Text>
+                                <Text className="text-small text-text dark:text-textDark">
+                                    {item.label}
+                                </Text>
                             </View>
                         ))}
                     </View>
@@ -266,7 +273,7 @@ export default function PropertyAnalyticsScreen() {
 }
 
 //
-// TOP CARDS (NO FLATLIST)
+// STATIC DATA
 //
 const topCards = [
     {
@@ -325,9 +332,6 @@ const topCards = [
     },
 ];
 
-//
-// CASH FLOW
-//
 const cashFlowIncome = [
     { value: 900, label: "Jan" },
     { value: 950, label: "Feb" },
@@ -346,9 +350,6 @@ const cashFlowExpenses = [
     { value: 525, label: "Jun" },
 ];
 
-//
-// AR AGING
-//
 const arAgingData = [
     { period: "0–30 Days", amount: "$125K", percent: "65%", color: "text-green-600" },
     { period: "31–60 Days", amount: "$42K", percent: "22%", color: "text-yellow-500" },
@@ -363,9 +364,6 @@ const arAgingBars = [
     { value: 40, color: "#ef4444" },
 ];
 
-//
-// REGIONAL PERFORMANCE
-//
 const regionalBars = [
     { value: 450, label: "Manhattan" },
     { value: 300, label: "Brooklyn" },
@@ -373,9 +371,6 @@ const regionalBars = [
     { value: 180, label: "Bronx" },
 ];
 
-//
-// EXPENSE BREAKDOWN
-//
 const expenseBreakdown = [
     { value: 40, color: "#3b82f6" },
     { value: 25, color: "#22c55e" },

@@ -21,7 +21,7 @@ type KPI = {
     value: string;
     label: string;
     change?: string;
-    sparkData:any
+    sparkData: any;
 };
 
 export default function OperationalDashboardScreen() {
@@ -38,15 +38,21 @@ export default function OperationalDashboardScreen() {
                 contentContainerStyle={{ paddingBottom: 120 }}
             >
                 {/* Header */}
-                <PageTitle text="Operational Dashboard" leftIcon leftOnPress={() => router.back()} />
+                <PageTitle
+                    text="Operational Dashboard"
+                    leftIcon
+                    leftOnPress={() => router.back()}
+                />
                 <View className="border-b border-gray-200 dark:border-gray-700 mb-5" />
-                {/* TOP KPIS: 2x2 grid (no FlatList) */}
+
+                {/* TOP KPI CARDS */}
                 <View className="flex-row flex-wrap justify-between">
                     {topKpis.slice(0, 4).map((kpi) => (
                         <View
                             key={kpi.id}
-                            className="w-[48%] border border-gray-200 dark:border-gray-700 p-4 rounded-2xl mb-4"
+                            className="w-[48%] border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mb-4"
                         >
+                            {/* ICON */}
                             <View
                                 style={{
                                     width: 44,
@@ -57,7 +63,11 @@ export default function OperationalDashboardScreen() {
                                     justifyContent: "center",
                                 }}
                             >
-                                <kpi.icon name={kpi.iconName} size={20} color={kpi.iconColor} />
+                                <kpi.icon
+                                    name={kpi.iconName}
+                                    size={20}
+                                    color={kpi.iconColor}
+                                />
                             </View>
 
                             <Text className="text-small text-secondary dark:text-secondaryDark mt-2">
@@ -70,36 +80,20 @@ export default function OperationalDashboardScreen() {
                                 </Text>
 
                                 <Text
-                                    className={`text-caption ${kpi.change?.startsWith("+") ? "text-green-600" : "text-red-500"
+                                    className={`text-caption ${kpi.change?.startsWith("+")
+                                            ? "text-green-600"
+                                            : "text-red-500"
                                         }`}
                                 >
                                     {kpi.change}
                                 </Text>
                             </View>
-
-                            {/* small sparkline - use LineChart tiny */}
-                            {/* <View className="mt-3">
-                                <LineChart
-                                    data={kpi.sparkData}
-                                    thickness={2}
-                                    noOfSections={0}
-                                    hideDataPoints
-                                    color1={kpi.iconColor}
-                                    curved
-                                    yAxisColor="transparent"
-                                    xAxisColor="transparent"
-                                    rulesColor="transparent"
-                                    // isInteractive={false}
-                                    startFillColor={kpi.iconColor + "10"}
-                                    endFillColor="transparent"
-                                />
-                            </View> */}
                         </View>
                     ))}
                 </View>
 
-                {/* Work Order Status (donut) */}
-                <View className="border border-gray-200 p-4 rounded-2xl mt-2">
+                {/* Work Order Status */}
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-2">
                     <Text className="text-subtitle font-bold text-text dark:text-textDark mb-3">
                         Work Order Status
                     </Text>
@@ -111,14 +105,13 @@ export default function OperationalDashboardScreen() {
                             radius={70}
                             innerRadius={48}
                             showText
-                            textColor="black"
-                            style={{ alignSelf: "center" }}
+                            textColor={isDark ? "white" : "black"}
                         />
                     </View>
                 </View>
 
                 {/* Resolution Time Trend */}
-                <View className="border border-gray-200 p-4 rounded-2xl mt-4">
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-4">
                     <Text className="text-subtitle font-bold text-text dark:text-textDark mb-3">
                         Resolution Time Trend
                     </Text>
@@ -128,10 +121,9 @@ export default function OperationalDashboardScreen() {
                         thickness={3}
                         curved
                         noOfSections={4}
-                        yAxisLabel=""
                         yAxisColor="transparent"
                         xAxisColor="transparent"
-                        rulesColor="#e6e6e6"
+                        rulesColor={isDark ? "#374151" : "#e5e7eb"}
                         color1="#16a34a"
                         width={330}
                         startFillColor={"#16a34a20"}
@@ -139,8 +131,8 @@ export default function OperationalDashboardScreen() {
                     />
                 </View>
 
-                {/* Vendor Performance (bars) */}
-                <View className="border border-gray-200 p-4 rounded-2xl mt-4">
+                {/* Vendor Performance */}
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-4">
                     <Text className="text-subtitle font-bold text-text dark:text-textDark mb-3">
                         Vendor Performance
                     </Text>
@@ -152,12 +144,13 @@ export default function OperationalDashboardScreen() {
                         yAxisThickness={0}
                         xAxisThickness={0}
                         frontColor="#2563eb"
+                        rulesColor={isDark ? "#374151" : "#e5e7eb"}
                         noOfSections={4}
                     />
                 </View>
 
                 {/* Operational Costs by City */}
-                <View className="border border-gray-200 p-4 rounded-2xl mt-4">
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-4">
                     <Text className="text-subtitle font-bold text-text dark:text-textDark mb-3">
                         Operational Costs by City
                     </Text>
@@ -169,21 +162,28 @@ export default function OperationalDashboardScreen() {
                         yAxisThickness={0}
                         xAxisThickness={0}
                         frontColor="#f59e0b"
+                        rulesColor={isDark ? "#374151" : "#e5e7eb"}
                         noOfSections={5}
                     />
                 </View>
 
-                {/* Top Vendors Table */}
-                <View className="border border-gray-200 p-4 rounded-2xl mt-4">
+                {/* Top Vendors */}
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-4">
                     <Text className="text-subtitle font-semibold mb-3 text-text dark:text-textDark">
                         Top Vendors
                     </Text>
 
                     <View className="bg-background dark:bg-backgroundDark rounded-md overflow-hidden">
                         <View className="flex-row px-2 py-3 border-b border-gray-200 dark:border-gray-700">
-                            <Text className="w-1/2 text-small text-secondary">Vendor</Text>
-                            <Text className="w-1/4 text-small text-secondary">SLA</Text>
-                            <Text className="w-1/4 text-small text-secondary">Rating</Text>
+                            <Text className="w-1/2 text-small text-secondary dark:text-secondaryDark">
+                                Vendor
+                            </Text>
+                            <Text className="w-1/4 text-small text-secondary dark:text-secondaryDark">
+                                SLA
+                            </Text>
+                            <Text className="w-1/4 text-small text-secondary dark:text-secondaryDark">
+                                Rating
+                            </Text>
                         </View>
 
                         {topVendors.map((v, i) => (
@@ -196,7 +196,9 @@ export default function OperationalDashboardScreen() {
                                 </Text>
 
                                 <Text
-                                    className={`w-1/4 text-body font-semibold ${v.sla >= 90 ? "text-green-600" : "text-orange-500"
+                                    className={`w-1/4 text-body font-semibold ${v.sla >= 90
+                                            ? "text-green-600"
+                                            : "text-orange-500"
                                         }`}
                                 >
                                     {v.sla}%
@@ -217,17 +219,23 @@ export default function OperationalDashboardScreen() {
                     </View>
                 </View>
 
-                {/* Property Performance Table */}
-                <View className="border border-gray-200 p-4 rounded-2xl mt-4 mb-8">
+                {/* Property Performance */}
+                <View className="border border-gray-200 dark:border-gray-700 bg-card dark:bg-cardDark p-4 rounded-2xl mt-4 mb-8">
                     <Text className="text-subtitle font-semibold mb-3 text-text dark:text-textDark">
                         Property Performance
                     </Text>
 
                     <View className="bg-background dark:bg-backgroundDark rounded-md overflow-hidden">
                         <View className="flex-row px-2 py-3 border-b border-gray-200 dark:border-gray-700">
-                            <Text className="w-1/2 text-small text-secondary">Property</Text>
-                            <Text className="w-1/4 text-small text-secondary">City</Text>
-                            <Text className="w-1/4 text-small text-secondary">Cost</Text>
+                            <Text className="w-1/2 text-small text-secondary dark:text-secondaryDark">
+                                Property
+                            </Text>
+                            <Text className="w-1/4 text-small text-secondary dark:text-secondaryDark">
+                                City
+                            </Text>
+                            <Text className="w-1/4 text-small text-secondary dark:text-secondaryDark">
+                                Cost
+                            </Text>
                         </View>
 
                         {propertyPerformance.map((p, i) => (
@@ -257,7 +265,7 @@ export default function OperationalDashboardScreen() {
 }
 
 /* =========================
-   DATA (arrays) - replace with API later
+   STATIC DATA
    ========================= */
 
 const topKpis: KPI[] = [
@@ -270,7 +278,7 @@ const topKpis: KPI[] = [
         label: "Work Orders Complete",
         change: "+12%",
         sparkData: [70, 75, 80, 78, 85, 87],
-    } as any,
+    },
     {
         id: 2,
         icon: Feather,
@@ -280,7 +288,7 @@ const topKpis: KPI[] = [
         label: "Avg Response Time",
         change: "-8%",
         sparkData: [4.5, 4.4, 4.3, 4.25, 4.2],
-    } as any,
+    },
     {
         id: 3,
         icon: MaterialIcons,
@@ -290,7 +298,7 @@ const topKpis: KPI[] = [
         label: "Avg Resolution",
         change: "+15%",
         sparkData: [3.1, 3.0, 2.95, 2.85, 2.8],
-    } as any,
+    },
     {
         id: 4,
         icon: Ionicons,
@@ -300,17 +308,15 @@ const topKpis: KPI[] = [
         label: "Unit Turnover",
         change: "+5%",
         sparkData: [13, 12.5, 12.2, 12, 12],
-    } as any,
+    },
 ];
 
-/* Work order donut */
 const workOrderPie = [
-    { value: 87, color: "#22c55e", text: "Completed 87.0%" },
-    { value: 8, color: "#fb923c", text: "In Progress 8.0%" },
-    { value: 5, color: "#ef4444", text: "Pending 5.0%" },
+    { value: 87, color: "#22c55e", text: "Completed 87%" },
+    { value: 8, color: "#fb923c", text: "In Progress 8%" },
+    { value: 5, color: "#ef4444", text: "Pending 5%" },
 ];
 
-/* Resolution trend (LineChart) - use array of numbers / objects */
 const resolutionTrend = [
     { value: 3.2, label: "Week 1" },
     { value: 3.0, label: "Week 2" },
@@ -318,14 +324,12 @@ const resolutionTrend = [
     { value: 2.8, label: "Week 4" },
 ];
 
-/* Vendor performance bars */
 const vendorBars = [
     { value: 90, label: "ABC Maintenance" },
     { value: 85, label: "Quick Fix Pro" },
     { value: 88, label: "Elite Services" },
 ];
 
-/* Operational costs by city bars */
 const costByCityBars = [
     { value: 45, label: "New York" },
     { value: 50, label: "Los Angeles" },
@@ -333,14 +337,12 @@ const costByCityBars = [
     { value: 28, label: "Miami" },
 ];
 
-/* Top vendors table */
 const topVendors = [
     { vendor: "ABC Maintenance", sla: 95, rating: 5 },
     { vendor: "Quick Fix Pro", sla: 87, rating: 4 },
     { vendor: "Elite Services", sla: 92, rating: 5 },
 ];
 
-/* Property performance table */
 const propertyPerformance = [
     { property: "Sunset Apartments", city: "New York", cost: "$12,450", isHigh: false },
     { property: "Park View Complex", city: "Los Angeles", cost: "$18,920", isHigh: true },

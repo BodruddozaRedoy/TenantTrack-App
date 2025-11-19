@@ -1,373 +1,255 @@
 // app/(landlord)/portfolio-overview/index.tsx
+
 import PageTitle from "@/components/common/PageTitle";
 import { Entypo, Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
 import React from "react";
-import {
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    View
-} from "react-native";
+import { ScrollView, StatusBar, Text, View } from "react-native";
 import { BarChart, LineChart } from "react-native-gifted-charts";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-type TopMetric = {
-    id: number;
-    icon: any;
-    iconName: string;
-    iconColor: string;
-    value: string;
-    label: string;
-    change?: string;
-    sparkData?: number[];
-};
 
 export default function PortfolioOverviewScreen() {
     const { colorScheme } = useColorScheme();
     const isDark = colorScheme === "dark";
-    const Icon5 = topMetrics[4].icon;
-    const metric5 = topMetrics[4];
 
     return (
-        <SafeAreaView style={[styles.safeArea, { backgroundColor: isDark ? "#000" : "#fff" }]}>
+        <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
             <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
 
             <ScrollView
-                contentContainerStyle={{ paddingBottom: 80, paddingHorizontal: 18 }} // using ~18px padding (option B)
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 80 }}
+                className="px-5"
             >
-                {/* Header */}
-                <PageTitle text="Portfolio Overview" leftIcon leftOnPress={() => router.back()}/>
+                {/* HEADER */}
+                <PageTitle text="Portfolio Overview" leftIcon leftOnPress={() => router.back()} />
                 <View className="border-b border-gray-200 dark:border-gray-700 mb-5" />
-                {/* Top KPI cards (2x2 grid) */}
-                <View style={styles.gridRow}>
+
+                {/* TOP METRICS: 2x2 GRID */}
+                <View className="flex-row flex-wrap justify-between">
                     {topMetrics.slice(0, 4).map((m) => (
                         <View
                             key={m.id}
-                            style={[
-                                styles.kpiCard,
-                                { borderColor: isDark ? "#2b2b2b" : "#e6e6e6", backgroundColor: isDark ? "#0f1724" : "#fff" },
-                            ]}
+                            className="w-[48%] bg-card dark:bg-cardDark p-4 rounded-2xl border border-gray-200 dark:border-gray-700 mb-4"
                         >
+                            {/* ICON */}
                             <View
-                                style={[
-                                    styles.iconBubble,
-                                    { backgroundColor: `${m.iconColor}20` }, // light bg from color
-                                ]}
+                                className="w-10 h-10 rounded-xl items-center justify-center"
+                                style={{ backgroundColor: `${m.iconColor}20` }}
                             >
                                 <m.icon name={m.iconName} size={18} color={m.iconColor} />
                             </View>
 
-                            <Text style={[styles.kpiLabel, { color: isDark ? "#9CA3AF" : "#6B7280" }]}>{m.label}</Text>
+                            {/* LABEL */}
+                            <Text className="text-secondary dark:text-secondaryDark text-[12px] mt-2">
+                                {m.label}
+                            </Text>
 
-                            <View style={styles.kpiValueRow}>
-                                <Text style={[styles.kpiValue, { color: isDark ? "#fff" : "#000" }]}>{m.value}</Text>
-                                <Text style={[styles.kpiChange, { color: m.change?.startsWith("+") ? "#16a34a" : "#ef4444" }]}>
+                            {/* VALUE & CHANGE */}
+                            <View className="flex-row justify-between items-center mt-1">
+                                <Text className="text-text dark:text-textDark text-xl font-bold">
+                                    {m.value}
+                                </Text>
+                                <Text
+                                    className={`text-xs font-semibold ${m.change.startsWith("+")
+                                            ? "text-green-600"
+                                            : "text-red-500"
+                                        }`}
+                                >
                                     {m.change}
                                 </Text>
                             </View>
-
-                            {/* sparkline small */}
-                            {/* <View style={{ marginTop: 8 }}>
-                                <LineChart
-                                    data={m.sparkData ?? [0, 0, 0, 0]}
-                                    thickness={2}
-                                    curved
-                                    noOfSections={0}
-                                    yAxisColor="transparent"
-                                    xAxisColor="transparent"
-                                    rulesColor="transparent"
-                                    color1={m.iconColor}
-                                    hideDataPoints
-                                    isInteractive={false}
-                                />
-                            </View> */}
                         </View>
                     ))}
                 </View>
 
-                {/* Single wide metric card */}
-                <View
-                    style={[
-                        styles.fullCard,
-                        {
-                            borderColor: isDark ? "#2b2b2b" : "#e6e6e6",
-                            backgroundColor: isDark ? "#0f1724" : "#fff",
-                        },
-                    ]}
-                >
-                    <View style={styles.fullIconRow}>
-                        {/* ICON */}
-                        <View style={[styles.iconBubble, { backgroundColor: `${metric5.iconColor}15` }]}>
-                            <Icon5 name={metric5.iconName} size={18} color={metric5.iconColor} />
-                        </View>
+                {/* WIDE METRIC CARD */}
+                <View className="bg-card dark:bg-cardDark p-4 rounded-2xl border border-gray-200 dark:border-gray-700 mb-4">
+                    {(() => {
+                        const m = topMetrics[4];
+                        return (
+                            <View className="flex-row items-center">
+                                <View
+                                    className="w-10 h-10 rounded-xl items-center justify-center"
+                                    style={{ backgroundColor: `${m.iconColor}20` }}
+                                >
+                                    <m.icon name={m.iconName} size={18} color={m.iconColor} />
+                                </View>
 
-                        {/* LABEL + VALUE */}
-                        <View style={{ marginLeft: 10 }}>
-                            <Text style={[styles.kpiValue, { color: isDark ? "#fff" : "#000" }]}>
-                                {metric5.value}
-                            </Text>
-                            <Text style={[styles.kpiLabel, { color: isDark ? "#9CA3AF" : "#6B7280" }]}>
-                                {metric5.label}
-                            </Text>
-                        </View>
+                                <View className="ml-3">
+                                    <Text className="text-text dark:text-textDark text-xl font-bold">
+                                        {m.value}
+                                    </Text>
+                                    <Text className="text-secondary dark:text-secondaryDark text-xs">
+                                        {m.label}
+                                    </Text>
+                                </View>
 
-                        {/* CHANGE */}
-                        <Text
-                            style={{
-                                marginLeft: "auto",
-                                color: metric5.change.startsWith("-") ? "#ef4444" : "#16a34a",
-                                fontWeight: "600",
-                            }}
-                        >
-                            {metric5.change}
-                        </Text>
-                    </View>
+                                <Text
+                                    className={`ml-auto text-xs font-semibold ${m.change.startsWith("-")
+                                            ? "text-red-500"
+                                            : "text-green-600"
+                                        }`}
+                                >
+                                    {m.change}
+                                </Text>
+                            </View>
+                        );
+                    })()}
                 </View>
 
+                {/* HEATMAP (HORIZONTAL SCROLL FIX) */}
+                <View className="bg-card dark:bg-cardDark p-4 rounded-2xl border border-gray-200 dark:border-gray-700 mb-4">
+                    <Text className="text-text dark:text-textDark text-base font-semibold">
+                        Portfolio Occupancy Heatmap
+                    </Text>
+                    <Text className="text-secondary dark:text-secondaryDark text-xs mt-1">
+                        By property and location
+                    </Text>
 
-                {/* Heatmap (Portfolio Occupancy) */}
-                <View style={[styles.fullCard, { borderColor: isDark ? "#2b2b2b" : "#e6e6e6", backgroundColor: isDark ? "#0f1724" : "#fff" }]}>
-                    <Text style={[styles.sectionTitle, { color: isDark ? "#fff" : "#000" }]}>Portfolio Occupancy Heatmap</Text>
-                    <Text style={[styles.sectionSub, { color: isDark ? "#9CA3AF" : "#6B7280" }]}>By property and location</Text>
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        className="mt-4"
+                    >
+                        <View>
 
-                    <View style={{ marginTop: 12, alignItems: "center" }}>
-                        <View style={styles.heatmapContainer}>
-                            {/* header row: cities */}
-                            <View style={styles.heatmapRow}>
-                                <View style={[styles.heatmapCell, { width: 70, backgroundColor: "transparent", borderWidth: 0 }]} />
+                            {/* Header Row */}
+                            <View className="flex-row">
+                                <View className="w-20" />
                                 {heatmapCities.map((c, i) => (
-                                    <View key={i} style={[styles.heatmapCell, { justifyContent: "center" }]}>
-                                        <Text style={styles.heatmapCity}>{c}</Text>
+                                    <View key={i} className="w-14 items-center">
+                                        <Text className="text-caption text-secondary dark:text-secondaryDark">
+                                            {c}
+                                        </Text>
                                     </View>
                                 ))}
                             </View>
 
-                            {/* data rows */}
+                            {/* Data Rows */}
                             {heatmapData.map((row, rIdx) => (
-                                <View key={rIdx} style={styles.heatmapRow}>
-                                    <View style={[styles.heatmapCell, { width: 70, justifyContent: "center" }]}>
-                                        <Text style={styles.heatmapRowLabel}>{row.region}</Text>
+                                <View key={rIdx} className="flex-row items-center mt-2">
+                                    <View className="w-20">
+                                        <Text className="text-small text-secondary dark:text-secondaryDark">
+                                            {row.region}
+                                        </Text>
                                     </View>
 
-                                    {row.values.map((val, cIdx) => (
-                                        <View key={cIdx} style={[styles.heatmapCell]}>
-                                            <View style={[styles.heatmapInner, { backgroundColor: heatColor(val) }]}>
-                                                <Text style={styles.heatmapNumber}>{val}</Text>
+                                    {row.values.map((val, cIdx) => {
+                                        // dynamic color
+                                        const bg = heatColor(val);
+                                        const textColor =
+                                            val >= 90 ? "#fff" : "#000"; // contrast logic
+
+                                        return (
+                                            <View key={cIdx} className="w-14 items-center">
+                                                <View
+                                                    className="w-12 h-12 rounded-lg items-center justify-center"
+                                                    style={{ backgroundColor: bg }}
+                                                >
+                                                    <Text style={{ color: textColor, fontSize: 12 }}>
+                                                        {val}
+                                                    </Text>
+                                                </View>
                                             </View>
-                                        </View>
-                                    ))}
+                                        );
+                                    })}
                                 </View>
                             ))}
                         </View>
+                    </ScrollView>
+                </View>
+
+                {/* REVENUE PER SQ FT */}
+                <View className="bg-card dark:bg-cardDark p-4 rounded-2xl border border-gray-200 dark:border-gray-700 mb-4">
+                    <Text className="text-text dark:text-textDark text-base font-semibold">
+                        Revenue per Square Foot
+                    </Text>
+                    <Text className="text-secondary dark:text-secondaryDark text-xs mt-1">
+                        By property comparison
+                    </Text>
+
+                    <BarChart
+                        data={revenuePerSqFtBars}
+                        barWidth={18}
+                        spacing={12}
+                        frontColor="#2563eb"
+                        adjustToWidth
+                        initialSpacing={0}
+                        yAxisThickness={0}
+                        xAxisThickness={0}
+                        noOfSections={4}
+                        rulesColor={isDark ? "#374151" : "#e5e7eb"}
+                        className="mt-4"
+                    />
+                </View>
+
+                {/* CAPEX GROUPED BARS */}
+                <View className="bg-card dark:bg-cardDark p-4 rounded-2xl border border-gray-200 dark:border-gray-700 mb-4">
+                    <Text className="text-text dark:text-textDark text-base font-semibold">
+                        CapEx: Planned vs Actual
+                    </Text>
+                    <Text className="text-secondary dark:text-secondaryDark text-xs mt-1">
+                        Capital expenditure tracking
+                    </Text>
+
+                    <BarChart
+                        data={capexGroupedBars}
+                        barWidth={12}
+                        spacing={10}
+                        adjustToWidth
+                        initialSpacing={0}
+                        frontColor="#f59e0b"
+                        yAxisThickness={0}
+                        xAxisThickness={0}
+                        noOfSections={4}
+                        rulesColor={isDark ? "#374151" : "#e5e7eb"}
+                        className="mt-4"
+                    />
+
+                    <View className="flex-row items-center mt-3">
+                        <View className="w-3 h-3 rounded-sm bg-gray-300 dark:bg-gray-600 mr-2" />
+                        <Text className="text-secondary dark:text-secondaryDark text-xs">Planned</Text>
+
+                        <View className="w-3 h-3 rounded-sm bg-orange-500 ml-4 mr-2" />
+                        <Text className="text-secondary dark:text-secondaryDark text-xs">Actual</Text>
                     </View>
                 </View>
 
-                {/* Revenue per Square Foot - bar chart */}
-                <View style={[styles.fullCard, { borderColor: isDark ? "#2b2b2b" : "#e6e6e6", backgroundColor: isDark ? "#0f1724" : "#fff" }]}>
-                    <Text style={[styles.sectionTitle, { color: isDark ? "#fff" : "#000" }]}>Revenue per Square Foot</Text>
-                    <Text style={[styles.sectionSub, { color: isDark ? "#9CA3AF" : "#6B7280" }]}>By property comparison</Text>
+                {/* VACANCY LOSS TREND */}
+                <View className="bg-card dark:bg-cardDark p-4 rounded-2xl border border-gray-200 dark:border-gray-700 mb-4">
+                    <Text className="text-text dark:text-textDark text-base font-semibold">
+                        Vacancy Loss Trend
+                    </Text>
+                    <Text className="text-secondary dark:text-secondaryDark text-xs mt-1">
+                        Monthly loss tracking
+                    </Text>
 
-                    <View style={{ marginTop: 12 }}>
-                        <BarChart
-                            data={revenuePerSqFtBars}
-                            barWidth={28}
-                            spacing={20}
-                            yAxisThickness={0}
-                            xAxisThickness={0}
-                            frontColor="#2563eb"
-                            noOfSections={4}
-                        />
-                    </View>
+                    <LineChart
+                        data={vacancyLossTrend}
+                        curved
+                        adjustToWidth
+                        initialSpacing={0}
+                        thickness={3}
+                        yAxisThickness={0}
+                        xAxisThickness={0}
+                        rulesColor={isDark ? "#374151" : "#eee"}
+                        color1="#ef4444"
+                        startFillColor="#ef444420"
+                        endFillColor="transparent"
+                        className="mt-4"
+                    />
                 </View>
 
-                {/* CapEx Planned vs Actual (grouped bars emulation) */}
-                <View style={[styles.fullCard, { borderColor: isDark ? "#2b2b2b" : "#e6e6e6", backgroundColor: isDark ? "#0f1724" : "#fff" }]}>
-                    <Text style={[styles.sectionTitle, { color: isDark ? "#fff" : "#000" }]}>CapEx: Planned vs Actual</Text>
-                    <Text style={[styles.sectionSub, { color: isDark ? "#9CA3AF" : "#6B7280" }]}>Capital expenditure tracking</Text>
-
-                    <View style={{ marginTop: 12 }}>
-                        {/* We'll render two adjacent bars per quarter by alternating entries */}
-                        <BarChart
-                            data={capexGroupedBars}
-                            barWidth={12}
-                            spacing={10}
-                            yAxisThickness={0}
-                            xAxisThickness={0}
-                            frontColor="#f59e0b"
-                            noOfSections={4}
-                        />
-
-                        <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8 }}>
-                            <View style={{ width: 10, height: 10, backgroundColor: "#e5e7eb", borderRadius: 3, marginRight: 6 }} />
-                            <Text style={styles.legendLabel}>Planned</Text>
-
-                            <View style={{ width: 10, height: 10, backgroundColor: "#f59e0b", borderRadius: 3, marginLeft: 16, marginRight: 6 }} />
-                            <Text style={styles.legendLabel}>Actual</Text>
-                        </View>
-                    </View>
-                </View>
-
-                {/* Vacancy Loss Trend (area) */}
-                <View style={[styles.fullCard, { borderColor: isDark ? "#2b2b2b" : "#e6e6e6", backgroundColor: isDark ? "#0f1724" : "#fff" }]}>
-                    <Text style={[styles.sectionTitle, { color: isDark ? "#fff" : "#000" }]}>Vacancy Loss Trend</Text>
-                    <Text style={[styles.sectionSub, { color: isDark ? "#9CA3AF" : "#6B7280" }]}>Monthly loss tracking</Text>
-
-                    <View style={{ marginTop: 12 }}>
-                        <LineChart
-                            data={vacancyLossTrend}
-                            curved
-                            thickness={2}
-                            noOfSections={4}
-                            yAxisColor="transparent"
-                            xAxisColor="transparent"
-                            rulesColor="#eee"
-                            color1="#ef4444" // red line
-                            startFillColor={"#ef444420"}
-                            endFillColor={"transparent"}
-                        />
-                    </View>
-                </View>
-
-                {/* bottom spacing */}
-                <View style={{ height: 24 }} />
+                <View className="h-10" />
             </ScrollView>
         </SafeAreaView>
     );
 }
 
-/* =========================
-   STYLES
-   ========================= */
-
-const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-    },
-    headerRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: 8,
-        marginBottom: 12,
-    },
-    backBtn: {
-        padding: 6,
-    },
-    title: {
-        flex: 1,
-        textAlign: "center",
-        fontSize: 18,
-        fontWeight: "700",
-    },
-    gridRow: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "space-between",
-    },
-    kpiCard: {
-        width: "48%",
-        borderRadius: 16,
-        borderWidth: 1,
-        padding: 14,
-        marginBottom: 12,
-    },
-    iconBubble: {
-        width: 40,
-        height: 40,
-        borderRadius: 10,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    kpiLabel: {
-        marginTop: 10,
-        fontSize: 12,
-    },
-    kpiValueRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginTop: 6,
-    },
-    kpiValue: {
-        fontSize: 22,
-        fontWeight: "700",
-    },
-    kpiChange: {
-        fontSize: 12,
-        fontWeight: "600",
-    },
-    fullCard: {
-        borderRadius: 16,
-        borderWidth: 1,
-        padding: 14,
-        marginBottom: 12,
-        backgroundColor: "#fff",
-    },
-    fullIconRow: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    sectionTitle: {
-        fontSize: 16,
-        fontWeight: "700",
-    },
-    sectionSub: {
-        fontSize: 12,
-        marginTop: 4,
-    },
-    heatmapContainer: {
-        width: "100%",
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: "#eee",
-        padding: 8,
-    },
-    heatmapRow: {
-        flexDirection: "row",
-    },
-    heatmapCell: {
-        flex: 1,
-        borderWidth: 0.5,
-        borderColor: "#eee",
-        padding: 6,
-        alignItems: "center",
-    },
-    heatmapInner: {
-        width: 46,
-        height: 46,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 6,
-    },
-    heatmapCity: {
-        fontSize: 11,
-        color: "#6B7280",
-        transform: [{ rotate: "-12deg" }],
-    },
-    heatmapRowLabel: {
-        fontSize: 12,
-        color: "#6B7280",
-    },
-    heatmapNumber: {
-        fontSize: 12,
-        fontWeight: "700",
-        color: "#fff",
-    },
-    legendLabel: {
-        fontSize: 12,
-        color: "#6B7280",
-    },
-});
-
-/* =========================
-   DATA ARRAYS - replace with API later
-   ========================= */
-
-/* Top KPI metrics (we render first 4 as 2x2, 5th used as large single card) */
-const topMetrics: TopMetric[] = [
+/* DATA ARRAYS (same as before) */
+const topMetrics = [
     {
         id: 1,
         icon: Entypo,
@@ -376,8 +258,7 @@ const topMetrics: TopMetric[] = [
         value: "94.2%",
         label: "Portfolio Occupancy",
         change: "+2.3%",
-        sparkData: [88, 90, 92, 93, 94, 94.2],
-    } as any,
+    },
     {
         id: 2,
         icon: MaterialIcons,
@@ -386,8 +267,7 @@ const topMetrics: TopMetric[] = [
         value: "$42.8",
         label: "Revenue per Sq.Ft",
         change: "+5.1%",
-        sparkData: [38, 40, 41, 42, 42.5],
-    } as any,
+    },
     {
         id: 3,
         icon: Feather,
@@ -396,8 +276,7 @@ const topMetrics: TopMetric[] = [
         value: "$1.2M",
         label: "CapEx Utilization",
         change: "-12%",
-        sparkData: [1.1, 1.2, 1.15, 1.25],
-    } as any,
+    },
     {
         id: 4,
         icon: Ionicons,
@@ -406,8 +285,7 @@ const topMetrics: TopMetric[] = [
         value: "$89K",
         label: "Vacancy Loss",
         change: "+8.2%",
-        sparkData: [70, 85, 95, 90],
-    } as any,
+    },
     {
         id: 5,
         icon: Ionicons,
@@ -416,32 +294,27 @@ const topMetrics: TopMetric[] = [
         value: "28 Days",
         label: "Avg. Vacancy Duration",
         change: "-3 days",
-        sparkData: [30, 29, 28, 28],
-    } as any,
+    },
 ];
 
-/* Heatmap: cities and rows (values percentage occupancy) */
 const heatmapCities = ["NYC", "LA", "CHI", "MIA", "SEA"];
+
 const heatmapData = [
     { region: "Residential", values: [94, 96, 93, 91, 97] },
     { region: "Commercial", values: [88, 91, 87, 85, 92] },
     { region: "Mixed", values: [92, 89, 95, 88, 94] },
 ];
 
-/* revenue per sq ft bars */
 const revenuePerSqFtBars = [
-    { value: 42.8, label: "Property A" },
-    { value: 38.5, label: "Property B" },
-    { value: 45.2, label: "Property C" },
-    { value: 41.1, label: "Property D" },
-    { value: 39.8, label: "Property E" },
+    { value: 42.8, label: "A" },
+    { value: 38.5, label: "B" },
+    { value: 45.2, label: "C" },
+    { value: 41.1, label: "D" },
 ];
 
-/* CapEx grouped bars (we interleave planned & actual to simulate grouped bars visually) */
-/* planned: light gray, actual: orange */
 const capexGroupedBars = [
-    { value: 1.2, label: "Q1" }, // planned
-    { value: 1.0, label: "Q1" }, // actual
+    { value: 1.2, label: "Q1" },
+    { value: 1.0, label: "Q1" },
     { value: 1.5, label: "Q2" },
     { value: 1.3, label: "Q2" },
     { value: 2.0, label: "Q3" },
@@ -450,7 +323,6 @@ const capexGroupedBars = [
     { value: 1.6, label: "Q4" },
 ];
 
-/* Vacancy loss trend (line with area) */
 const vacancyLossTrend = [
     { value: 70, label: "Jan" },
     { value: 85, label: "Feb" },
@@ -460,10 +332,10 @@ const vacancyLossTrend = [
     { value: 90, label: "Jun" },
 ];
 
-/* helper to color heatmap cells (greens = high occupancy) */
+// heatmap color helper
 function heatColor(v: number) {
-    if (v >= 95) return "#16a34a"; // green
-    if (v >= 90) return "#a3e635"; // lime
-    if (v >= 85) return "#f59e0b"; // amber
-    return "#ef4444"; // red-ish
+    if (v >= 95) return "#16a34a";
+    if (v >= 90) return "#84cc16";
+    if (v >= 85) return "#f59e0b";
+    return "#ef4444";
 }
