@@ -1,15 +1,17 @@
+import useDarkMode from "@/constants/isDark";
 import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TenantHomeScreen() {
+    const isDark = useDarkMode()
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark pt-12">
             <StatusBar barStyle={"dark-content"} />
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 120 }}
+                contentContainerStyle={{ paddingBottom: 130 }}
             >
 
                 {/* Header */}
@@ -54,7 +56,7 @@ export default function TenantHomeScreen() {
                         <View className="flex-row items-center mb-4">
                             <Ionicons name="star" size={16} color="#FACC15" />
                             <Text className="ml-1 text-small text-text dark:text-textDark">4.9</Text>
-                            <Text className="text-caption text-secondary ml-1">(465 Reviews)</Text>
+                            <Text className="text-caption text-secondary dark:text-secondaryDark ml-1">(465 Reviews)</Text>
                         </View>
 
                         {/* Contact Person */}
@@ -73,10 +75,10 @@ export default function TenantHomeScreen() {
                             </View>
 
                             <TouchableOpacity className="mr-3">
-                                <Ionicons name="chatbubble-ellipses-outline" size={20} color="#000" />
+                                <Ionicons name="chatbubble-ellipses-outline" size={20} color={isDark ? "#fff" : "#000"} />
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <Ionicons name="call-outline" size={20} color="#000" />
+                                <Ionicons name="call-outline" size={20} color={isDark ? "#fff" : "#000"} />
                             </TouchableOpacity>
                         </View>
 
@@ -108,8 +110,8 @@ export default function TenantHomeScreen() {
                     </Text>
 
                     <PendingTask title="AC" progress="In Progress" />
-                    <PendingTask title="General" progress="Pending"/>
-                    <PendingTask title="General" progress="Complete"/>
+                    <PendingTask title="General" progress="Pending" />
+                    <PendingTask title="General" progress="Complete" />
                 </View>
 
             </ScrollView>
@@ -131,7 +133,7 @@ function Badge({ icon, label }: any) {
 function InfoRow({ label, value }: any) {
     return (
         <View className="mb-1 flex-row gap-2 items-center">
-            <Text className="text-caption font-semibold text-gray-400 dark:text-gray-700">{label}</Text>
+            <Text className="text-caption font-semibold text-gray-400 ">{label}</Text>
             <Text className="text-small font-medium text-text dark:text-textDark">{value}</Text>
         </View>
     );
@@ -142,7 +144,7 @@ function ServiceCard({ icon, label, onPress }: any) {
         <TouchableOpacity onPress={onPress} className="w-[30%] bg-[#E5E5E5]  rounded-xl items-center overflow-hidden pt-5 border border-gray-200 dark:border-gray-800">
             <Ionicons name={icon} size={36} color="#000" />
             <View className="w-full mt-3 py-1 bg-black items-center justify-center">
-                <Text className=" text-small font-medium text-textDark dark:text-text">{label}</Text>
+                <Text className=" text-small font-medium text-textDark ">{label}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -153,7 +155,7 @@ function PendingTask({ title, progress }: any) {
         <View className="px-5 mb-3 flex-row items-center justify-between">
             <View>
                 <Text className="text-body font-bold text-text dark:text-textDark">{title}</Text>
-            <Text className="text-small text-gray-400 font-semibold">{progress}</Text>
+                <Text className="text-small text-gray-400 font-semibold">{progress}</Text>
             </View>
             <TouchableOpacity className="px-4 py-1 rounded-full border border-gray-300 dark:border-gray-700">
                 <Text className="text-small text-text dark:text-textDark">View</Text>
