@@ -77,17 +77,9 @@ export default function LandlordHomeScreen() {
     const { colorScheme } = useColorScheme();
     const isDark = colorScheme === "dark";
 
-    const chunkTwo = <T,>(arr: T[]): T[][] => {
-        const result: T[][] = [];
-        for (let i = 0; i < arr.length; i += 2) {
-            result.push(arr.slice(i, i + 2));
-        }
-        return result;
-    };
-
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            <StatusBar barStyle={"dark-content"} />
+            <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -107,7 +99,11 @@ export default function LandlordHomeScreen() {
 
                     <View className="flex-row items-center gap-4">
                         <TouchableOpacity onPress={() => router.push("/(tenant)/notification")}>
-                            <Octicons name="bell-fill" size={24} color="#A1A1A1" />
+                            <Octicons
+                                name="bell-fill"
+                                size={24}
+                                color={isDark ? "#fff" : "#A1A1A1"}
+                            />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => router.push("/(landlord)/lease-documents")}>
                             <Image source={IconConstants.Resume} className="size-8" />
@@ -122,12 +118,17 @@ export default function LandlordHomeScreen() {
                     keyExtractor={(_, index) => index.toString()}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ gap: 12, paddingVertical: 10 }}
-                    renderItem={({ item }) => <StatCard {...item} />}
+                    renderItem={({ item }) => <StatCard {...item} isDark={isDark} />}
                 />
 
                 {/* MY TENANT */}
                 <View className="bg-card dark:bg-cardDark px-4 rounded-2xl">
-                    <SectionHeader title="My Tenant" seeAll onPress={() => router.push("/(landlord)/my-tenant")} />
+                    <SectionHeader
+                        title="My Tenant"
+                        seeAll
+                        onPress={() => router.push("/(landlord)/my-tenant")}
+                    />
+
                     <View className="mt-3 mb-6">
                         {tenantList.map((t, idx) => (
                             <TenantItem key={idx} {...t} />
@@ -136,97 +137,59 @@ export default function LandlordHomeScreen() {
                 </View>
 
                 {/* RECENT APPLICATIONS */}
-                <View className="bg-card pb-4 dark:bg-cardDark px-4 rounded-2xl mt-5">
+                <View className="bg-card dark:bg-cardDark pb-4 px-4 rounded-2xl mt-5">
                     <SectionHeader
                         title="Recent Applications"
                         onPress={() => router.push("/(landlord)/my-listing")}
-                        seeAll={true}
+                        seeAll
                     />
 
                     <View className="mt-4">
-                        {/* Row 1 */}
                         <View className="flex-row justify-between mb-4 gap-2">
-                            <TouchableOpacity className="">
-                                <PropertyCard {...properties[0]} />
-                            </TouchableOpacity>
-
-                            {properties[1] && (
-                                <TouchableOpacity className="">
-                                    <PropertyCard {...properties[1]} />
-                                </TouchableOpacity>
-                            )}
+                            {properties[0] && <PropertyCard {...properties[0]} />}
+                            {properties[1] && <PropertyCard {...properties[1]} />}
                         </View>
 
-                        {/* Row 2 */}
                         <View className="flex-row justify-between">
-                            {properties[2] && (
-                                <TouchableOpacity className="">
-                                    <PropertyCard {...properties[2]} />
-                                </TouchableOpacity>
-                            )}
-
-                            {properties[3] && (
-                                <TouchableOpacity className="">
-                                    <PropertyCard {...properties[3]} />
-                                </TouchableOpacity>
-                            )}
+                            {properties[2] && <PropertyCard {...properties[2]} />}
+                            {properties[3] && <PropertyCard {...properties[3]} />}
                         </View>
                     </View>
                 </View>
-
-
 
                 {/* SERVICE REQUESTS */}
                 <View className="bg-card dark:bg-cardDark px-4 rounded-2xl mt-5 pb-4">
                     <SectionHeader
                         title="Service Requests"
                         onPress={() => router.push("/(landlord)/all-services")}
-                        seeAll={true}
+                        seeAll
                     />
 
                     <View className="mt-4">
-                        {/* Row 1 */}
                         <View className="flex-row justify-between mb-4">
-                            <TouchableOpacity className="">
-                                <ServiceCard {...services[0]} />
-                            </TouchableOpacity>
-
-                            {services[1] && (
-                                <TouchableOpacity className="">
-                                    <ServiceCard {...services[1]} />
-                                </TouchableOpacity>
-                            )}
+                            {services[0] && <ServiceCard {...services[0]} />}
+                            {services[1] && <ServiceCard {...services[1]} />}
                         </View>
 
-                        {/* Row 2 */}
                         <View className="flex-row justify-between">
-                            {services[2] && (
-                                <TouchableOpacity className="">
-                                    <ServiceCard {...services[2]} />
-                                </TouchableOpacity>
-                            )}
-
-                            {services[3] && (
-                                <TouchableOpacity className="">
-                                    <ServiceCard {...services[3]} />
-                                </TouchableOpacity>
-                            )}
+                            {services[2] && <ServiceCard {...services[2]} />}
+                            {services[3] && <ServiceCard {...services[3]} />}
                         </View>
                     </View>
                 </View>
 
-
-
                 {/* UPDATES */}
-                <View className="bg-card dark:bg-cardDark px-2 rounded-2xl mt-5">
-                    <Text className="text-title text-center mt-4">Updates & Tips</Text>
+                <View className="bg-card dark:bg-cardDark px-2 rounded-2xl mt-5 mb-10">
+                    <Text className="text-title text-center mt-4 text-text dark:text-textDark">
+                        Updates & Tips
+                    </Text>
+
                     <View className="bg-card dark:bg-cardDark p-2 rounded-2xl mt-3">
                         {updates.map((u, idx) => (
                             <UpdateItem key={idx} {...u} />
                         ))}
                     </View>
                 </View>
-
             </ScrollView>
         </SafeAreaView>
     );
@@ -236,31 +199,28 @@ export default function LandlordHomeScreen() {
 // COMPONENTS
 //
 
-const StatCard = ({ icon, value, label }: StatCardProps) => (
+const StatCard = ({ icon, value, label, isDark }: StatCardProps & { isDark: boolean }) => (
     <View className="bg-card dark:bg-cardDark p-3 rounded-2xl w-40 items-start">
         <Image
             source={icon}
             className="w-10 h-10 mb-2"
             resizeMode="contain"
+            style={{ tintColor: isDark ? "#fff" : "#000" }}
         />
 
-        <Text className="text-title text-text dark:text-textDark">
-            {value}
-        </Text>
-
-        <Text className="text-small text-secondary dark:text-secondaryDark text-start">
-            {label}
-        </Text>
+        <Text className="text-title text-text dark:text-textDark">{value}</Text>
+        <Text className="text-small text-secondary dark:text-secondaryDark">{label}</Text>
     </View>
 );
 
 const TenantItem = ({ name, due, next }: TenantItemProps) => (
-    <TouchableOpacity onPress={() => router.push("/(landlord)/tenant-info")} className="bg-[#E5E5E5] p-4 rounded-xl mb-3 flex-row items-center gap-4">
-        <View className="w-12 h-12 rounded-lg bg-gray-400" />
+    <TouchableOpacity
+        onPress={() => router.push("/(landlord)/tenant-info")}
+        className="bg-[#E5E5E5] dark:bg-[#2A2A2A] p-4 rounded-xl mb-3 flex-row items-center gap-4"
+    >
+        <View className="w-12 h-12 rounded-lg bg-gray-400 dark:bg-gray-600" />
         <View>
-            <Text className="text-body font-semibold text-text dark:text-textDark">
-                {name}
-            </Text>
+            <Text className="text-body font-semibold text-text dark:text-textDark">{name}</Text>
             <Text className="text-caption text-secondary dark:text-secondaryDark">
                 Due Payment : {due}
             </Text>
@@ -271,46 +231,38 @@ const TenantItem = ({ name, due, next }: TenantItemProps) => (
     </TouchableOpacity>
 );
 
-const PropertyCard = ({
-    title,
-    price,
-    image,
-    location,
-    person,
-    status,
-}: PropertyCardProps) => (
+const PropertyCard = ({ title, price, image, location, person, status }: PropertyCardProps) => (
     <View className="w-40 rounded-2xl overflow-hidden pt-24 relative">
         <Image source={{ uri: image }} className="w-full h-28 absolute top-0" />
 
         <View className="py-1 px-3 rounded-lg bg-black/30 absolute top-2 right-2">
-            <Text className={`text-xs ${status == "Viewing" ? "text-yellow-500" : "text-green-500"} font-semibold`}>
+            <Text
+                className={`text-xs ${status === "Viewing" ? "text-yellow-500" : "text-green-500"
+                    } font-semibold`}
+            >
                 {status}
             </Text>
         </View>
 
-        <View className="bg-[#E5E5E5] p-3 rounded-t-2xl">
+        <View className="bg-[#E5E5E5] dark:bg-[#2A2A2A] p-3 rounded-t-2xl">
             <Text className="text-body font-semibold text-text dark:text-textDark">{title}</Text>
             <Text className="text-small font-semibold text-text dark:text-textDark">{price}</Text>
-            <Text className="text-caption text-secondary dark:text-secondaryDark mt-1">{location}</Text>
+            <Text className="text-caption text-secondary dark:text-secondaryDark mt-1">
+                {location}
+            </Text>
             <Text className="text-caption text-secondary dark:text-secondaryDark">{person}</Text>
         </View>
     </View>
 );
 
-const ServiceCard = ({
-    title,
-    urgency,
-    person,
-    location,
-    image,
-}: ServiceCardProps) => (
+const ServiceCard = ({ title, urgency, person, location, image }: ServiceCardProps) => (
     <View className="w-40 rounded-2xl overflow-hidden pt-24 relative">
         <Image source={{ uri: image }} className="w-full h-28 absolute top-0" />
 
         <View
             className={`absolute right-3 top-3 px-2 py-1 rounded-full ${urgency === "High"
-                ? "bg-red-500"
-                : urgency === "Normal"
+                    ? "bg-red-500"
+                    : urgency === "Normal"
                     ? "bg-yellow-500"
                     : "bg-green-500"
                 }`}
@@ -318,7 +270,7 @@ const ServiceCard = ({
             <Text className="text-caption text-white">{urgency}</Text>
         </View>
 
-        <View className="bg-[#E5E5E5] p-3 rounded-t-2xl">
+        <View className="bg-[#E5E5E5] dark:bg-[#2A2A2A] p-3 rounded-t-2xl">
             <Text className="text-body font-semibold text-text dark:text-textDark">{title}</Text>
             <Text className="text-small text-secondary dark:text-secondaryDark">{location}</Text>
             <Text className="text-caption text-secondary dark:text-secondaryDark">{person}</Text>
@@ -326,16 +278,8 @@ const ServiceCard = ({
     </View>
 );
 
-const UpdateItem = ({
-    icon,
-    title,
-    msg,
-    date,
-    bg,
-    color,
-}: UpdateItemProps) => (
-    <View className="flex-row items-center mb-4 bg-[#e5e5e5] p-2
-     rounded-lg">
+const UpdateItem = ({ icon, title, msg, date, bg, color }: UpdateItemProps) => (
+    <View className="flex-row items-center mb-4 bg-[#E5E5E5] dark:bg-[#2A2A2A] p-2 rounded-lg">
         <View className={`p-5 rounded-xl items-center justify-center ${bg}`}>
             <Ionicons name={icon} size={22} color={color} />
         </View>
@@ -351,19 +295,20 @@ const UpdateItem = ({
 const SectionHeader = ({
     title,
     onPress,
-    seeAll
+    seeAll,
 }: {
     title: string;
         onPress?: () => void;
-        seeAll?: boolean
+        seeAll?: boolean;
 }) => (
     <View className="flex-row justify-between items-center mt-6">
         <Text className="text-subtitle font-bold text-text dark:text-textDark">{title}</Text>
-        {
-            seeAll && <TouchableOpacity onPress={onPress}>
+
+        {seeAll && (
+            <TouchableOpacity onPress={onPress}>
                 <Text className="text-small text-secondary dark:text-secondaryDark">See All</Text>
             </TouchableOpacity>
-        }
+        )}
     </View>
 );
 

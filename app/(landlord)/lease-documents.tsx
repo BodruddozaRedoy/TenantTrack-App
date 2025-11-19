@@ -74,7 +74,7 @@ export default function LeaseDocumentsScreen() {
                         {/* BUTTONS */}
                         <View className="flex-row justify-between mt-5">
                             <TouchableOpacity className="bg-primary dark:bg-primaryDark py-3 rounded-full w-[48%] items-center">
-                                <Text className="text-white font-semibold">View</Text>
+                                <Text className="text-white dark:text-text font-semibold">View</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity className="border border-gray-300 dark:border-gray-600 py-3 rounded-full w-[48%] items-center">
