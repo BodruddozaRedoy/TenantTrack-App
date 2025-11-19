@@ -237,7 +237,7 @@ export default function LandlordHomeScreen() {
 //
 
 const StatCard = ({ icon, value, label }: StatCardProps) => (
-    <View className="bg-card dark:bg-cardDark p-5 rounded-2xl w-36 items-center">
+    <View className="bg-card dark:bg-cardDark p-3 rounded-2xl w-40 items-start">
         <Image
             source={icon}
             className="w-10 h-10 mb-2"
@@ -248,7 +248,7 @@ const StatCard = ({ icon, value, label }: StatCardProps) => (
             {value}
         </Text>
 
-        <Text className="text-small text-secondary dark:text-secondaryDark text-center">
+        <Text className="text-small text-secondary dark:text-secondaryDark text-start">
             {label}
         </Text>
     </View>
