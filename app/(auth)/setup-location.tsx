@@ -5,10 +5,10 @@ import * as Location from "expo-location";
 import { router } from "expo-router";
 import React from "react";
 import {
-    Alert,
-    Image,
-    Text,
-    View
+  Alert,
+  Image,
+  Text,
+  View
 } from "react-native";
 
 export default function SetLocationScreen() {
@@ -69,7 +69,7 @@ export default function SetLocationScreen() {
       />
 
       {/* Manual Button */}
-      <SecondaryButton className="mt-5 w-full" onPress={handleManual} title="Set Manually"/>
+      <SecondaryButton className="mt-5" onPress={handleManual} title="Set Manually" />
     </View>
   );
 }
