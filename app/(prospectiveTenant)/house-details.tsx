@@ -30,6 +30,7 @@ const PHOTOS = [
 
 export default function HouseDetailScreen() {
 
+
     const [showOwner, setShowOwner] = useState(false);
 
     return (

@@ -4,7 +4,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Octicons from '@expo/vector-icons/Octicons';
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { FlatList, Image, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, useColorScheme, View } from "react-native";
 
 const TYPES = [
     { id: "house", label: "House" },
@@ -34,6 +34,8 @@ const FEATURED = [
 
 export default function HomeScreen() {
     const [selected, setSelected] = useState("house");
+    const color = useColorScheme()
+    const isDark = color === "dark"
 
 
     return (
