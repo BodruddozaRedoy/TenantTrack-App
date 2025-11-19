@@ -8,8 +8,7 @@ import {
     ScrollView,
     StatusBar,
     Text,
-    TouchableOpacity,
-    View,
+    View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -36,37 +35,26 @@ export default function AllServicesScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            <StatusBar barStyle={"dark-content"} />
+            <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
 
             <ScrollView
-                className=""
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 50 }}
             >
                 {/* Header */}
-                <PageTitle text="All Services" leftIcon leftOnPress={() => router.back()}/>
+                <PageTitle text="All Services" leftIcon leftOnPress={() => router.back()} />
                 <View className="border-b border-gray-200 dark:border-gray-700" />
 
-
-                {/* Section Title */}
-                <View className="flex-row justify-between items-center mt-7 mx-5">
-                    <Text className="text-subtitle font-bold text-text dark:text-textDark">
-                        Total Services
-                    </Text>
-
-                    <TouchableOpacity onPress={() => { }}>
-                        <Text className="text-small text-secondary dark:text-secondaryDark">
-                            See All
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-
-                {/* Property Grid */}
+                {/* Grid */}
                 <FlatList
                     data={listingData}
                     numColumns={2}
                     scrollEnabled={false}
-                    columnWrapperStyle={{ justifyContent: "space-between", marginTop: 16, marginHorizontal: 16 }}
+                    columnWrapperStyle={{
+                        justifyContent: "space-between",
+                        marginTop: 16,
+                        marginHorizontal: 16,
+                    }}
                     keyExtractor={(_, index) => index.toString()}
                     renderItem={({ item }) => (
                         <View className="w-[48%] mb-5">
@@ -89,38 +77,57 @@ const ListingCard = ({
     status,
     location,
     person,
-    price
+    price,
 }: PropertyCardProps) => {
-
-
     return (
         <View className="w-44 rounded-2xl overflow-hidden pt-24 relative">
+            {/* Image */}
             <Image source={{ uri: image }} className="w-full h-28 absolute top-0" />
 
-            <View className="py-1 px-3 rounded-lg bg-black/30 absolute top-2 right-2">
-                <Text className={`text-xs ${status == "Normal" && "text-yellow-500"} ${status == "Low" && "text-green-500"} ${status == "High" && "text-red-500"} font-semibold`}>
+            {/* Status Tag */}
+            <View className="py-1 px-3 rounded-lg bg-black/40 absolute top-2 right-2">
+                <Text
+                    className={`text-xs font-semibold
+                    ${status === "Normal" ? "text-yellow-500" : ""}
+                    ${status === "Low" ? "text-green-500" : ""}
+                    ${status === "High" ? "text-red-500" : ""}
+                `}
+                >
                     {status}
                 </Text>
             </View>
 
-            <View className="bg-[#E5E5E5] p-3 rounded-t-2xl">
-                <Text className="text-body font-semibold text-text dark:text-textDark">{title}</Text>
-                <Text className="text-small font-semibold text-text dark:text-textDark">{price}</Text>
-                <Text className="text-caption text-secondary dark:text-secondaryDark mt-1">{location}</Text>
-                <Text className="text-caption text-secondary dark:text-secondaryDark">{person}</Text>
+            {/* Card Body */}
+            <View className="bg-[#E5E5E5] dark:bg-[#2A2A2A] p-3 rounded-t-2xl">
+                <Text className="text-body font-semibold text-text dark:text-textDark">
+                    {title}
+                </Text>
+
+                <Text className="text-small font-semibold text-text dark:text-textDark">
+                    SAR {price}
+                </Text>
+
+                <Text className="text-caption text-secondary dark:text-secondaryDark mt-1">
+                    {location}
+                </Text>
+
+                <Text className="text-caption text-secondary dark:text-secondaryDark">
+                    {person}
+                </Text>
             </View>
         </View>
     );
 };
 
 //
-// DATA (Example)
+// DATA
 //
 
 const listingData: PropertyCardProps[] = [
     {
         title: "House 5454",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        image:
+            "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
         status: "High",
         location: "Modern Apartment",
         person: "Sarah Abdullah",
@@ -128,7 +135,8 @@ const listingData: PropertyCardProps[] = [
     },
     {
         title: "House 5454",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        image:
+            "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
         status: "Low",
         location: "Modern Apartment",
         person: "Sarah Abdullah",
@@ -136,7 +144,8 @@ const listingData: PropertyCardProps[] = [
     },
     {
         title: "House 5454",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        image:
+            "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
         status: "Normal",
         location: "Modern Apartment",
         person: "Sarah Abdullah",
@@ -144,7 +153,8 @@ const listingData: PropertyCardProps[] = [
     },
     {
         title: "House 5454",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        image:
+            "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
         status: "Low",
         location: "Modern Apartment",
         person: "Sarah Abdullah",
