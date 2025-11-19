@@ -250,7 +250,7 @@ export default function AnalyticsDashboard() {
                         Tenant Experience
                     </Text>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => router.push("/(landlord)/tenantDashboard")}>
                         <Text className="text-small text-secondary dark:text-secondaryDark">
                             See more
                         </Text>
@@ -302,7 +302,7 @@ export default function AnalyticsDashboard() {
                     <Text className="text-subtitle font-semibold text-text dark:text-textDark">
                         Portfolio Overview
                     </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => router.push("/(landlord)/portfolio-dashboard")}>
                         <Text className="text-small text-secondary dark:text-secondaryDark">
                             See more
                         </Text>
