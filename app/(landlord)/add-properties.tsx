@@ -370,15 +370,15 @@ export default function AddPropertyScreen() {
             {propertyData.photoUri ? (
               <Image source={{ uri: propertyData.photoUri }} className="w-full h-full" style={{ resizeMode: "cover" }} />
             ) : (
-              <View className="items-center">
+                <TouchableOpacity onPress={takePhoto} className="items-center">
                 <Ionicons name="camera" size={36} color="#ffffffb3" />
                 <Text className="text-body text-white/80 mt-2">Upload Photo</Text>
                 <View className="flex-row mt-2">
-                  <TouchableOpacity onPress={takePhoto} className="px-3 py-2 bg-black/20 rounded-md mr-2">
+                    {/* <TouchableOpacity onPress={takePhoto} className="px-3 py-2 bg-black/20 rounded-md mr-2">
                     <Text className="text-sm text-white">Take</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
+                  </TouchableOpacity> */}
+                  </View>
+                </TouchableOpacity>
             )}
           </TouchableOpacity>
         </View>
