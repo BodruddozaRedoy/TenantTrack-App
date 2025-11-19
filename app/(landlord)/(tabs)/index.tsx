@@ -109,7 +109,7 @@ export default function LandlordHomeScreen() {
                         <TouchableOpacity onPress={() => router.push("/(tenant)/notification")}>
                             <Octicons name="bell-fill" size={24} color="#A1A1A1" />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/my-application")}>
+                        <TouchableOpacity onPress={() => router.push("/(landlord)/lease-documents")}>
                             <Image source={IconConstants.Resume} className="size-8" />
                         </TouchableOpacity>
                     </View>
