@@ -123,7 +123,7 @@ export default function ConfirmLocationScreen() {
         if (!pos) {
             pos = await Location.getCurrentPositionAsync({
                 accuracy: Location.Accuracy.Balanced,
-                timeout: 7000,
+                // timeout: 7000,
             });
         }
 
@@ -319,13 +319,13 @@ export default function ConfirmLocationScreen() {
                             </View>
 
                             {/* Suggestions only */}
-                            <View className="flex-1">
+                            <View className="h-auto">
                                 {suggestions.length > 0 ? (
                                     <FlatList
                                         data={suggestions}
                                         keyExtractor={(item) => item.place_id}
                                         keyboardShouldPersistTaps="handled"
-                                        className="rounded-xl bg-card dark:bg-cardDark border border-gray-300 dark:border-gray-700"
+                                        className="rounded-xl bg-card dark:bg-cardDark border border-gray-200 dark:border-gray-700"
                                         renderItem={({ item }) => (
                                             <TouchableOpacity
                                                 className="p-3 border-b border-gray-200 dark:border-gray-700"

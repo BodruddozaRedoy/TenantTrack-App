@@ -3,7 +3,7 @@ import PrimaryButton from "@/components/common/PrimaryButton";
 import { IconConstants } from "@/constants/icons.constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -56,14 +56,34 @@ const TYPES = [
 
 export default function RealEstateTypeScreen() {
   const [selected, setSelected] = useState<string | null>(null);
+  const [role, setRole] = useState<null | string>("")
+
+  useEffect(() => {
+    const fetchStorage = async () => {
+      try {
+        const role: string | null = await AsyncStorage.getItem("role")
+        setRole(role)
+        console.log(role)
+      } catch (error) {
+        console.log(error)
+        toast.error("Cant fetch storage!")
+      } finally {
+      }
+    }
+    fetchStorage()
+  }, [])
 
   const handleContinue = async () => {
     try {
       if (!selected) return toast.error('Please select a type!!');
       await AsyncStorage.setItem("real-estate-type", selected)
-      router.push("/");
-    } catch {
-      // Error handling if needed
+      if (role === "prospective") return router.push("/(prospectiveTenant)/(tabs)")
+      if (role === "tenant") return router.push("/(tenant)/(tabs)")
+      if (role === "landlord") return router.push("/(landlord)/(tabs)")
+      if (role === "agent") return router.push("/(landlord)/(tabs)")
+
+    } catch (err) {
+      console.log(err)
     }
   }
 

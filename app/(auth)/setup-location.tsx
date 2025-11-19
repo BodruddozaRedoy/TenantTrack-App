@@ -41,7 +41,7 @@ export default function SetLocationScreen() {
   return (
     <View className="flex-1 bg-background dark:bg-backgroundDark px-6 pt-14">
       {/* Back Button */}
-      <PageTitle text="" leftIcon={true}/>
+      <PageTitle text="" leftIcon={true} leftOnPress={() => router.back()} />
 
       {/* Illustration */}
       <View className="items-center mt-20 mb-8">
