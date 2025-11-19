@@ -285,7 +285,7 @@ export default function AddManualDashboardScreen() {
                     onPress={() => (step === steps.length - 1 ? onComplete() : setStep(step + 1))}
                     className="bg-primary dark:bg-primaryDark rounded-full px-6 py-3 ml-auto"
                 >
-                    <Text className="text-white font-semibold">
+                    <Text className="text-white dark:text-text font-semibold">
                         {step === steps.length - 1 ? "Complete" : "Next Step"}
                     </Text>
                 </TouchableOpacity>
