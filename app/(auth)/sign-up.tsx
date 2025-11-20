@@ -2,14 +2,14 @@ import PrimaryButton from "@/components/common/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
-import { Image, Keyboard, Platform, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Image, Keyboard, Platform, StatusBar, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 
 export default function SignupScreen() {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View className="flex-1 bg-background dark:bg-backgroundDark">
-
+                <StatusBar barStyle={"light-content"} />
                 <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                     style={{ flex: 1 }}
