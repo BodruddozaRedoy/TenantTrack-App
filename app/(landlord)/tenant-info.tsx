@@ -53,7 +53,7 @@ export default function TenantInfoScreen() {
             >
                 {/* Top Section with Cover Image */}
                 <View className="relative">
-                    
+
                     {/* Back button */}
                     <TouchableOpacity
                         onPress={() => router.back()}
@@ -104,20 +104,74 @@ export default function TenantInfoScreen() {
                 {/* Spacer below floating card */}
                 <View className="h-16" />
 
-                {/* Listed Properties */}
+
+                {/* Tenant Details Section */}
                 <View className="bg-card dark:bg-cardDark mx-4 p-4 rounded-2xl mt-2">
                     <Text className="text-subtitle font-bold mb-3 text-text dark:text-textDark">
-                        Listed Properties
+                        Tenant Details
                     </Text>
 
-                    <View className="flex-row justify-between flex-wrap">
-                        {properties.slice(0, 4).map((p, index) => (
-                            <View key={index} className="w-[48%] mb-4">
-                                <PropertyCard {...p} />
-                            </View>
-                        ))}
+                    <View className="space-y-4">
+
+                        {/* Phone */}
+                        <View className="flex-row items-center justify-between">
+                            <Text className="text-small text-secondary dark:text-secondaryDark">Phone</Text>
+                            <Text className="text-small font-semibold text-text dark:text-textDark">
+                                +966 55 123 4567
+                            </Text>
+                        </View>
+
+                        {/* Email */}
+                        <View className="flex-row items-center justify-between">
+                            <Text className="text-small text-secondary dark:text-secondaryDark">Email</Text>
+                            <Text className="text-small font-semibold text-text dark:text-textDark">
+                                alif@example.com
+                            </Text>
+                        </View>
+
+                        {/* Gender */}
+                        <View className="flex-row items-center justify-between">
+                            <Text className="text-small text-secondary dark:text-secondaryDark">Gender</Text>
+                            <Text className="text-small font-semibold text-text dark:text-textDark">
+                                Male
+                            </Text>
+                        </View>
+
+                        {/* Marital Status */}
+                        <View className="flex-row items-center justify-between">
+                            <Text className="text-small text-secondary dark:text-secondaryDark">Marital Status</Text>
+                            <Text className="text-small font-semibold text-text dark:text-textDark">
+                                Single
+                            </Text>
+                        </View>
+
+                        {/* National ID */}
+                        <View className="flex-row items-center justify-between">
+                            <Text className="text-small text-secondary dark:text-secondaryDark">National ID</Text>
+                            <Text className="text-small font-semibold text-text dark:text-textDark">
+                                1234567890
+                            </Text>
+                        </View>
+
+                        {/* Occupation */}
+                        <View className="flex-row items-center justify-between">
+                            <Text className="text-small text-secondary dark:text-secondaryDark">Occupation</Text>
+                            <Text className="text-small font-semibold text-text dark:text-textDark">
+                                Software Engineer
+                            </Text>
+                        </View>
+
+                        {/* Salary */}
+                        <View className="flex-row items-center justify-between">
+                            <Text className="text-small text-secondary dark:text-secondaryDark">Salary</Text>
+                            <Text className="text-small font-semibold text-text dark:text-textDark">
+                                SAR 12,500 / month
+                            </Text>
+                        </View>
+
                     </View>
                 </View>
+
             </ScrollView>
         </View>
     );

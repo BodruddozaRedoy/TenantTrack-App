@@ -8,10 +8,9 @@ import {
     FlatList,
     Image,
     ScrollView,
-    StatusBar,
     Text,
     TouchableOpacity,
-    View,
+    View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -190,7 +189,6 @@ export default function LandlordHomeScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            {/* <StatusBar barStyle={isDark ? "light-content" : "dark-content"} /> */}
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -216,7 +214,7 @@ export default function LandlordHomeScreen() {
                                 color={isDark ? "#fff" : "#A1A1A1"}
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => router.push("/(landlord)/lease-documents")}>
+                        <TouchableOpacity onPress={() => router.push("/(landlord)/my-listing")}>
                             <Image source={IconConstants.Resume} className="size-8" />
                         </TouchableOpacity>
                     </View>
@@ -251,7 +249,7 @@ export default function LandlordHomeScreen() {
                 <View className="bg-card dark:bg-cardDark pb-4 px-4 rounded-2xl mt-5">
                     <SectionHeader
                         title={t('recent_applications')}
-                        onPress={() => router.push("/(landlord)/my-listing")}
+                        onPress={() => router.push("/(landlord)/my-applications")}
                         seeAll
                     />
 
