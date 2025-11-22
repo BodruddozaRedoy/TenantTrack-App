@@ -10,7 +10,7 @@ export default function RegistrationScreen() {
 
     return (
         <View className="flex-1 bg-background dark:bg-backgroundDark">
-            <StatusBar barStyle={"light-content"} />
+            {/* <StatusBar barStyle={"light-content"} /> */}
             {/* Container */}
             <View className="flex-1">
 

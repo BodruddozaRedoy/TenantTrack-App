@@ -32,7 +32,7 @@ export default function ChatScreen() {
   const { t } = useTranslation();
   return (
     <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark  pt-2">
-      <StatusBar barStyle={"dark-content"} />
+      {/* <StatusBar barStyle={"dark-content"} /> */}
       {/* Page Title */}
       <PageTitle text={t("chat")} />
 

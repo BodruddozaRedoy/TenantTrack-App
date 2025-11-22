@@ -5,7 +5,7 @@ import { clsx } from "clsx";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, ScrollView, StatusBar, Text, TouchableOpacity, useColorScheme, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Role {
@@ -39,11 +39,11 @@ export default function WelcomeScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background  dark:bg-backgroundDark relative">
       <ScrollView className="px-6 pt-20">
-        <StatusBar
+        {/* <StatusBar
           barStyle={theme === "dark" ? "light-content" : "dark-content"}
           backgroundColor="transparent"
           translucent
-        />
+        /> */}
 
         {/* Emoji */}
         <View className="items-center mb-6">

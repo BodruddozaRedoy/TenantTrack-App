@@ -22,7 +22,7 @@ export default function RentScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            <StatusBar barStyle={"dark-content"} />
+            {/* <StatusBar barStyle={"dark-content"} /> */}
             {/* Header */}
             <PageTitle text={t('pay_rent')} />
             <View className="mb-5 border-b border-gray-200 dark:border-gray-700" />

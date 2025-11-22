@@ -35,7 +35,7 @@ export default function HouseDetailScreen() {
 
     return (
         <View className="flex-1 bg-background dark:bg-backgroundDark">
-            <StatusBar barStyle="dark-content" />
+            {/* <StatusBar barStyle="dark-content" /> */}
 
             {/* Top image + overlaid header buttons */}
             <View className="w-full h-80 bg-gray-200">

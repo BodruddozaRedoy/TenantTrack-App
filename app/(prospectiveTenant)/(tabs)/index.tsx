@@ -45,7 +45,7 @@ export default function HomeScreen() {
             className="flex-1 bg-background dark:bg-backgroundDark pt-14"
             showsVerticalScrollIndicator={false}
         >
-            <StatusBar barStyle={"dark-content"} />
+            {/* <StatusBar barStyle={"dark-content"} /> */}
             {/* Header */}
             <View className="flex-row justify-between items-center mb-8 mt-4 px-5">
                 <Text className="text-title text-start font-bold text-text dark:text-textDark">

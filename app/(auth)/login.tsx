@@ -53,7 +53,7 @@ export default function LoginScreen() {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View className="flex-1 bg-background dark:bg-backgroundDark">
-                <StatusBar barStyle={"light-content"} />
+                {/* <StatusBar barStyle={"light-content"} /> */}
                 {/* Wrap entire page inside KeyboardAvoidingView */}
                 <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}

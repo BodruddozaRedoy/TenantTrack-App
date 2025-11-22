@@ -23,7 +23,7 @@ export default function SignUpScreen() {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View className="flex-1 bg-background dark:bg-backgroundDark">
-                <StatusBar barStyle="dark-content" />
+                {/* <StatusBar barStyle="dark-content" /> */}
                 <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                     keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}

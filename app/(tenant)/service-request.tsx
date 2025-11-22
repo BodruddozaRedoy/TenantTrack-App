@@ -20,7 +20,7 @@ export default function ServiceRequestsScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            <StatusBar barStyle={"dark-content"} />
+            {/* <StatusBar barStyle={"dark-content"} /> */}
 
             {/* Header */}
             <PageTitle text="Service Requests" />

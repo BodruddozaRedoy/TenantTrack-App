@@ -70,7 +70,7 @@ export default function AnalyticalDashboard() {
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
+            {/* <StatusBar barStyle={isDark ? "light-content" : "dark-content"} /> */}
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }}

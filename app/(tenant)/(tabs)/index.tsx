@@ -11,7 +11,7 @@ export default function TenantHomeScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark pt-12">
-            <StatusBar barStyle={"dark-content"} />
+            {/* <StatusBar barStyle={"dark-content"} /> */}
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 130 }}
