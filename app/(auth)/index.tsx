@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { clsx } from "clsx";
 import { router } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Image, ScrollView, StatusBar, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -16,12 +17,13 @@ interface Role {
 export default function WelcomeScreen() {
   const [selected, setSelected] = useState<string>("prospective");
   const theme = useColorScheme();
+  const { t } = useTranslation();
 
   const roles: Role[] = [
-    { id: "prospective", title: "Prospective Tenant", subtitle: "Looking for a place to rent" },
-    { id: "tenant", title: "Tenant", subtitle: "Already renting a property" },
-    { id: "landlord", title: "Landlord", subtitle: "Property Owner" },
-    { id: "agent", title: "Agent", subtitle: "Property management agent" },
+    { id: "prospective", title: "prospective_tenant", subtitle: "looking_for_rent" },
+    { id: "tenant", title: "tenant", subtitle: "already_renting" },
+    { id: "landlord", title: "landlord", subtitle: "property_owner" },
+    { id: "agent", title: "agent", subtitle: "property_management_agent" },
   ];
 
   const handleNext = async () => {
@@ -54,12 +56,12 @@ export default function WelcomeScreen() {
 
         {/* Title */}
         <Text className="text-headline text-center text-text dark:text-textDark mb-2">
-          Welcome to WAJ
+          {t('welcome')}
         </Text>
 
         {/* Subtitle */}
         <Text className="text-body text-center text-secondary dark:text-secondaryDark mb-8">
-          To personalize your experience, may I know who you are?
+          {t('select_role')}
         </Text>
 
         {/* Role Options */}
@@ -90,13 +92,13 @@ export default function WelcomeScreen() {
                 <View className="flex-row justify-between items-center">
                   <View>
                     <Text className="text-body font-semibold text-text dark:text-textDark">
-                      {item.title}
+                      {t(item.title)}
                     </Text>
 
                     {/* Show subtitle only for the selected item */}
                     {isSelected && item.subtitle && (
                       <Text className="text-small text-secondary dark:text-secondaryDark mt-1">
-                        {item.subtitle}
+                        {t(item.subtitle)}
                       </Text>
                     )}
                   </View>
@@ -123,7 +125,7 @@ export default function WelcomeScreen() {
         {/* NEXT BUTTON */}
         <View className="mt-10 mb-10">
           <PrimaryButton
-            title="Next"
+            title={t('next')}
             onPress={handleNext}
           />
         </View>

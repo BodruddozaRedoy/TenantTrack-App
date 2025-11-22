@@ -4,6 +4,7 @@ import { IconConstants } from "@/constants/icons.constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Image,
   ScrollView,
@@ -17,37 +18,37 @@ import { toast } from "sonner-native";
 const TYPES = [
   {
     id: "house",
-    label: "House",
+    label: "house",
     image:
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&w=800&q=80",
   },
   {
     id: "villa",
-    label: "Villa",
+    label: "villa",
     image:
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&w=800&q=80",
   },
   {
     id: "apartment",
-    label: "Apartment",
+    label: "apartment",
     image:
       "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&w=800&q=80",
   },
   {
     id: "workspace",
-    label: "Workspace",
+    label: "workspace",
     image:
       "https://images.unsplash.com/photo-1483058712412-4245e9b90334?auto=format&w=800&q=80",
   },
   {
     id: "cabin",
-    label: "Cabin",
+    label: "cabin",
     image:
       "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&w=800&q=80",
   },
   {
     id: "cluster",
-    label: "Cluster",
+    label: "cluster",
     image:
       "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&w=800&q=80",
   },
@@ -57,6 +58,7 @@ const TYPES = [
 export default function RealEstateTypeScreen() {
   const [selected, setSelected] = useState<string | null>(null);
   const [role, setRole] = useState<null | string>("")
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchStorage = async () => {
@@ -75,7 +77,7 @@ export default function RealEstateTypeScreen() {
 
   const handleContinue = async () => {
     try {
-      if (!selected) return toast.error('Please select a type!!');
+      if (!selected) return toast.error(t('please_select_type'));
       await AsyncStorage.setItem("real-estate-type", selected)
       if (role === "prospective") return router.push("/(prospectiveTenant)/(tabs)")
       if (role === "tenant") return router.push("/(tenant)/(tabs)")
@@ -106,11 +108,11 @@ export default function RealEstateTypeScreen() {
         {/* Title */}
         <View className="px-6 mt-4">
           <Text className="text-subtitle font-bold text-text dark:text-textDark mb-1">
-            Choose real estate type
+            {t('choose_real_estate_type')}
           </Text>
 
           <Text className="text-small text-secondary dark:text-secondaryDark">
-            Select your preferable real estate type below
+            {t('select_preferable_type')}
           </Text>
         </View>
 
@@ -135,7 +137,7 @@ export default function RealEstateTypeScreen() {
                 />
 
                 <View className="py-2 pl-5">
-                  <Text className="text-text text-subtitle dark:text-textDark">{item.label}</Text>
+                  <Text className="text-text text-subtitle dark:text-textDark">{t(item.label)}</Text>
                 </View>
               </TouchableOpacity>
             );
@@ -145,7 +147,7 @@ export default function RealEstateTypeScreen() {
         {/* Continue Button */}
         <View className="px-6 mt-4">
           <PrimaryButton
-            title="Let's Get Started!"
+            title={t('lets_get_started')}
             onPress={handleContinue}
           />
         </View>

@@ -4,168 +4,148 @@ export const onboarding = {
   prospectiveTenant: [
     {
       id: 1,
-      title: "Welcome to Waj",
-      subtitle: "Your next home is just a tap away",
-      description:
-        "Browse verified listings, connect with landlords, and apply – all in one place.",
+      title: "onboarding_1_title",
+      subtitle: "onboarding_1_subtitle",
+      description: "onboarding_1_desc",
       image: ImagesConstants.WelcomeToWAJ,
     },
     {
       id: 2,
-      title: "Find the Perfect Place",
-      subtitle: "",
-      description:
-        "Filter by location, price, and amenities to discover apartments that match your lifestyle.",
+      title: "onboarding_2_title",
+      subtitle: "onboarding_2_desc",
+      description: "onboarding_2_desc",
       image: ImagesConstants.FindThePerfectPlace,
     },
     {
       id: 3,
-      title: "Apply with Confidence",
-      subtitle: "",
-      description:
-        "Submit your rental application securely, including ID, name, and phone number — no paper, no hassle.",
+      title: "onboarding_3_title",
+      subtitle: "onboarding_3_desc",
+      description: "onboarding_3_desc",
       image: ImagesConstants.ApplyWithConfidence,
     },
     {
       id: 4,
-      title: "Chat with Landlords Instantly",
-      subtitle: "",
-      description:
-        "Ask questions, schedule viewings, and get real-time updates directly from the property owner.",
+      title: "onboarding_4_title",
+      subtitle: "onboarding_4_desc",
+      description: "onboarding_4_desc",
       image: ImagesConstants.ChatWithLandlordsInstantly,
     },
     {
       id: 5,
-      title: "Stay on Top of Everything",
-      subtitle: "",
-      description:
-        "Track your applications, revisit favorites, and get notified when new listings hit the market.",
+      title: "onboarding_5_title",
+      subtitle: "onboarding_5_desc",
+      description: "onboarding_5_desc",
       image: ImagesConstants.StayOnTopOfEverything,
     },
   ],
   tenant: [
     {
       id: 1,
-      title: "Welcome to Waj",
-      subtitle: "Your next home is just a tap away",
-      description:
-        "Browse verified listings, connect with landlords, and apply – all in one place.",
+      title: "onboarding_1_title",
+      subtitle: "onboarding_1_subtitle",
+      description: "onboarding_1_desc",
       image: ImagesConstants.WelcomeToWAJ,
     },
     {
       id: 2,
-      title: "Find the Perfect Place",
-      subtitle: "",
-      description:
-        "Filter by location, price, and amenities to discover apartments that match your lifestyle.",
+      title: "onboarding_2_title",
+      subtitle: "onboarding_2_desc",
+      description: "onboarding_2_desc",
       image: ImagesConstants.FindThePerfectPlace,
     },
     {
       id: 3,
-      title: "Apply with Confidence",
-      subtitle: "",
-      description:
-        "Submit your rental application securely, including ID, name, and phone number — no paper, no hassle.",
+      title: "onboarding_3_title",
+      subtitle: "onboarding_3_desc",
+      description: "onboarding_3_desc",
       image: ImagesConstants.ApplyWithConfidence,
     },
     {
       id: 4,
-      title: "Chat with Landlords Instantly",
-      subtitle: "",
-      description:
-        "Ask questions, schedule viewings, and get real-time updates directly from the property owner.",
+      title: "onboarding_4_title",
+      subtitle: "onboarding_4_desc",
+      description: "onboarding_4_desc",
       image: ImagesConstants.ChatWithLandlordsInstantly,
     },
     {
       id: 5,
-      title: "Stay on Top of Everything",
-      subtitle: "",
-      description:
-        "Track your applications, revisit favorites, and get notified when new listings hit the market.",
+      title: "onboarding_5_title",
+      subtitle: "onboarding_5_desc",
+      description: "onboarding_5_desc",
       image: ImagesConstants.StayOnTopOfEverything,
     },
   ],
   landlord: [
     {
       id: 1,
-      title: "Welcome to Waj",
-      subtitle: "Your next home is just a tap away",
-      description:
-        "Browse verified listings, connect with landlords, and apply – all in one place.",
+      title: "onboarding_1_title",
+      subtitle: "onboarding_1_subtitle",
+      description: "onboarding_1_desc",
       image: ImagesConstants.WelcomeToWAJ,
     },
     {
       id: 2,
-      title: "Find the Perfect Place",
-      subtitle: "",
-      description:
-        "Filter by location, price, and amenities to discover apartments that match your lifestyle.",
+      title: "onboarding_2_title",
+      subtitle: "onboarding_2_desc",
+      description: "onboarding_2_desc",
       image: ImagesConstants.FindThePerfectPlace,
     },
     {
       id: 3,
-      title: "Apply with Confidence",
-      subtitle: "",
-      description:
-        "Submit your rental application securely, including ID, name, and phone number — no paper, no hassle.",
+      title: "onboarding_3_title",
+      subtitle: "onboarding_3_desc",
+      description: "onboarding_3_desc",
       image: ImagesConstants.ApplyWithConfidence,
     },
     {
       id: 4,
-      title: "Chat with Landlords Instantly",
-      subtitle: "",
-      description:
-        "Ask questions, schedule viewings, and get real-time updates directly from the property owner.",
+      title: "onboarding_4_title",
+      subtitle: "onboarding_4_desc",
+      description: "onboarding_4_desc",
       image: ImagesConstants.ChatWithLandlordsInstantly,
     },
     {
       id: 5,
-      title: "Stay on Top of Everything",
-      subtitle: "",
-      description:
-        "Track your applications, revisit favorites, and get notified when new listings hit the market.",
+      title: "onboarding_5_title",
+      subtitle: "onboarding_5_desc",
+      description: "onboarding_5_desc",
       image: ImagesConstants.StayOnTopOfEverything,
     },
   ],
   agent: [
     {
       id: 1,
-      title: "Welcome to Waj",
-      subtitle: "Your next home is just a tap away",
-      description:
-        "Browse verified listings, connect with landlords, and apply – all in one place.",
+      title: "onboarding_1_title",
+      subtitle: "onboarding_1_subtitle",
+      description: "onboarding_1_desc",
       image: ImagesConstants.WelcomeToWAJ,
     },
     {
       id: 2,
-      title: "Find the Perfect Place",
-      subtitle: "",
-      description:
-        "Filter by location, price, and amenities to discover apartments that match your lifestyle.",
+      title: "onboarding_2_title",
+      subtitle: "onboarding_2_desc",
+      description: "onboarding_2_desc",
       image: ImagesConstants.FindThePerfectPlace,
     },
     {
       id: 3,
-      title: "Apply with Confidence",
-      subtitle: "",
-      description:
-        "Submit your rental application securely, including ID, name, and phone number — no paper, no hassle.",
+      title: "onboarding_3_title",
+      subtitle: "onboarding_3_desc",
+      description: "onboarding_3_desc",
       image: ImagesConstants.ApplyWithConfidence,
     },
     {
       id: 4,
-      title: "Chat with Landlords Instantly",
-      subtitle: "",
-      description:
-        "Ask questions, schedule viewings, and get real-time updates directly from the property owner.",
+      title: "onboarding_4_title",
+      subtitle: "onboarding_4_desc",
+      description: "onboarding_4_desc",
       image: ImagesConstants.ChatWithLandlordsInstantly,
     },
     {
       id: 5,
-      title: "Stay on Top of Everything",
-      subtitle: "",
-      description:
-        "Track your applications, revisit favorites, and get notified when new listings hit the market.",
+      title: "onboarding_5_title",
+      subtitle: "onboarding_5_desc",
+      description: "onboarding_5_desc",
       image: ImagesConstants.StayOnTopOfEverything,
     },
   ],

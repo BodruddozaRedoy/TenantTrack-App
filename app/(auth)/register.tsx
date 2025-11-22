@@ -2,9 +2,12 @@ import PrimaryButton from "@/components/common/PrimaryButton";
 import SecondaryButton from "@/components/common/SecondaryButton";
 import { router } from "expo-router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
 
 export default function RegistrationScreen() {
+    const { t } = useTranslation();
+
     return (
         <View className="flex-1 bg-background dark:bg-backgroundDark">
             <StatusBar barStyle={"light-content"} />
@@ -32,13 +35,13 @@ export default function RegistrationScreen() {
                         <View className="flex-1">
                             <PrimaryButton
                                 onPress={() => router.push("/(auth)/login")}
-                                title="Login"
+                                title={t('login')}
                             />
                         </View>
 
                         <View className="flex-1">
                             <SecondaryButton
-                                title="Sign Up"
+                                title={t('sign_up')}
                                 onPress={() => router.push("/(auth)/sign-up")}
                             />
                         </View>
@@ -46,7 +49,7 @@ export default function RegistrationScreen() {
 
                     {/* Divider */}
                     <Text className="text-center text-small text-secondary dark:text-secondaryDark mb-4">
-                        or continue with
+                        {t('or_continue_with')}
                     </Text>
 
                     {/* Google */}
@@ -56,7 +59,7 @@ export default function RegistrationScreen() {
                             style={{ width: 24, height: 24, marginRight: 10 }}
                         />
                         <Text className="text-text dark:text-textDark font-medium flex-1 text-center">
-                            Continue With Google
+                            {t('continue_google')}
                         </Text>
                         <View />
                     </TouchableOpacity>
@@ -70,7 +73,7 @@ export default function RegistrationScreen() {
                             style={{ width: 24, height: 24, marginRight: 10 }}
                         />
                         <Text className="text-text dark:text-textDark font-medium flex-1 text-center">
-                            Continue With Apple
+                            {t('continue_apple')}
                         </Text>
                         <View />
                     </TouchableOpacity>
@@ -84,7 +87,7 @@ export default function RegistrationScreen() {
                             style={{ width: 24, height: 24, marginRight: 10 }}
                         />
                         <Text className="text-text dark:text-textDark font-medium flex-1 text-center">
-                            Continue With Nafath
+                            {t('continue_nafath')}
                         </Text>
                         <View />
                     </TouchableOpacity>

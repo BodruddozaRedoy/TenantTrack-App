@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Image,
     Keyboard,
@@ -20,6 +21,7 @@ import { toast } from "sonner-native";
 export default function LoginScreen() {
     const [remember, setRemember] = useState(false);
     const [role, setRole] = useState<null | string>("")
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchStorage = async () => {
@@ -82,29 +84,29 @@ export default function LoginScreen() {
 
                         {/* Title */}
                         <Text className="text-subtitle text-text dark:text-textDark font-bold my-3">
-                            Get Started
+                            {t('get_started_login')}
                         </Text>
 
                         {/* Subtitle */}
                         <Text className="text-small text-secondary dark:text-secondaryDark mb-6">
-                            By joining us, you will gain access to cutting-edge resources, expert guidance, etc. Unlock your potential now!
+                            {t('login_subtitle')}
                         </Text>
 
                         {/* Email */}
-                        <Text className="text-small text-secondary mb-1">Email</Text>
+                        <Text className="text-small text-secondary mb-1">{t('email')}</Text>
                         <TextInput
                             className="w-full p-3 border rounded-xl border-gray-300 dark:border-gray-700
                         bg-background dark:bg-backgroundDark text-text dark:text-textDark mb-4"
-                            placeholder="Enter email"
+                            placeholder={t('enter_email')}
                             placeholderTextColor="#888"
                         />
 
                         {/* Password */}
-                        <Text className="text-small text-secondary mb-1">Password</Text>
+                        <Text className="text-small text-secondary mb-1">{t('password')}</Text>
                         <TextInput
                             className="w-full p-3 border rounded-xl border-gray-300 dark:border-gray-700
                         bg-background dark:bg-backgroundDark text-text dark:text-textDark"
-                            placeholder="Enter password"
+                            placeholder={t('enter_password')}
                             placeholderTextColor="#888"
                             secureTextEntry
                         />
@@ -122,19 +124,19 @@ export default function LoginScreen() {
                     ${remember ? "bg-primary border-primary" : "border-gray-400 dark:border-gray-500"}`}
                                 />
                                 <Text className="text-small text-secondary dark:text-secondaryDark">
-                                    Remember me
+                                    {t('remember_me')}
                                 </Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity>
                                 <Text className="text-small text-primary dark:text-primaryDark">
-                                    Forgot password?
+                                    {t('forgot_password')}
                                 </Text>
                             </TouchableOpacity>
                         </View>
 
                         {/* Login Button */}
-                        <PrimaryButton title="Login" onPress={handleContinue} />
+                        <PrimaryButton title={t('login')} onPress={handleContinue} />
 
                         {/* Bottom Spacing */}
                         <View className="h-6" />

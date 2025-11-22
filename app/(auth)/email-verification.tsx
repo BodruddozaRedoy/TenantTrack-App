@@ -2,12 +2,14 @@ import PrimaryButton from "@/components/common/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function EmailVerificationScreen() {
   const [otp, setOtp] = useState(["", "", "", "", ""]);
   const inputs = useRef<TextInput[]>([]);
+  const { t } = useTranslation();
 
   const handleChange = (value: string, index: number) => {
     const newOtp = [...otp];
@@ -29,12 +31,12 @@ export default function EmailVerificationScreen() {
 
       {/* Title */}
       <Text className="text-subtitle text-text dark:text-textDark font-bold mb-1">
-        Verify your email address
+        {t('verify_email')}
       </Text>
 
       {/* Subtitle */}
       <Text className="text-small text-secondary dark:text-secondaryDark mb-1">
-        We have sent you a 5-digit verification code at
+        {t('sent_code_to')}
       </Text>
 
       <Text className="text-small text-text dark:text-textDark mb-8">
@@ -59,18 +61,18 @@ export default function EmailVerificationScreen() {
       </View>
 
       {/* Confirm Button */}
-          <PrimaryButton onPress={() => router.push("/(auth)/setup-location")} title="Confirm" />
+      <PrimaryButton onPress={() => router.push("/(auth)/setup-location")} title={t('confirm')} />
 
       <View className="h-6" />
 
       {/* Resend link */}
       <View className="flex-row justify-center mt-4">
         <Text className="text-small text-secondary dark:text-secondaryDark">
-          Didn’t receive the code?
+          {t('didnt_receive_code')}
         </Text>
         <TouchableOpacity>
           <Text className="text-small text-primary font-semibold dark:text-primaryDark ml-1">
-            Resend here
+            {t('resend_here')}
           </Text>
         </TouchableOpacity>
       </View>

@@ -4,6 +4,7 @@ import SecondaryButton from "@/components/common/SecondaryButton";
 import * as Location from "expo-location";
 import { router } from "expo-router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   Image,
@@ -12,14 +13,16 @@ import {
 } from "react-native";
 
 export default function SetLocationScreen() {
+  const { t } = useTranslation();
+
   const handleAllowLocation = async () => {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== "granted") {
         Alert.alert(
-          "Permission Required",
-          "Please enable location permission for the best experience."
+          t('permission_required'),
+          t('enable_location_permission')
         );
         return;
       }
@@ -30,7 +33,7 @@ export default function SetLocationScreen() {
         router.push("/(auth)/confirm-location?from=auto");
     } catch (error) {
       console.log(error);
-      Alert.alert("Error", "Unable to access location.");
+      Alert.alert(t('error'), t('unable_access_location'));
     }
   };
 
@@ -54,22 +57,22 @@ export default function SetLocationScreen() {
 
       {/* Title */}
       <Text className="text-title text-center text-text dark:text-textDark font-bold mb-2">
-        Set your location
+        {t('set_location')}
       </Text>
 
       {/* Subtitle */}
       <Text className="text-small text-center text-secondary dark:text-secondaryDark mb-12">
-        Let us know your location for best experience
+        {t('let_us_know_location')}
       </Text>
 
       {/* Allow Google Maps */}
       <PrimaryButton
-        title="Allow Google Maps"
+        title={t('allow_google_maps')}
         onPress={handleAllowLocation}
       />
 
       {/* Manual Button */}
-      <SecondaryButton className="mt-5" onPress={handleManual} title="Set Manually" />
+      <SecondaryButton className="mt-5" onPress={handleManual} title={t('set_manually')} />
     </View>
   );
 }

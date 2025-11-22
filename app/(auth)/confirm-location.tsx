@@ -9,6 +9,7 @@ import {
 } from "expo-maps";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     ActivityIndicator,
     Alert,
@@ -59,6 +60,7 @@ const DEFAULT_CAMERA: CameraPosition = {
 
 export default function ConfirmLocationScreen() {
   const { from } = useLocalSearchParams<{ from?: FromParam }>();
+    const { t } = useTranslation();
 
     const isAuto = from === "auto";
 
@@ -74,7 +76,7 @@ export default function ConfirmLocationScreen() {
         if (Platform.OS === "android") {
             ToastAndroid.show(msg, ToastAndroid.SHORT);
         } else {
-            Alert.alert("Location", msg);
+            Alert.alert(t('location'), msg);
         }
     };
 
@@ -107,14 +109,14 @@ export default function ConfirmLocationScreen() {
       try {
           const { status } = await Location.requestForegroundPermissionsAsync();
           if (status !== "granted") {
-              showToast("Location permission denied.");
+              showToast(t('location_permission_denied'));
               setLoading(false);
               return;
           }
 
         const servicesEnabled = await Location.hasServicesEnabledAsync();
         if (!servicesEnabled) {
-            showToast("Please enable Location Services in device settings.");
+            showToast(t('enable_location_services'));
             setLoading(false);
             return;
         }
@@ -128,7 +130,7 @@ export default function ConfirmLocationScreen() {
         }
 
         if (!pos) {
-            showToast("Unable to get your current location.");
+            showToast(t('unable_get_location'));
             setLoading(false);
             return;
         }
@@ -262,16 +264,16 @@ export default function ConfirmLocationScreen() {
                 <View className="flex-1 items-center justify-center px-6">
                     <ActivityIndicator size="large" />
                     <Text className="mt-4 text-small text-secondary dark:text-secondaryDark">
-                        Fetching your location...
+                        {t('fetching_location')}
                     </Text>
 
                 <View className="w-full mt-6">
-                    <PrimaryButton title="Try Again" onPress={fetchAutoLocation} />
+                        <PrimaryButton title={t('try_again')} onPress={fetchAutoLocation} />
                 </View>
 
                   <View className="w-full mt-3">
                       <PrimaryButton
-                          title="Select manually instead"
+                            title={t('select_manually')}
                           onPress={() =>
                               router.replace("/(auth)/confirm-location?from=manual")
                           }
@@ -310,7 +312,7 @@ export default function ConfirmLocationScreen() {
                                         value={address}
                                         onChangeText={handleAddressSearch}
                                         autoFocus
-                                        placeholder="Search or enter address"
+                                        placeholder={t('search_enter_address')}
                                         placeholderTextColor="#9CA3AF"
                                         className="w-full border rounded-xl px-3 py-3 text-text dark:text-textDark 
                       border-gray-300 dark:border-gray-700 bg-background dark:bg-backgroundDark"
@@ -340,7 +342,7 @@ export default function ConfirmLocationScreen() {
                                 ) : (
                                     <View className="flex-1 items-center justify-center">
                                         <Text className="text-small text-secondary dark:text-secondaryDark">
-                                            Start typing to search for a location...
+                                                {t('start_typing_search')}
                                         </Text>
                                     </View>
                                 )}
@@ -364,13 +366,13 @@ export default function ConfirmLocationScreen() {
 
               {/* Title */}
               <Text className="mt-6 text-title font-bold text-text dark:text-textDark">
-                  Set your location
+                    {t('set_location')}
               </Text>
 
               <Text className="text-small text-secondary dark:text-secondaryDark mb-4">
                   {isAuto
-                      ? "We’ve used your device location. Adjust the pin if needed."
-                      : "Search or tap on the map to set your location."}
+                        ? t('device_location_used')
+                        : t('search_map_location')}
               </Text>
 
               {/* Map */}
@@ -424,14 +426,14 @@ export default function ConfirmLocationScreen() {
                           }`}
                       numberOfLines={1}
                   >
-                      {address || "Search or enter address"}
+                        {address || t('search_enter_address')}
                   </Text>
               </TouchableOpacity>
 
               {/* Confirm Button */}
               <View className="mt-8 mb-4">
                   <PrimaryButton
-                      title="Confirm"
+                        title={t('confirm')}
                       onPress={() => router.push("/(auth)/real-estate-type")}
                   />
               </View>

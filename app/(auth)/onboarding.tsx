@@ -4,6 +4,7 @@ import SecondaryButton from "@/components/common/SecondaryButton";
 import { onboarding } from "@/constants/data.constants";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Image, ScrollView, Text, View } from "react-native";
 
 interface OnboardingContent {
@@ -19,6 +20,7 @@ export default function OnboardingScreen() {
     const [selectedId, setSelectedId] = useState(1);
     const [onboardingContent, setOnboardingContent] =
         useState<OnboardingContent>();
+    const { t } = useTranslation();
 
     const dataMap: Record<string, OnboardingContent[]> = {
         prospective: onboarding.prospectiveTenant,
@@ -77,19 +79,19 @@ export default function OnboardingScreen() {
 
                         {/* Title */}
                         <Text className="text-title text-center text-text dark:text-textDark mb-2">
-                            {onboardingContent?.title}
+                            {onboardingContent?.title ? t(onboardingContent.title) : ""}
                         </Text>
 
                         {/* Subtitle */}
                         {onboardingContent?.subtitle?.length ? (
                             <Text className="text-subtitle text-center text-secondary dark:text-secondaryDark font-semibold mb-3">
-                                {onboardingContent?.subtitle}
+                                {t(onboardingContent?.subtitle)}
                             </Text>
                         ) : null}
 
                         {/* Description */}
                         <Text className="text-small text-center text-secondary dark:text-secondaryDark mb-6">
-                            {onboardingContent?.description}
+                            {onboardingContent?.description ? t(onboardingContent.description) : ""}
                         </Text>
 
                         {/* Pagination */}
@@ -118,7 +120,7 @@ export default function OnboardingScreen() {
                             {
                                 selectedId !== maxId && <View className="flex-1">
                                     <SecondaryButton
-                                        title="Back"
+                                        title={t("back")}
                                         disabled={selectedId === 1}
                                         onPress={handleBack}
                                     />
@@ -130,10 +132,10 @@ export default function OnboardingScreen() {
 
                                 {
                                     selectedId === maxId ? <PrimaryButton
-                                        title={"Get Started"}
+                                        title={t("get_started")}
                                         onPress={() => router.push("/(auth)/register")}
                                     /> : <PrimaryButton
-                                        title={"Next"}
+                                            title={t("next")}
                                         onPress={handleNext}
                                     />
                                 }
