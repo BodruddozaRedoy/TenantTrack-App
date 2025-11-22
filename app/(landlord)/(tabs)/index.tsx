@@ -288,7 +288,7 @@ export default function LandlordHomeScreen() {
                 </View>
 
                 {/* UPDATES */}
-                <View className="bg-card dark:bg-cardDark px-2 rounded-2xl mt-5 mb-10">
+                {/* <View className="bg-card dark:bg-cardDark px-2 rounded-2xl mt-5 mb-10">
                     <Text className="text-title text-center mt-4 text-text dark:text-textDark">
                         {t('updates_tips')}
                     </Text>
@@ -298,7 +298,7 @@ export default function LandlordHomeScreen() {
                             <UpdateItem key={idx} {...u} />
                         ))}
                     </View>
-                </View>
+                </View> */}
             </ScrollView>
         </SafeAreaView>
     );

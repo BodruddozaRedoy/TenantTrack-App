@@ -1,10 +1,14 @@
-import PageTitle from "@/components/common/PageTitle"; // If you already have it
+import PageTitle from "@/components/common/PageTitle";
+import i18n from "@/lib/language";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import { useState } from "react";
+import * as Updates from "expo-updates";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  I18nManager,
+  Image,
   ScrollView,
   Switch,
   Text,
@@ -12,24 +16,72 @@ import {
   View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { toast } from "sonner-native";
+
+// local image from earlier messages
+const uploadedImage = "/mnt/data/splash-icon.png";
 
 export default function ProfileScreen() {
   const [darkMode, setDarkMode] = useState(false);
   const [allowSMS, setAllowSMS] = useState(false);
   const [allowEmail, setAllowEmail] = useState(true);
+  const [selectedLang, setSelectedLang] = useState<"en" | "ar">("en");
+  const [langDropdown, setLangDropdown] = useState(false);
   const { t } = useTranslation();
 
+  useEffect(() => {
+    const loadLang = async () => {
+      const saved = await AsyncStorage.getItem("appLanguage");
+      const lang = (saved === "ar" ? "ar" : "en") as "en" | "ar";
+      setSelectedLang(lang);
+      await i18n.changeLanguage(lang);
+
+      // Force LTR always
+      I18nManager.allowRTL(false);
+      I18nManager.forceRTL(false);
+    };
+    loadLang();
+  }, []);
+
   const handleSignOut = async () => {
+    await AsyncStorage.removeItem("role");
+    router.replace("/(auth)");
+  };
+
+  // ------------------------------------------------------
+  // FIXED VERSION — using `buttons[]` for Sonner Native
+  // ------------------------------------------------------
+  const applyLanguage = async (lang: "en" | "ar") => {
     try {
-      await AsyncStorage.removeItem("role")
-      router.replace("/(auth)")
-    } catch (error) {
-      console.log(error)
+      await AsyncStorage.setItem("appLanguage", lang);
+      await i18n.changeLanguage(lang);
+      setSelectedLang(lang);
+
+      // prevent RTL flipping
+      I18nManager.allowRTL(false);
+      I18nManager.forceRTL(false);
+
+      toast.success(t('language_changed'), {
+        description: t('restart_required'),
+        action: {
+          label: t('restart'),
+          onClick: async () => {
+            if (!__DEV__) {
+              await Updates.reloadAsync();
+            } else {
+              toast.info("Restart only works in a release build.");
+            }
+          }
+        }
+      });
+
+    } catch (e) {
+      console.log("Language switch error:", e);
     }
-  }
+  };
 
   return (
-    <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark ">
+    <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
       <PageTitle text={t('profile')} />
 
       <View className="border-b border-gray-200 dark:border-gray-700" />
@@ -41,7 +93,12 @@ export default function ProfileScreen() {
       >
         {/* User Info Card */}
         <View className="bg-card dark:bg-cardDark p-4 flex-row items-center mb-4 rounded-full">
-          <View className="w-14 h-14 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden mr-4" />
+          <Image
+            source={{ uri: uploadedImage }}
+            className="w-14 h-14 rounded-full overflow-hidden mr-4"
+            style={{ width: 56, height: 56 }}
+          />
+
           <View className="flex-1">
             <Text className="text-body font-semibold text-text dark:text-textDark">
               Chris Brown
@@ -50,6 +107,7 @@ export default function ProfileScreen() {
               browm@dumpmail.com
             </Text>
           </View>
+
           <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/profile-details")}>
             <MaterialIcons name="edit-square" size={22} color="#999999" />
           </TouchableOpacity>
@@ -61,11 +119,64 @@ export default function ProfileScreen() {
             {t('general')}
           </Text>
 
-          <View className="flex-row items-center justify-between mb-2">
-            <Text className="text-small text-secondary dark:text-secondaryDark">
-              {t('language')}
-            </Text>
-            <Text className="text-small text-text dark:text-textDark">English</Text>
+          {/* Language Dropdown */}
+          <View className="mb-2">
+            <TouchableOpacity
+              onPress={() => setLangDropdown(!langDropdown)}
+              className="flex-row items-center justify-between"
+            >
+              <Text className="text-small text-secondary dark:text-secondaryDark">
+                {t('language')}
+              </Text>
+
+              <View className="flex-row items-center">
+                <Text className="text-small text-text dark:text-textDark mr-2">
+                  {selectedLang === "ar" ? "Arabic" : "English"}
+                </Text>
+
+                <MaterialIcons
+                  name={langDropdown ? "keyboard-arrow-up" : "keyboard-arrow-down"}
+                  size={20}
+                  color="#999"
+                />
+              </View>
+            </TouchableOpacity>
+
+            {langDropdown && (
+              <View className="mt-3 bg-gray-100 dark:bg-gray-800 rounded-xl p-3">
+                {/* English */}
+                <TouchableOpacity
+                  onPress={() => {
+                    setLangDropdown(false);
+                    applyLanguage("en");
+                  }}
+                  className="py-2"
+                >
+                  <Text
+                    className={`text-text dark:text-textDark ${selectedLang === "en" ? "font-bold" : ""
+                      }`}
+                  >
+                    English
+                  </Text>
+                </TouchableOpacity>
+
+                {/* Arabic */}
+                <TouchableOpacity
+                  onPress={() => {
+                    setLangDropdown(false);
+                    applyLanguage("ar");
+                  }}
+                  className="py-2"
+                >
+                  <Text
+                    className={`text-text dark:text-textDark ${selectedLang === "ar" ? "font-bold" : ""
+                      }`}
+                  >
+                    العربية (Arabic)
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         </View>
 
@@ -79,14 +190,12 @@ export default function ProfileScreen() {
             <Text className="text-small text-secondary dark:text-secondaryDark">
               {t('dark_mode')}
             </Text>
+
             <Switch
               value={darkMode}
               onValueChange={setDarkMode}
-              trackColor={{
-                false: "#D1D5DB",   // OFF Track color
-                true: "black",    // ON Track color
-              }}
-              thumbColor={darkMode ? "#ffffff" : "#f4f3f4"}  // Circle color
+              trackColor={{ false: "#D1D5DB", true: "black" }}
+              thumbColor={darkMode ? "#ffffff" : "#f4f3f4"}
               ios_backgroundColor="#D1D5DB"
             />
           </View>
@@ -105,11 +214,8 @@ export default function ProfileScreen() {
             <Switch
               value={allowSMS}
               onValueChange={setAllowSMS}
-              trackColor={{
-                false: "#D1D5DB",   // OFF Track color
-                true: "black",    // ON Track color
-              }}
-              thumbColor={darkMode ? "#ffffff" : "#f4f3f4"}  // Circle color
+              trackColor={{ false: "#D1D5DB", true: "black" }}
+              thumbColor={darkMode ? "#ffffff" : "#f4f3f4"}
               ios_backgroundColor="#D1D5DB"
             />
           </View>
@@ -121,11 +227,8 @@ export default function ProfileScreen() {
             <Switch
               value={allowEmail}
               onValueChange={setAllowEmail}
-              trackColor={{
-                false: "#D1D5DB",   // OFF Track color
-                true: "black",    // ON Track color
-              }}
-              thumbColor={darkMode ? "#ffffff" : "#f4f3f4"}  // Circle color
+              trackColor={{ false: "#D1D5DB", true: "black" }}
+              thumbColor={darkMode ? "#ffffff" : "#f4f3f4"}
               ios_backgroundColor="#D1D5DB"
             />
           </View>
@@ -158,7 +261,11 @@ export default function ProfileScreen() {
             <Text className="text-small font-semibold text-red-500 mr-2">
               {t('delete_account')}
             </Text>
-            <MaterialCommunityIcons name="delete-alert-outline" size={20} color="red" />
+            <MaterialCommunityIcons
+              name="delete-alert-outline"
+              size={20}
+              color="red"
+            />
           </TouchableOpacity>
         </View>
 
@@ -168,7 +275,10 @@ export default function ProfileScreen() {
             {t('sign_out')}
           </Text>
 
-          <TouchableOpacity onPress={handleSignOut} className="flex-row items-center justify-between">
+          <TouchableOpacity
+            onPress={handleSignOut}
+            className="flex-row items-center justify-between"
+          >
             <Text className="text-small font-semibold text-red-500 mr-2">
               {t('sign_out')}
             </Text>
