@@ -74,6 +74,12 @@
 
     "experiments": {
       "typedRoutes": true
+    },
+
+    "androidNavigationBar": {
+      "backgroundColor": "#F6F6F6",
+      "translucent": true,
+      "visible": "leanback"
     }
   }
 }

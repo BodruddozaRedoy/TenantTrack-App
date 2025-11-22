@@ -1,11 +1,11 @@
 import PrimaryButton from "@/components/common/PrimaryButton";
 import { IconConstants } from "@/constants/icons.constants";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { clsx } from "clsx";
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, StatusBar, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Role {
   id: string;
@@ -15,6 +15,7 @@ interface Role {
 
 export default function WelcomeScreen() {
   const [selected, setSelected] = useState<string>("prospective");
+  const theme = useColorScheme();
 
   const roles: Role[] = [
     { id: "prospective", title: "Prospective Tenant", subtitle: "Looking for a place to rent" },
@@ -36,6 +37,11 @@ export default function WelcomeScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background  dark:bg-backgroundDark relative">
       <ScrollView className="px-6 pt-20">
+        <StatusBar
+          barStyle={theme === "dark" ? "light-content" : "dark-content"}
+          backgroundColor="transparent"
+          translucent
+        />
 
         {/* Emoji */}
         <View className="items-center mb-6">
