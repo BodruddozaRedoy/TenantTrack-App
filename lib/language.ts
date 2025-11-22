@@ -16,7 +16,7 @@ const resources = {
       welcome: "مرحبًا بك في WAJ",
       next: "التالي",
       select_role: "لتخصيص تجربتك ، هل يمكنني معرفة من أنت؟",
-      explore: "التالي",
+      Explore: "التالي",
     },
   },
 };
