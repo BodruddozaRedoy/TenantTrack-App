@@ -96,7 +96,7 @@ export default function RealEstateTypeScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Back Button */}
-        <PageTitle leftIcon={true} text="" />
+        <PageTitle leftIcon={true} text="" leftOnPress={() => router.back()} />
 
         {/* arrow image  */}
         <Image

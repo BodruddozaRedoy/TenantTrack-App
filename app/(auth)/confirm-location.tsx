@@ -1,5 +1,7 @@
 import PrimaryButton from "@/components/common/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from 'expo-constants';
 import * as Location from "expo-location";
 import {
     AppleMaps,
@@ -25,41 +27,42 @@ import {
 } from "react-native";
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { toast } from "sonner-native";
 
 type FromParam = "auto" | "manual" | undefined;
 
 interface PlacePrediction {
-  description: string;
-  place_id: string;
+    description: string;
+    place_id: string;
 }
 
 interface PlaceDetailsResponse {
-  result?: {
-    formatted_address?: string;
-    geometry?: {
-      location: {
-        lat: number;
-        lng: number;
-      };
+    result?: {
+        formatted_address?: string;
+        geometry?: {
+            location: {
+                lat: number;
+                lng: number;
+            };
+        };
     };
-  };
-  status: string;
+    status: string;
     error_message?: string;
 }
 
-const GOOGLE_KEY = "AIzaSyBDawoyAMGUy0JLSxN6NwTreIvU6kpmOOs";
+const GOOGLE_KEY = Constants.expoConfig!.extra!.googleMapsApiKey;
 
 // Dhaka fallback
 const DEFAULT_CAMERA: CameraPosition = {
-  coordinates: {
-    latitude: 23.8103,
-    longitude: 90.4125,
-  },
-  zoom: 12,
+    coordinates: {
+        latitude: 23.8103,
+        longitude: 90.4125,
+    },
+    zoom: 12,
 };
 
 export default function ConfirmLocationScreen() {
-  const { from } = useLocalSearchParams<{ from?: FromParam }>();
+    const { from } = useLocalSearchParams<{ from?: FromParam }>();
     const { t } = useTranslation();
 
     const isAuto = from === "auto";
@@ -67,9 +70,9 @@ export default function ConfirmLocationScreen() {
     const [loading, setLoading] = useState(true);
     const [cameraPosition, setCameraPosition] =
         useState<CameraPosition>(DEFAULT_CAMERA);
-  const [marker, setMarker] = useState<Coordinates | null>(null);
-  const [address, setAddress] = useState("");
-  const [suggestions, setSuggestions] = useState<PlacePrediction[]>([]);
+    const [marker, setMarker] = useState<Coordinates | null>(null);
+    const [address, setAddress] = useState("");
+    const [suggestions, setSuggestions] = useState<PlacePrediction[]>([]);
     const [isSearching, setIsSearching] = useState(false); // 🔥 search mode
 
     const showToast = (msg: string) => {
@@ -84,76 +87,76 @@ export default function ConfirmLocationScreen() {
     const reverseGeocode = useCallback(
         async (lat: number, lng: number): Promise<string> => {
             try {
-        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_KEY}`;
-          const res = await fetch(url);
-          const data = await res.json();
+                const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_KEY}`;
+                const res = await fetch(url);
+                const data = await res.json();
 
-          if (data.status === "OK" && data.results?.length > 0) {
-              return data.results[0].formatted_address as string;
-          }
+                if (data.status === "OK" && data.results?.length > 0) {
+                    return data.results[0].formatted_address as string;
+                }
 
-              console.log("Geocode error:", data.status, data.error_message);
-              return "";
-          } catch (error) {
-              console.log("Geocode fetch error:", error);
-              return "";
-          }
-      },
-      []
-  );
+                console.log("Geocode error:", data.status, data.error_message);
+                return "";
+            } catch (error) {
+                console.log("Geocode fetch error:", error);
+                return "";
+            }
+        },
+        []
+    );
 
     // ---------------- Auto Location (Allow Maps) ----------------
     const fetchAutoLocation = useCallback(async () => {
         setLoading(true);
 
-      try {
-          const { status } = await Location.requestForegroundPermissionsAsync();
-          if (status !== "granted") {
-              showToast(t('location_permission_denied'));
-              setLoading(false);
-              return;
-          }
+        try {
+            const { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== "granted") {
+                showToast(t('location_permission_denied'));
+                setLoading(false);
+                return;
+            }
 
-        const servicesEnabled = await Location.hasServicesEnabledAsync();
-        if (!servicesEnabled) {
-            showToast(t('enable_location_services'));
-            setLoading(false);
-            return;
-        }
+            const servicesEnabled = await Location.hasServicesEnabledAsync();
+            if (!servicesEnabled) {
+                showToast(t('enable_location_services'));
+                setLoading(false);
+                return;
+            }
 
-        let pos = await Location.getLastKnownPositionAsync();
-        if (!pos) {
-            pos = await Location.getCurrentPositionAsync({
-                accuracy: Location.Accuracy.Balanced,
-                // timeout: 7000,
+            let pos = await Location.getLastKnownPositionAsync();
+            if (!pos) {
+                pos = await Location.getCurrentPositionAsync({
+                    accuracy: Location.Accuracy.Balanced,
+                    // timeout: 7000,
+                });
+            }
+
+            if (!pos) {
+                showToast(t('unable_get_location'));
+                setLoading(false);
+                return;
+            }
+
+            const coords: Coordinates = {
+                latitude: Number(pos.coords.latitude),
+                longitude: Number(pos.coords.longitude),
+            };
+
+            setMarker(coords);
+            setCameraPosition({
+                coordinates: coords,
+                zoom: 15,
             });
+
+            const addr = await reverseGeocode(coords.latitude, coords.longitude);
+            if (addr) setAddress(addr);
+        } catch (error) {
+            console.log("Auto location error:", error);
         }
 
-        if (!pos) {
-            showToast(t('unable_get_location'));
-            setLoading(false);
-            return;
-        }
-
-        const coords: Coordinates = {
-            latitude: Number(pos.coords.latitude),
-            longitude: Number(pos.coords.longitude),
-        };
-
-        setMarker(coords);
-        setCameraPosition({
-            coordinates: coords,
-            zoom: 15,
-        });
-
-        const addr = await reverseGeocode(coords.latitude, coords.longitude);
-        if (addr) setAddress(addr);
-    } catch (error) {
-        console.log("Auto location error:", error);
-    }
-
-      setLoading(false);
-  }, [reverseGeocode]);
+        setLoading(false);
+    }, [reverseGeocode]);
 
     useEffect(() => {
         if (isAuto) {
@@ -167,91 +170,115 @@ export default function ConfirmLocationScreen() {
     const handleMapClick = async (coords: Coordinates) => {
         if (!coords.latitude || !coords.longitude) return;
 
-      const safeCoords: Coordinates = {
-          latitude: Number(coords.latitude),
-          longitude: Number(coords.longitude),
+        const safeCoords: Coordinates = {
+            latitude: Number(coords.latitude),
+            longitude: Number(coords.longitude),
+        };
+
+        setMarker(safeCoords);
+        setCameraPosition({
+            coordinates: safeCoords,
+            zoom: 15,
+        });
+
+        const addr = await reverseGeocode(safeCoords.latitude, safeCoords.longitude);
+        if (addr) setAddress(addr);
     };
 
-      setMarker(safeCoords);
-      setCameraPosition({
-          coordinates: safeCoords,
-          zoom: 15,
-      });
+    const [role, setRole] = useState<null | string>("")
 
-      const addr = await reverseGeocode(safeCoords.latitude, safeCoords.longitude);
-      if (addr) setAddress(addr);
-  };
+    useEffect(() => {
+        const fetchStorage = async () => {
+            try {
+                const role: string | null = await AsyncStorage.getItem("role")
+                setRole(role)
+                console.log(role)
+            } catch (error) {
+                console.log(error)
+                toast.error("Cant fetch storage!")
+            } finally {
+            }
+        }
+        fetchStorage()
+    }, [])
+
+    const handleConfirm = async () => {
+        if (role === "prospective") return router.push("/(auth)/real-estate-type")
+        if (role === "tenant") return router.push("/(tenant)/(tabs)")
+        if (role === "landlord") return router.push("/(landlord)/(tabs)")
+        if (role === "agent") return router.push("/(landlord)/(tabs)")
+    }
 
     // ---------------- Manual Search (Autocomplete) ----------------
-  const handleAddressSearch = async (text: string) => {
-    setAddress(text);
+    const handleAddressSearch = async (text: string) => {
+        setAddress(text);
 
-    if (!text.trim()) {
-      setSuggestions([]);
-      return;
-    }
-
-    try {
-        const url =
-            `https://maps.googleapis.com/maps/api/place/autocomplete/json` +
-            `?input=${encodeURIComponent(text)}` +
-            `&key=${GOOGLE_KEY}`;
-        // (optional: &components=country:bd)
-
-      const res = await fetch(url);
-        const data = await res.json();
-
-        if (data.status === "OK" && Array.isArray(data.predictions)) {
-        setSuggestions(data.predictions);
-      } else {
-          console.log("Places autocomplete error:", data.status, data.error_message);
-        setSuggestions([]);
-      }
-    } catch (error) {
-        console.log("Places autocomplete fetch error:", error);
-      setSuggestions([]);
-    }
-  };
-
-    // ---------------- Selecting a Suggestion ----------------
-  const handleSuggestionPress = async (item: PlacePrediction) => {
-    try {
-        const url =
-            `https://maps.googleapis.com/maps/api/place/details/json` +
-            `?place_id=${item.place_id}` +
-            `&key=${GOOGLE_KEY}`;
-
-      const res = await fetch(url);
-      const data = (await res.json()) as PlaceDetailsResponse;
-
-        const loc = data.result?.geometry?.location;
-      const formatted = data.result?.formatted_address;
-
-        if (!loc) {
-            console.log("No geometry for place details");
+        if (!text.trim()) {
+            setSuggestions([]);
             return;
         }
 
-      const coords: Coordinates = {
-          latitude: Number(loc.lat),
-          longitude: Number(loc.lng),
-      };
+        try {
+            const url =
+                `https://maps.googleapis.com/maps/api/place/autocomplete/json` +
+                `?input=${encodeURIComponent(text)}` +
+                `&key=${GOOGLE_KEY}`;
+        // (optional: &components=country:bd)
 
-        setMarker(coords);
-        setCameraPosition({
-            coordinates: coords,
-            zoom: 15,
-        });
-      setAddress(formatted ?? item.description);
-        setSuggestions([]);
+            const res = await fetch(url);
+            const data = await res.json();
 
-        // ✅ Exit search mode and hide keyboard
-        setIsSearching(false);
-        Keyboard.dismiss();
-    } catch (error) {
-        console.log("Place details fetch error:", error);
-    }
-  };
+            if (data.status === "OK" && Array.isArray(data.predictions)) {
+                setSuggestions(data.predictions);
+            } else {
+                console.log("Places autocomplete error:", data.status, data.error_message);
+                setSuggestions([]);
+            }
+        } catch (error) {
+            console.log("Places autocomplete fetch error:", error);
+            setSuggestions([]);
+        }
+    };
+
+    // ---------------- Selecting a Suggestion ----------------
+    const handleSuggestionPress = async (item: PlacePrediction) => {
+        try {
+            const url =
+                `https://maps.googleapis.com/maps/api/place/details/json` +
+                `?place_id=${item.place_id}` +
+                `&key=${GOOGLE_KEY}`;
+
+            const res = await fetch(url);
+            const data = (await res.json()) as PlaceDetailsResponse;
+
+            const loc = data.result?.geometry?.location;
+            const formatted = data.result?.formatted_address;
+
+            if (!loc) {
+                console.log("No geometry for place details");
+                return;
+            }
+
+            const coords: Coordinates = {
+                latitude: Number(loc.lat),
+                longitude: Number(loc.lng),
+            };
+
+            setMarker(coords);
+            setCameraPosition({
+                coordinates: coords,
+                zoom: 15,
+            });
+            setAddress(formatted ?? item.description);
+            setSuggestions([]);
+
+            // ✅ Exit search mode and hide keyboard
+            setIsSearching(false);
+            Keyboard.dismiss();
+        } catch (error) {
+            console.log("Place details fetch error:", error);
+        }
+    };
 
     const markers = marker
         ? [{ id: "selected-location", coordinates: marker }]
@@ -267,33 +294,33 @@ export default function ConfirmLocationScreen() {
                         {t('fetching_location')}
                     </Text>
 
-                <View className="w-full mt-6">
+                    <View className="w-full mt-6">
                         <PrimaryButton title={t('try_again')} onPress={fetchAutoLocation} />
-                </View>
+                    </View>
 
-                  <View className="w-full mt-3">
-                      <PrimaryButton
+                    <View className="w-full mt-3">
+                        <PrimaryButton
                             title={t('select_manually')}
-                          onPress={() =>
-                              router.replace("/(auth)/confirm-location?from=manual")
-                          }
-                      />
-                  </View>
-              </View>
-          </SafeAreaView>
-      );
-  }
+                            onPress={() =>
+                                router.replace("/(auth)/confirm-location?from=manual")
+                            }
+                        />
+                    </View>
+                </View>
+            </SafeAreaView>
+        );
+    }
 
     // ---------------- SEARCH MODE UI (FULLSCREEN) ----------------
     if (isSearching) {
         return (
-      <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
-                    style={{ flex: 1 }}
-                >
+            <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <KeyboardAvoidingView
+                        behavior={Platform.OS === "ios" ? "padding" : "height"}
+                        keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
+                        style={{ flex: 1 }}
+                    >
                         <View className="flex-1 px-6 pt-6">
                             {/* Top row: Back + Input + Cancel */}
                             <View className="flex-row items-center mb-4">
@@ -357,88 +384,88 @@ export default function ConfirmLocationScreen() {
     // ---------------- MAIN UI (MAP + STATIC SEARCH BOX) ----------------
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-          <View className="flex-1 px-6 pt-14">
+            <View className="flex-1 px-6 pt-14">
 
-              {/* Back Button */}
-              <TouchableOpacity onPress={() => router.back()}>
-                  <Ionicons name="arrow-back" size={26} color="black" />
-              </TouchableOpacity>
+                {/* Back Button */}
+                <TouchableOpacity onPress={() => router.back()}>
+                    <Ionicons name="arrow-back" size={26} color="black" />
+                </TouchableOpacity>
 
-              {/* Title */}
-              <Text className="mt-6 text-title font-bold text-text dark:text-textDark">
+                {/* Title */}
+                <Text className="mt-6 text-title font-bold text-text dark:text-textDark">
                     {t('set_location')}
-              </Text>
+                </Text>
 
-              <Text className="text-small text-secondary dark:text-secondaryDark mb-4">
-                  {isAuto
+                <Text className="text-small text-secondary dark:text-secondaryDark mb-4">
+                    {isAuto
                         ? t('device_location_used')
                         : t('search_map_location')}
-              </Text>
+                </Text>
 
-              {/* Map */}
-              <View className="w-full h-[430px] rounded-2xl overflow-hidden mb-4 bg-gray-200">
-                  {Platform.OS === "ios" ? (
-                      <AppleMaps.View
-                          style={{ width: "100%", height: "100%" }}
-                          cameraPosition={cameraPosition}
-                          markers={markers}
-                          properties={{
-                              isMyLocationEnabled: isAuto,
-                              selectionEnabled: true,
-                          }}
-                          onMapClick={(event: { coordinates: Coordinates }) =>
-                              handleMapClick(event.coordinates)
-                          }
-                      />
-                  ) : (
-                      <GoogleMaps.View
-                          style={{ width: "100%", height: "100%" }}
-                          cameraPosition={cameraPosition}
-                          markers={markers}
-                          properties={{
-                              isMyLocationEnabled: isAuto,
-                              selectionEnabled: true,
-                          }}
-                          onMapClick={(event: { coordinates: Coordinates }) =>
-                              handleMapClick(event.coordinates)
-                          }
-                      />
-                  )}
-              </View>
+                {/* Map */}
+                <View className="w-full h-[430px] rounded-2xl overflow-hidden mb-4 bg-gray-200">
+                    {Platform.OS === "ios" ? (
+                        <AppleMaps.View
+                            style={{ width: "100%", height: "100%" }}
+                            cameraPosition={cameraPosition}
+                            markers={markers}
+                            properties={{
+                                isMyLocationEnabled: isAuto,
+                                selectionEnabled: true,
+                            }}
+                            onMapClick={(event: { coordinates: Coordinates }) =>
+                                handleMapClick(event.coordinates)
+                            }
+                        />
+                    ) : (
+                        <GoogleMaps.View
+                            style={{ width: "100%", height: "100%" }}
+                            cameraPosition={cameraPosition}
+                            markers={markers}
+                            properties={{
+                                isMyLocationEnabled: isAuto,
+                                selectionEnabled: true,
+                            }}
+                            onMapClick={(event: { coordinates: Coordinates }) =>
+                                handleMapClick(event.coordinates)
+                            }
+                        />
+                    )}
+                </View>
 
-              {/* Fake search box → triggers search mode */}
-              <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => setIsSearching(true)}
-                  className="w-full border rounded-xl px-3 py-3 flex-row items-center 
+                {/* Fake search box → triggers search mode */}
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => setIsSearching(true)}
+                    className="w-full border rounded-xl px-3 py-3 flex-row items-center 
                      border-gray-300 dark:border-gray-700 bg-background dark:bg-backgroundDark"
-              >
-                  <Ionicons
-                      name="search-outline"
-                      size={18}
-                      color="#9CA3AF"
-                      style={{ marginRight: 8 }}
-                  />
-                  <Text
-                      className={`flex-1 text-small ${address
-                              ? "text-text dark:text-textDark"
-                              : "text-secondary dark:text-secondaryDark"
-                          }`}
-                      numberOfLines={1}
-                  >
+                >
+                    <Ionicons
+                        name="search-outline"
+                        size={18}
+                        color="#9CA3AF"
+                        style={{ marginRight: 8 }}
+                    />
+                    <Text
+                        className={`flex-1 text-small ${address
+                            ? "text-text dark:text-textDark"
+                            : "text-secondary dark:text-secondaryDark"
+                            }`}
+                        numberOfLines={1}
+                    >
                         {address || t('search_enter_address')}
-                  </Text>
-              </TouchableOpacity>
+                    </Text>
+                </TouchableOpacity>
 
-              {/* Confirm Button */}
-              <View className="mt-8 mb-4">
-                  <PrimaryButton
+                {/* Confirm Button */}
+                <View className="mt-8 mb-4">
+                    <PrimaryButton
                         title={t('confirm')}
-                      onPress={() => router.push("/(auth)/real-estate-type")}
-                  />
-              </View>
+                        onPress={handleConfirm}
+                    />
+                </View>
 
-          </View>
-      </SafeAreaView>
-  );
+            </View>
+        </SafeAreaView>
+    );
 }
