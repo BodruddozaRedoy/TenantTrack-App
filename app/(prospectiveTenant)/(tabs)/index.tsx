@@ -4,6 +4,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Octicons from '@expo/vector-icons/Octicons';
 import { router } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList, Image, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, useColorScheme, View } from "react-native";
 
 const TYPES = [
@@ -36,6 +37,7 @@ export default function HomeScreen() {
     const [selected, setSelected] = useState("house");
     const color = useColorScheme()
     const isDark = color === "dark"
+    const { t } = useTranslation()
 
 
     return (
@@ -46,8 +48,8 @@ export default function HomeScreen() {
             <StatusBar barStyle={"dark-content"} />
             {/* Header */}
             <View className="flex-row justify-between items-center mb-8 mt-4 px-5">
-                <Text className="text-title font-bold text-text dark:text-textDark">
-                    Explore
+                <Text className="text-title text-start font-bold text-text dark:text-textDark">
+                    {t("Explore")}
                 </Text>
 
                 <View className="flex-row gap-3 items-center">

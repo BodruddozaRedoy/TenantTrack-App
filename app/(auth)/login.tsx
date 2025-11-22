@@ -1,6 +1,8 @@
 import PrimaryButton from "@/components/common/PrimaryButton";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
+import React, { useEffect, useState } from "react";
 import {
     Image,
     Keyboard,
@@ -13,9 +15,38 @@ import {
     View,
 } from "react-native";
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
+import { toast } from "sonner-native";
 
 export default function LoginScreen() {
     const [remember, setRemember] = useState(false);
+    const [role, setRole] = useState<null | string>("")
+
+    useEffect(() => {
+        const fetchStorage = async () => {
+            try {
+                const role: string | null = await AsyncStorage.getItem("role")
+                setRole(role)
+                console.log(role)
+            } catch (error) {
+                console.log(error)
+                toast.error("Cant fetch storage!")
+            } finally {
+            }
+        }
+        fetchStorage()
+    }, [])
+
+    const handleContinue = async () => {
+        try {
+            if (role === "prospective") return router.push("/(prospectiveTenant)/(tabs)")
+            if (role === "tenant") return router.push("/(tenant)/(tabs)")
+            if (role === "landlord") return router.push("/(landlord)/(tabs)")
+            if (role === "agent") return router.push("/(landlord)/(tabs)")
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -103,7 +134,7 @@ export default function LoginScreen() {
                         </View>
 
                         {/* Login Button */}
-                        <PrimaryButton title="Login" />
+                        <PrimaryButton title="Login" onPress={handleContinue} />
 
                         {/* Bottom Spacing */}
                         <View className="h-6" />
