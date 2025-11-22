@@ -63,7 +63,7 @@ export default function ProfileScreen() {
         description: "Restart required to apply changes.",
         action: {
           label: "Restart",
-          onPress: async () => {
+          onClick: async () => {
             if (!__DEV__) {
               await Updates.reloadAsync();
             } else {
