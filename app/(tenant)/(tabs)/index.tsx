@@ -1,11 +1,14 @@
 import useDarkMode from "@/constants/isDark";
 import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TenantHomeScreen() {
     const isDark = useDarkMode()
+    const { t } = useTranslation();
+
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark pt-12">
             <StatusBar barStyle={"dark-content"} />
@@ -16,7 +19,7 @@ export default function TenantHomeScreen() {
 
                 {/* Header */}
                 <View className="px-5 mb-4 flex-row items-center justify-between">
-                    <Text className="text-title font-bold text-text dark:text-textDark">Home</Text>
+                    <Text className="text-title font-bold text-text dark:text-textDark">{t('home')}</Text>
                     <TouchableOpacity onPress={() => router.push("/(tenant)/notification")}>
                         <Octicons name="bell-fill" size={24} color="#A1A1A1" />
                     </TouchableOpacity>
@@ -41,27 +44,27 @@ export default function TenantHomeScreen() {
                             </View>
 
                             <Text className="text-body font-semibold text-text dark:text-textDark">
-                                SAR 45,000<Text className="text-caption">/month</Text>
+                                SAR 45,000<Text className="text-caption">{t('month')}</Text>
                             </Text>
                         </View>
 
                         {/* Badges */}
                         <View className="flex-row flex-wrap gap-2 mb-3">
-                            <Badge icon="people-outline" label="6 Guest" />
-                            <Badge icon="bed-outline" label="3 Bedrooms" />
-                            <Badge icon="car-outline" label="2 Baths" />
+                            <Badge icon="people-outline" label={`6 ${t('guest')}`} />
+                            <Badge icon="bed-outline" label={`3 ${t('bedrooms')}`} />
+                            <Badge icon="car-outline" label={`2 ${t('baths')}`} />
                         </View>
 
                         {/* Rating */}
                         <View className="flex-row items-center mb-4">
                             <Ionicons name="star" size={16} color="#FACC15" />
                             <Text className="ml-1 text-small text-text dark:text-textDark">4.9</Text>
-                            <Text className="text-caption text-secondary dark:text-secondaryDark ml-1">(465 Reviews)</Text>
+                            <Text className="text-caption text-secondary dark:text-secondaryDark ml-1">(465 {t('reviews')})</Text>
                         </View>
 
                         {/* Contact Person */}
                         <Text className="text-body font-semibold text-text dark:text-textDark mb-2">
-                            Contact Person
+                            {t('contact_person')}
                         </Text>
 
                         <View className="flex-row items-center mb-4">
@@ -83,35 +86,35 @@ export default function TenantHomeScreen() {
                         </View>
 
                         {/* Information */}
-                        <Text className="text-body font-semibold text-text dark:text-textDark mb-2">Information</Text>
+                        <Text className="text-body font-semibold text-text dark:text-textDark mb-2">{t('information')}</Text>
 
-                        <InfoRow label="Next Payment" value="10/14/2025" />
-                        <InfoRow label="Payment Term" value="Monthly" />
-                        <InfoRow label="Lease Duration" value="12 months" />
-                        <InfoRow label="Size" value="150m^2" />
+                        <InfoRow label={t('next_payment')} value="10/14/2025" />
+                        <InfoRow label={t('payment_term')} value="Monthly" />
+                        <InfoRow label={t('lease_duration')} value="12 months" />
+                        <InfoRow label={t('size')} value="150m^2" />
 
                     </View>
                 </View>
 
                 {/* Services */}
                 <View className="bg-card dark:bg-cardDark mx-5 rounded-2xl p-3 border border-gray-200 dark:border-gray-800">
-                    <Text className="text-body font-semibold text-text dark:text-textDark mb-3">Services</Text>
+                    <Text className="text-body font-semibold text-text dark:text-textDark mb-3">{t('services')}</Text>
                     <View className=" flex-row justify-between mb-6">
-                        <ServiceCard icon="receipt-outline" label="Pay Rent" />
-                        <ServiceCard icon="settings-outline" label="Service" onPress={() => router.push("/(tenant)/service-request")} />
-                        <ServiceCard icon="document-text-outline" label="Lease" onPress={() => router.push("/(tenant)/lease-documents")} />
+                        <ServiceCard icon="receipt-outline" label={t('pay_rent')} />
+                        <ServiceCard icon="settings-outline" label={t('service')} onPress={() => router.push("/(tenant)/service-request")} />
+                        <ServiceCard icon="document-text-outline" label={t('lease')} onPress={() => router.push("/(tenant)/lease-documents")} />
                     </View>
                 </View>
 
                 {/* Pending Tasks */}
                 <View className="bg-card dark:bg-cardDark mx-5 rounded-2xl p-3 border border-gray-200 dark:border-gray-800 mt-5">
                     <Text className="text-body font-semibold text-text dark:text-textDark px-5 mb-3">
-                        Pending Tasks
+                        {t('pending_tasks')}
                     </Text>
 
-                    <PendingTask title="AC" progress="In Progress" />
-                    <PendingTask title="General" progress="Pending" />
-                    <PendingTask title="General" progress="Complete" />
+                    <PendingTask title="AC" progress={t('in_progress')} />
+                    <PendingTask title="General" progress={t('pending')} />
+                    <PendingTask title="General" progress={t('complete')} />
                 </View>
 
             </ScrollView>
@@ -151,6 +154,7 @@ function ServiceCard({ icon, label, onPress }: any) {
 }
 
 function PendingTask({ title, progress }: any) {
+    const { t } = useTranslation();
     return (
         <View className="px-5 mb-3 flex-row items-center justify-between">
             <View>
@@ -158,7 +162,7 @@ function PendingTask({ title, progress }: any) {
                 <Text className="text-small text-gray-400 font-semibold">{progress}</Text>
             </View>
             <TouchableOpacity className="px-4 py-1 rounded-full border border-gray-300 dark:border-gray-700">
-                <Text className="text-small text-text dark:text-textDark">View</Text>
+                <Text className="text-small text-text dark:text-textDark">{t('view')}</Text>
             </TouchableOpacity>
         </View>
     );

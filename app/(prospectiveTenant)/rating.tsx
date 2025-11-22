@@ -3,6 +3,7 @@ import PageTitle from "@/components/common/PageTitle";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     FlatList,
     ScrollView,
@@ -47,6 +48,7 @@ const REVIEWS = [
 
 export default function RatingsScreen() {
     const [activeSort, setActiveSort] = useState("Popular");
+    const { t } = useTranslation();
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
@@ -131,7 +133,7 @@ export default function RatingsScreen() {
             </ScrollView>
 
             {/* Add Review Button */}
-            <BottomButtonsFixed secondButtonOnPress={() => router.push("/(prospectiveTenant)/add-review")} secondButtonText="Add Review" />
+            <BottomButtonsFixed secondButtonOnPress={() => router.push("/(prospectiveTenant)/add-review")} secondButtonText={t('add_review')} />
         </SafeAreaView>
     );
 }

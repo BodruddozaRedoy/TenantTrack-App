@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Image,
     Modal,
@@ -15,10 +16,10 @@ import {
     View
 } from "react-native";
 
-const PAYMENT_TERMS = ["Monthly", "Quarterly", "Yearly"];
-const PURPOSES = ["Rent", "Lease", "Business", "Other"];
-
 export default function AppointmentApplyScreen() {
+    const { t } = useTranslation();
+    const PAYMENT_TERMS = [t("monthly"), t("quarterly"), t("yearly")];
+    const PURPOSES = [t("rent"), t("lease"), t("business"), t("other")];
     const [form, setForm] = useState({
         name: "",
         phone: "",
@@ -92,11 +93,11 @@ export default function AppointmentApplyScreen() {
                 </View>
 
                 {/* Form Fields */}
-                <FormInput label="Name" value={form.name} onChange={(v) => updateField("name", v)} />
-                <FormInput label="Your phone number" value={form.phone} onChange={(v) => updateField("phone", v)} keyboardType="phone-pad" />
-                <FormInput label="Your email" value={form.email} onChange={(v) => updateField("email", v)} keyboardType="email-address" />
-                <FormInput label="ID" value={form.idNumber} onChange={(v) => updateField("idNumber", v)} />
-                <FormInput label="Nationality" value={form.nationality} onChange={(v) => updateField("nationality", v)} />
+                <FormInput label={t("name")} value={form.name} onChange={(v) => updateField("name", v)} />
+                <FormInput label={t("your_phone_number")} value={form.phone} onChange={(v) => updateField("phone", v)} keyboardType="phone-pad" />
+                <FormInput label={t("your_email")} value={form.email} onChange={(v) => updateField("email", v)} keyboardType="email-address" />
+                <FormInput label={t("id_number")} value={form.idNumber} onChange={(v) => updateField("idNumber", v)} />
+                <FormInput label={t("nationality")} value={form.nationality} onChange={(v) => updateField("nationality", v)} />
 
                 {/* Date Picker */}
                 <TouchableOpacity
@@ -104,7 +105,7 @@ export default function AppointmentApplyScreen() {
                     className="border border-gray-300 dark:border-gray-700 rounded-xl p-3 mb-4 flex-row justify-between items-center"
                 >
                     <Text className={`text-body ${formattedDate ? "text-text dark:text-textDark" : "text-gray-400"}`}>
-                        {formattedDate || "Select Date"}
+                        {formattedDate || t("select_date_appointment")}
                     </Text>
                     <Ionicons name="chevron-down" size={18} color="#9CA3AF" />
                 </TouchableOpacity>
@@ -123,7 +124,7 @@ export default function AppointmentApplyScreen() {
 
                 {/* Dropdowns */}
                 <DropdownInput
-                    label="Payment Term"
+                    label={t("payment_term")}
                     value={form.paymentTerm}
                     onSelect={(v) => updateField("paymentTerm", v)}
                     options={PAYMENT_TERMS}
@@ -132,12 +133,12 @@ export default function AppointmentApplyScreen() {
                     onClose={() => setDropdownField(null)}
                 />
 
-                <FormInput label="Desired Move-in Date" value={form.moveInDate} onChange={(v) => updateField("moveInDate", v)} />
-                <FormInput label="Lease Duration (months)" value={form.leaseDuration} onChange={(v) => updateField("leaseDuration", v)} keyboardType="numeric" />
-                <FormInput label="Employment Status" value={form.employmentStatus} onChange={(v) => updateField("employmentStatus", v)} />
+                <FormInput label={t("desired_move_in_date")} value={form.moveInDate} onChange={(v) => updateField("moveInDate", v)} />
+                <FormInput label={t("lease_duration_months")} value={form.leaseDuration} onChange={(v) => updateField("leaseDuration", v)} keyboardType="numeric" />
+                <FormInput label={t("employment_status")} value={form.employmentStatus} onChange={(v) => updateField("employmentStatus", v)} />
 
                 <DropdownInput
-                    label="Purpose"
+                    label={t("purpose")}
                     value={form.purpose}
                     onSelect={(v) => updateField("purpose", v)}
                     options={PURPOSES}
@@ -149,7 +150,7 @@ export default function AppointmentApplyScreen() {
             </ScrollView>
 
             {/* Fixed Bottom Button */}
-            <BottomButtonsFixed secondButtonOnPress={() => router.push("/(prospectiveTenant)/appointment-success")} secondButtonText="Continue" />
+            <BottomButtonsFixed secondButtonOnPress={() => router.push("/(prospectiveTenant)/appointment-success")} secondButtonText={t("continue")} />
 
         </View>
     );

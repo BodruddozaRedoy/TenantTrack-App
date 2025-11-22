@@ -1,6 +1,7 @@
 import PageTitle from "@/components/common/PageTitle";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { FlatList, Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -28,11 +29,12 @@ const chatData = [
 ];
 
 export default function ChatScreen() {
+  const { t } = useTranslation();
   return (
     <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark  pt-2">
       <StatusBar barStyle={"dark-content"} />
       {/* Page Title */}
-      <PageTitle text="Chat" />
+      <PageTitle text={t("chat")} />
 
       <View className="border-b border-gray-200 mb-4 dark:border-gray-700" />
 
@@ -78,7 +80,7 @@ export default function ChatScreen() {
                       className={`text-caption font-medium
                       ${active ? "text-[#4DA3FF]" : "text-[#4DA3FF]"}`}
                     >
-                      VERIFIED
+                      {t("verified")}
                     </Text>
                   )}
                 </View>
@@ -87,7 +89,7 @@ export default function ChatScreen() {
                   className={`text-caption
                   ${active ? "text-white dark:text-secondary" : "text-secondary dark:text-secondaryDark"}`}
                 >
-                  {item.role}
+                  {t("property_owner")}
                 </Text>
               </View>
 

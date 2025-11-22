@@ -2,10 +2,12 @@ import BottomButtonsFixed from "@/components/common/BottomButtonsFixed";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AppointmentSuccessScreen() {
+    const { t } = useTranslation();
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
             <ScrollView
@@ -16,10 +18,10 @@ export default function AppointmentSuccessScreen() {
                 {/* Top Message */}
                 <View className="bg-[#F4F4F4]  rounded-xl p-4 mt-4">
                     <Text className="text-body font-semibold text-text dark:text-textDark">
-                        You’re done!
+                        {t("you_are_done")}
                     </Text>
                     <Text className="text-small text-secondary dark:text-secondaryDark mt-1">
-                        Thanks for choosing our platform, all the best for you
+                        {t("thanks_choosing_platform")}
                     </Text>
                 </View>
 
@@ -32,10 +34,10 @@ export default function AppointmentSuccessScreen() {
                     </View>
 
                     <Text className="text-body font-semibold text-text dark:text-textDark text-center">
-                        Appointment Success!
+                        {t("appointment_success")}
                     </Text>
                     <Text className="text-small text-secondary dark:text-secondaryDark text-center mt-1 mb-6">
-                        You’ve completed the appointment process, you can see your appointment detail below
+                        {t("appointment_completed")}
                     </Text>
 
                     {/* Details */}
@@ -75,13 +77,13 @@ export default function AppointmentSuccessScreen() {
                     </View>
 
                     <Text className="text-small text-secondary dark:text-secondaryDark mt-6 text-center">
-                        Hope you have a pleasant experience!
+                        {t("hope_pleasant_experience")}
                     </Text>
                 </View>
             </ScrollView>
 
             {/* Button */}
-            <BottomButtonsFixed secondButtonText="Back to Home" secondButtonOnPress={() => router.push("/(prospectiveTenant)/(tabs)")} />
+            <BottomButtonsFixed secondButtonText={t("back_to_home")} secondButtonOnPress={() => router.push("/(prospectiveTenant)/(tabs)")} />
         </SafeAreaView>
     );
 }

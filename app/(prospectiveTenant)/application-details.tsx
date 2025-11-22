@@ -1,6 +1,7 @@
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
     FlatList,
     Image,
@@ -24,21 +25,22 @@ const statusBadgeColor = {
 
 export default function ApplicationDetailsScreen() {
     const { id } = useLocalSearchParams();
+    const { t } = useTranslation();
 
     // Mock data (replace with API later)
     const data = {
         id,
         title: "The Minimalist",
         location: "Brooklyn, New York",
-        price: "SAR 45,000 /month",
-        guests: "6 guest",
-        rooms: "3 Bedrooms",
-        baths: "2 Baths",
+        price: `SAR 45,000 ${t("month")}`,
+        guests: `6 ${t("guest")}`,
+        rooms: `3 ${t("bedrooms")}`,
+        baths: `2 ${t("baths")}`,
         rating: "4.9",
         reviews: 485,
         status: "Pending",
         appliedDate: "10/14/2025",
-        paymentTerm: "Monthly",
+        paymentTerm: t("monthly"),
         lease: "12 months",
         desiredMove: "2025-11-01",
     };
@@ -68,7 +70,9 @@ export default function ApplicationDetailsScreen() {
                         className="absolute top-10 right-4 px-3 py-1 rounded-full mt-5"
                         style={{ backgroundColor: statusBadgeColor[data.status] }}
                     >
-                        <Text className="text-white text-xs font-medium">{data.status}</Text>
+                        <Text className="text-white text-xs font-medium">
+                            {data.status === "Pending" ? t("pending") : data.status === "Approved" ? t("approved") : t("rejected")}
+                        </Text>
                     </View>
                 </View>
 
@@ -118,7 +122,7 @@ export default function ApplicationDetailsScreen() {
 
                     {/* Contact person */}
                     <Text className="text-body font-semibold text-text dark:text-textDark mb-2">
-                        Contact Person
+                        {t("contact_person")}
                     </Text>
                     <View className="flex-row items-center justify-between mb-5">
                         <TouchableOpacity  className="flex-row items-center">
@@ -130,11 +134,11 @@ export default function ApplicationDetailsScreen() {
                                     </Text>
                                     <MaterialIcons name="verified" size={14} color="#3B82F6" />
                                     <Text className="ml-1 text-caption text-blue-500">
-                                        VERIFIED
+                                        {t("verified")}
                                     </Text>
                                 </View>
                                 <Text className="text-caption text-secondary dark:text-secondaryDark">
-                                    Property Owner
+                                    {t("property_owner")}
                                 </Text>
                             </View>
                         </TouchableOpacity>
@@ -151,23 +155,23 @@ export default function ApplicationDetailsScreen() {
 
                     {/* Information */}
                     <Text className="text-body font-semibold text-text dark:text-textDark mb-2">
-                        Information
+                        {t("information")}
                     </Text>
 
                     <View className="mb-6">
-                        <InfoItem label="Applied" value={data.appliedDate} />
-                        <InfoItem label="Payment Term" value={data.paymentTerm} />
-                        <InfoItem label="Lease Duration" value={data.lease} />
-                        <InfoItem label="Desired Move-in Date" value={data.desiredMove} />
+                        <InfoItem label={t("applied")} value={data.appliedDate} />
+                        <InfoItem label={t("payment_term")} value={data.paymentTerm} />
+                        <InfoItem label={t("lease_duration")} value={data.lease} />
+                        <InfoItem label={t("desired_move_in_date_label")} value={data.desiredMove} />
                     </View>
 
                     {/* Photos */}
                     <View className="flex-row justify-between items-center mb-2">
                         <Text className="text-body font-semibold text-text dark:text-textDark">
-                            Photos
+                            {t("photos")}
                         </Text>
                         <TouchableOpacity>
-                            <Text className="text-caption text-gray-400 font-semibold">See All</Text>
+                            <Text className="text-caption text-gray-400 font-semibold">{t("see_all")}</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -191,7 +195,7 @@ export default function ApplicationDetailsScreen() {
             <View className="p-4 border-t border-gray-200 dark:border-gray-800 pb-7">
                 <TouchableOpacity className="bg-black py-4 rounded-full">
                     <Text className="text-center text-white font-semibold">
-                        Cancel Appointment
+                        {t("cancel_appointment")}
                     </Text>
                 </TouchableOpacity>
             </View>

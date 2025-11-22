@@ -1,31 +1,33 @@
 import { Ionicons } from "@expo/vector-icons";
+import Constants from "expo-constants";
 import * as Location from "expo-location";
 import {
-    AppleMaps,
-    GoogleMaps,
-    type CameraPosition,
-    type Coordinates,
+  AppleMaps,
+  GoogleMaps,
+  type CameraPosition,
+  type Coordinates,
 } from "expo-maps";
 import React, {
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
 } from "react";
+import { useTranslation } from "react-i18next";
 import {
-    ActivityIndicator,
-    Alert,
-    FlatList,
-    Keyboard,
-    Modal,
-    Platform,
-    Text,
-    TextInput,
-    ToastAndroid,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View,
-    useColorScheme,
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  Keyboard,
+  Modal,
+  Platform,
+  Text,
+  TextInput,
+  ToastAndroid,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+  useColorScheme,
 } from "react-native";
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 
@@ -59,7 +61,7 @@ interface ProfileLocationPickerProps {
 }
 
 // ---------- CONFIG ----------
-const GOOGLE_KEY = "AIzaSyBDawoyAMGUy0JLSxN6NwTreIvU6kpmOOs"; // <-- move to env later
+const GOOGLE_KEY = Constants.expoConfig!.extra!.googleMapsApiKey;
 
 // Dhaka fallback as in your code
 const DEFAULT_CAMERA: CameraPosition = {
@@ -77,6 +79,7 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
 }) => {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
+  const { t } = useTranslation();
 
   const [cameraPosition, setCameraPosition] =
     useState<CameraPosition>(DEFAULT_CAMERA);
@@ -92,7 +95,7 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
     if (Platform.OS === "android") {
       ToastAndroid.show(msg, ToastAndroid.SHORT);
     } else {
-      Alert.alert("Location", msg);
+      Alert.alert(t('location'), msg);
     }
   };
 
@@ -155,11 +158,13 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
     setCameraPosition({
       coordinates: safeCoords,
       zoom: 15,
+      // heading: 0,
+      // pitch: 0,
     });
 
     const addr = await reverseGeocode(
-      safeCoords.latitude,
-      safeCoords.longitude
+      safeCoords.latitude ?? 0,
+      safeCoords.longitude ?? 0
     );
     if (addr) setAddress(addr);
   };
@@ -227,6 +232,8 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
       setCameraPosition({
         coordinates: coords,
         zoom: 15,
+        // heading: 0,
+        // pitch: 0,
       });
       setAddress(formatted ?? item.description);
       setSuggestions([]);
@@ -245,14 +252,14 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
 
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        showToast("Location permission denied.");
+        showToast(t('location_permission_denied'));
         setAutoLoading(false);
         return;
       }
 
       const servicesEnabled = await Location.hasServicesEnabledAsync();
       if (!servicesEnabled) {
-        showToast("Please enable Location Services in device settings.");
+        showToast(t('enable_location_services'));
         setAutoLoading(false);
         return;
       }
@@ -261,12 +268,11 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
       if (!pos) {
         pos = await Location.getCurrentPositionAsync({
           accuracy: Location.Accuracy.Balanced,
-          timeout: 7000,
         });
       }
 
       if (!pos) {
-        showToast("Unable to get your current location.");
+        showToast(t('unable_get_location'));
         setAutoLoading(false);
         return;
       }
@@ -280,9 +286,11 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
       setCameraPosition({
         coordinates: coords,
         zoom: 15,
+        // heading: 0,
+        // pitch: 0,
       });
 
-      const addr = await reverseGeocode(coords.latitude, coords.longitude);
+      const addr = await reverseGeocode(coords.latitude ?? 0, coords.longitude ?? 0);
       if (addr) setAddress(addr);
     } catch (error) {
       console.log("Auto location error:", error);
@@ -312,14 +320,13 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
           style={{ marginRight: 8 }}
         />
         <Text
-          className={`flex-1 text-small ${
-            address
+          className={`flex-1 text-small ${address
               ? "text-text dark:text-textDark"
               : "text-secondary dark:text-secondaryDark"
-          }`}
+            }`}
           numberOfLines={1}
         >
-          {address || "Search or enter address"}
+          {address || t('search_enter_address')}
         </Text>
       </TouchableOpacity>
 
@@ -334,9 +341,15 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
               isMyLocationEnabled: true,
               selectionEnabled: true,
             }}
-            onMapClick={(event: { coordinates: Coordinates }) =>
-              handleMapClick(event.coordinates)
-            }
+            onMapClick={(event: any) => {
+              if (!event?.coordinate) return;
+
+              handleMapClick({
+                latitude: Number(event.coordinate.latitude),
+                longitude: Number(event.coordinate.longitude)
+              });
+            }}
+
           />
         ) : (
           <GoogleMaps.View
@@ -365,7 +378,7 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
           <ActivityIndicator size="small" color={isDark ? "#fff" : "#000"} />
         ) : (
           <Text className="text-body text-text dark:text-textDark">
-            Set New Location
+              {t('set_new_location')}
           </Text>
         )}
       </TouchableOpacity>
@@ -400,7 +413,7 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
                     value={address}
                     onChangeText={handleAddressSearch}
                     autoFocus
-                    placeholder="Search or enter address"
+                    placeholder={t('search_enter_address')}
                     placeholderTextColor="#9CA3AF"
                     className="w-full border rounded-xl px-3 py-3 text-text dark:text-textDark 
                       border-gray-300 dark:border-gray-700 bg-background dark:bg-backgroundDark"
@@ -430,7 +443,7 @@ const LocationTab: React.FC<ProfileLocationPickerProps> = ({
                 ) : (
                   <View className="flex-1 items-center justify-center">
                     <Text className="text-small text-secondary dark:text-secondaryDark">
-                      Start typing to search for a location...
+                        {t('start_typing_search')}
                     </Text>
                   </View>
                 )}

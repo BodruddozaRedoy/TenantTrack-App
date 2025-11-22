@@ -1,6 +1,7 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     FlatList,
     Image,
@@ -30,6 +31,7 @@ const MOCK_MESSAGES = [
 ];
 
 export default function ChatDetailScreen() {
+    const { t } = useTranslation();
     const [messages, setMessages] = useState(MOCK_MESSAGES);
     const [input, setInput] = useState("");
 
@@ -106,7 +108,7 @@ export default function ChatDetailScreen() {
                     ListHeaderComponent={
                         <View className="flex-row items-center my-2">
                             <View className="flex-1 h-[1px] bg-gray-300" />
-                            <Text className="text-caption text-secondary mx-2">Today</Text>
+                            <Text className="text-caption text-secondary mx-2">{t("today")}</Text>
                             <View className="flex-1 h-[1px] bg-gray-300" />
                         </View>
                     }
@@ -144,7 +146,7 @@ export default function ChatDetailScreen() {
 
                     <TextInput
                         className="flex-1 mx-3 bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-4 text-text dark:text-textDark"
-                        placeholder="Write a message ..."
+                        placeholder={t("write_message")}
                         placeholderTextColor="#9CA3AF"
                         value={input}
                         onChangeText={setInput}

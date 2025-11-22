@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Modal,
     Platform,
@@ -53,6 +54,7 @@ const SelectInput = ({
     onSelect: (v: string) => void;
 }) => {
     const [visible, setVisible] = useState(false);
+    const { t } = useTranslation();
 
     return (
         <View className="mb-4">
@@ -66,7 +68,7 @@ const SelectInput = ({
                 activeOpacity={0.8}
             >
                 <Text className={`text-body ${value ? "text-text dark:text-textDark" : "text-gray-400"}`}>
-                    {value || "Select"}
+                    {value || t("select")}
                 </Text>
                 <Ionicons name="chevron-down" size={18} color="#9CA3AF" />
             </TouchableOpacity>
@@ -98,6 +100,7 @@ export default function FilterScreen() {
     const router = useRouter();
     const colorScheme = useColorScheme();
     const isDark = colorScheme === "dark";
+    const { t } = useTranslation();
 
     const priceChartData = basePriceChartData.map((item) => ({
         ...item,
@@ -208,7 +211,7 @@ export default function FilterScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            <PageTitle text="Filter" leftIcon leftOnPress={() => router.back()} />
+            <PageTitle text={t("filter")} leftIcon leftOnPress={() => router.back()} />
             <View className="my-3 border-b border-gray-200" />
 
             <ScrollView
@@ -219,7 +222,7 @@ export default function FilterScreen() {
                 {/* Property Type Pills */}
                 <View className="mt-4 mb-4">
                     <Text className="text-subtitle text-secondary dark:text-secondaryDark mb-4">
-                        Property Type
+                        {t("property_type")}
                     </Text>
                     <View className="flex-row flex-wrap">
                         {propertyTypeOptions.map((type) => {
@@ -250,7 +253,7 @@ export default function FilterScreen() {
                 {/* Price Range */}
                 <View className="mb-6">
                     <Text className="text-subtitle text-secondary dark:text-secondaryDark mb-2">
-                        Price Range
+                        {t("price_range")}
                     </Text>
 
                     {/* Histogram Bar Chart */}
@@ -273,7 +276,7 @@ export default function FilterScreen() {
 
                     <View className="flex-row justify-between w-full">
                         <View className="rounded-full h-12 w-44 pl-7 border border-gray-200 flex-row items-center overflow-hidden">
-                            <Text className="text-gray-400 font-semibold pr-5">Min</Text>
+                            <Text className="text-gray-400 font-semibold pr-5">{t("min")}</Text>
                             <TextInput
                                 className="font-bold"
                                 value={filters.priceMin}
@@ -284,7 +287,7 @@ export default function FilterScreen() {
                         </View>
 
                         <View className="rounded-full h-12 w-44 pl-7 border border-gray-200 flex-row items-center overflow-hidden">
-                            <Text className="text-gray-400 font-semibold pr-5">Max</Text>
+                            <Text className="text-gray-400 font-semibold pr-5">{t("max")}</Text>
                             <TextInput
                                 value={filters.priceMax}
                                 onChangeText={(t) => updateField("priceMax", t)}
@@ -298,12 +301,12 @@ export default function FilterScreen() {
 
                 {/* Additional Filters Label */}
                 <Text className="text-subtitle text-secondary dark:text-secondaryDark mb-2">
-                    Additional Filters :
+                    {t("additional_filters")} :
                 </Text>
 
                 {/* Rental Term */}
                 <LabeledInput
-                    label="Rental Term"
+                    label={t("rental_term")}
                     value={filters.rentalTerm}
                     onChangeText={(t) => updateField("rentalTerm", t)}
                 />
@@ -312,7 +315,7 @@ export default function FilterScreen() {
                 <View className="flex-row justify-between">
                     <View className="flex-1 mr-3">
                         <LabeledInput
-                            label="Bedrooms (min)"
+                            label={t("bedrooms_min")}
                             value={filters.bedrooms}
                             onChangeText={(t) => updateField("bedrooms", t)}
                             keyboardType="numeric"
@@ -320,7 +323,7 @@ export default function FilterScreen() {
                     </View>
                     <View className="flex-1">
                         <LabeledInput
-                            label="Bathrooms (min)"
+                            label={t("bathrooms_min")}
                             value={filters.bathrooms}
                             onChangeText={(t) => updateField("bathrooms", t)}
                             keyboardType="numeric"
@@ -331,7 +334,7 @@ export default function FilterScreen() {
                 {/* Property Type Detail */}
                 {/* Property Type Detail (Dropdown) */}
                 <SelectInput
-                    label="Property Type"
+                    label={t("property_type")}
                     value={filters.propertyTypeDetail}
                     options={propertyTypeOptions}
                     onSelect={(v) => updateField("propertyTypeDetail", v)}
@@ -342,14 +345,14 @@ export default function FilterScreen() {
                 <View className="flex-row justify-between">
                     <View className="flex-1 mr-3">
                         <LabeledInput
-                            label="City"
+                            label={t("city")}
                             value={filters.city}
                             onChangeText={(t) => updateField("city", t)}
                         />
                     </View>
                     <View className="flex-1">
                         <LabeledInput
-                            label="District"
+                            label={t("district")}
                             value={filters.district}
                             onChangeText={(t) => updateField("district", t)}
                         />
@@ -358,21 +361,21 @@ export default function FilterScreen() {
 
                 {/* Zip Code */}
                 <LabeledInput
-                    label="Zip Code"
+                    label={t("zip_code")}
                     value={filters.zipCode}
                     onChangeText={(t) => updateField("zipCode", t)}
                 />
 
                 {/* Furnishing */}
                 <LabeledInput
-                    label="Furnishing"
+                    label={t("furnishing")}
                     value={filters.furnishing}
                     onChangeText={(t) => updateField("furnishing", t)}
                 />
 
                 {/* Pets Allowed */}
                 <LabeledInput
-                    label="Pets Allowed"
+                    label={t("pets_allowed")}
                     value={filters.petsAllowed}
                     onChangeText={(t) => updateField("petsAllowed", t)}
                 />
@@ -380,7 +383,7 @@ export default function FilterScreen() {
                 {/* Available From - Date Picker */}
                 <View className="mb-4">
                     <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                        Available From
+                        {t("available_from")}
                     </Text>
                     <TouchableOpacity
                         onPress={() => setShowDatePicker(true)}
@@ -393,7 +396,7 @@ export default function FilterScreen() {
                                 : "text-gray-400 dark:text-gray-500"
                                 }`}
                         >
-                            {formattedDate || "Select date"}
+                            {formattedDate || t("select_date")}
                         </Text>
                     </TouchableOpacity>
 
@@ -410,7 +413,7 @@ export default function FilterScreen() {
                 {/* Amenities */}
                 <View className="mt-2 mb-4">
                     <Text className="text-subtitle text-secondary dark:text-secondaryDark mb-2">
-                        Amenities
+                        {t("amenities")}
                     </Text>
                     <View className="border-b border-gray-200 mb-2" />
                     <View className="flex-row flex-wrap">
@@ -428,7 +431,7 @@ export default function FilterScreen() {
                 {/* Security Features */}
                 <View className="mb-4">
                     <Text className="text-subtitle text-secondary dark:text-secondaryDark mb-2">
-                        Security Features
+                        {t("security_features")}
                     </Text>
                     <View className="border-b border-gray-200 mb-2" />
                     <View className="flex-row flex-wrap">
@@ -445,7 +448,7 @@ export default function FilterScreen() {
             </ScrollView>
 
             {/* Bottom Apply Button */}
-            <BottomButtonsFixed secondButtonOnPress={applyFilters} secondButtonText="Apply Filter" />
+            <BottomButtonsFixed secondButtonOnPress={applyFilters} secondButtonText={t("apply_filter")} />
         </SafeAreaView>
     );
 }

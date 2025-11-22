@@ -1,39 +1,40 @@
 import PageTitle from "@/components/common/PageTitle";
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// Notification Data (no icon field anymore)
-const notifications = [
+// Notification Data (no icon field anymore) - will be translated in component
+const getNotifications = (t: any) => [
     {
         id: "1",
-        title: "Receipt Released",
-        message: "Your receipt has been released",
+        title: t("receipt_released"),
+        message: t("receipt_released_msg"),
         date: "20/07/2024",
         color: "#000000",
         textColor: "#FFFFFF",
     },
     {
         id: "2",
-        title: "Payment Success",
-        message: "Your payment has been successfully",
+        title: t("payment_success"),
+        message: t("payment_success_msg"),
         date: "20/07/2024",
         color: "#4ADE80", // green
         textColor: "#1A1A1A",
     },
     {
         id: "3",
-        title: "Rent Canceled",
-        message: "Your cancel request has been received",
+        title: t("rent_canceled"),
+        message: t("rent_canceled_msg"),
         date: "20/07/2024",
         color: "#F87171", // red
         textColor: "#1A1A1A",
     },
     {
         id: "4",
-        title: "Pending Rent",
-        message: "Your rent has been delayed",
+        title: t("pending_rent"),
+        message: t("pending_rent_msg"),
         date: "20/07/2024",
         color: "#FACC15", // yellow
         textColor: "#1A1A1A",
@@ -75,12 +76,14 @@ const RenderIcon = ({ title, size, color }: any) => {
 
 export default function NotificationScreen() {
     const router = useRouter();
+    const { t } = useTranslation();
+    const notifications = getNotifications(t);
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark  pt-2">
 
             {/* Header */}
-            <PageTitle text="Notification" leftIcon leftOnPress={() => router.back()} />
+            <PageTitle text={t("notification")} leftIcon leftOnPress={() => router.back()} />
 
             <View className="border-b border-gray-200 my-5" />
 

@@ -1,6 +1,7 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Animated,
   FlatList,
@@ -37,6 +38,7 @@ interface PropertyOwnerModalProps {
 
 export default function PropertyOwnerModal({ visible, onClose }: PropertyOwnerModalProps) {
   const translateY = useRef(new Animated.Value(0)).current;
+  const { t } = useTranslation();
 
   // Reset position when opened
   useEffect(() => {
@@ -96,10 +98,10 @@ export default function PropertyOwnerModal({ visible, onClose }: PropertyOwnerMo
                 Steven Adams
               </Text>
               <MaterialIcons name="verified" size={14} color="#3B82F6" />
-              <Text className="ml-1 text-caption text-blue-500">VERIFIED</Text>
+              <Text className="ml-1 text-caption text-blue-500">{t('verified')}</Text>
             </View>
             <Text className="text-caption text-secondary dark:text-secondaryDark">
-              Property Owner
+              {t('property_owner')}
             </Text>
           </View>
 
@@ -116,16 +118,15 @@ export default function PropertyOwnerModal({ visible, onClose }: PropertyOwnerMo
 
         {/* About */}
         <Text className="text-body font-semibold text-text dark:text-textDark mb-1">
-          About
+          {t('about')}
         </Text>
         <Text className="text-small leading-5 text-secondary dark:text-secondaryDark mb-5">
-          Meet Steven Adams, the owner of this charming townhouse located in
-          Brooklyn&apos;s Park Slope neighborhood...
+          {t('about_owner_placeholder')}
         </Text>
 
         {/* Listed Property */}
         <Text className="text-body font-semibold text-text dark:text-textDark mb-3">
-          Listed Property
+          {t('listed_property')}
         </Text>
 
         <View style={{ height: 200 }}>

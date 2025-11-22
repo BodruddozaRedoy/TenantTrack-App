@@ -3,6 +3,7 @@ import { Ionicons, Octicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
     FlatList,
     Image,
@@ -58,24 +59,134 @@ type UpdateItemProps = {
 };
 
 //
-// STATS DATA
-//
-
-const statsData: StatCardProps[] = [
-    { icon: IconConstants.Property, value: "12", label: "Total Properties" },
-    { icon: IconConstants.List, value: "08", label: "Active Listings" },
-    { icon: IconConstants.Bag, value: "89%", label: "Occupancy Rate" },
-    { icon: IconConstants.Calender, value: "120k", label: "Monthly Revenue" },
-    { icon: IconConstants.Clock, value: "03", label: "Pending Listings" },
-];
-
-//
 // MAIN SCREEN
 //
 
 export default function LandlordHomeScreen() {
     const { colorScheme } = useColorScheme();
     const isDark = colorScheme === "dark";
+    const { t } = useTranslation();
+
+    //
+    // STATS DATA
+    //
+
+    const statsData: StatCardProps[] = [
+        { icon: IconConstants.Property, value: "12", label: t('total_properties') },
+        { icon: IconConstants.List, value: "08", label: t('active_listings') },
+        { icon: IconConstants.Bag, value: "89%", label: t('occupancy_rate') },
+        { icon: IconConstants.Calender, value: "120k", label: t('monthly_revenue') },
+        { icon: IconConstants.Clock, value: "03", label: t('pending_listings') },
+    ];
+
+    const tenantList: TenantItemProps[] = [
+        { name: "Alif", due: "SAR 2500", next: "20/07/2024" },
+        { name: "Alif", due: "SAR 2500", next: "20/07/2024" },
+        { name: "Alif", due: "SAR 2500", next: "20/07/2024" },
+    ];
+
+    const properties: PropertyCardProps[] = [
+        {
+            title: "Luxury Villa",
+            price: `SAR 45,000 ${t('month')}`,
+            tag: "Viewing",
+            location: "Al Nakheel, Riyadh",
+            person: "Sarah Abdullah",
+            status: "Viewing",
+            image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        },
+        {
+            title: "Luxury Villa",
+            price: `SAR 45,000 ${t('month')}`,
+            tag: "Viewing",
+            location: "Al Nakheel, Riyadh",
+            person: "Sarah Abdullah",
+            status: "Viewing",
+            image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        },
+        {
+            title: "Luxury Villa",
+            price: `SAR 45,000 ${t('month')}`,
+            tag: "Rental",
+            location: "Al Nakheel, Riyadh",
+            person: "Sarah Abdullah",
+            status: "Rental",
+            image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        },
+    ];
+
+    const services: ServiceCardProps[] = [
+        {
+            title: "Ac",
+            urgency: "High",
+            location: "Al Nakheel, Riyadh",
+            person: "Sarah Abdullah",
+            image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        },
+        {
+            title: "Laundry",
+            urgency: "Low",
+            location: "Al Nakheel, Riyadh",
+            person: "Sarah Abdullah",
+            image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        },
+        {
+            title: "Water",
+            urgency: "Low",
+            location: "Al Nakheel, Riyadh",
+            person: "Sarah Abdullah",
+            image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        },
+        {
+            title: "Electricity",
+            urgency: "Low",
+            location: "Al Nakheel, Riyadh",
+            person: "Sarah Abdullah",
+            image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        },
+        {
+            title: "Gas",
+            urgency: "Low",
+            location: "Al Nakheel, Riyadh",
+            person: "Sarah Abdullah",
+            image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
+        },
+    ];
+
+    const updates: UpdateItemProps[] = [
+        {
+            icon: "bookmark-outline",
+            title: t('receipt_released'),
+            msg: t('receipt_released_msg'),
+            date: "20/07/2024",
+            bg: "bg-black",
+            color: "#fff",
+        },
+        {
+            icon: "checkmark-done-outline",
+            title: t('payment_success'),
+            msg: t('payment_success_msg'),
+            date: "20/07/2024",
+            bg: "bg-green-200",
+            color: "#000",
+        },
+        {
+            icon: "close-outline",
+            title: t('rent_canceled'),
+            msg: t('rent_canceled_msg'),
+            date: "20/07/2024",
+            bg: "bg-red-200",
+            color: "#000",
+        },
+        {
+            icon: "time-outline",
+            title: t('pending_rent'),
+            msg: t('pending_rent_msg'),
+            date: "20/07/2024",
+            bg: "bg-yellow-200",
+            color: "#000",
+        },
+    ];
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
@@ -90,10 +201,10 @@ export default function LandlordHomeScreen() {
                 <View className="flex-row justify-between items-center">
                     <View className="pt-4 mb-3">
                         <Text className="text-title font-bold text-text dark:text-textDark">
-                            Welcome Back!
+                            {t('welcome_back')}
                         </Text>
                         <Text className="text-small text-secondary dark:text-secondaryDark">
-                            Here's your property overview.
+                            {t('property_overview')}
                         </Text>
                     </View>
 
@@ -124,7 +235,7 @@ export default function LandlordHomeScreen() {
                 {/* MY TENANT */}
                 <View className="bg-card dark:bg-cardDark px-4 rounded-2xl">
                     <SectionHeader
-                        title="My Tenant"
+                        title={t('my_tenant')}
                         seeAll
                         onPress={() => router.push("/(landlord)/my-tenant")}
                     />
@@ -139,7 +250,7 @@ export default function LandlordHomeScreen() {
                 {/* RECENT APPLICATIONS */}
                 <View className="bg-card dark:bg-cardDark pb-4 px-4 rounded-2xl mt-5">
                     <SectionHeader
-                        title="Recent Applications"
+                        title={t('recent_applications')}
                         onPress={() => router.push("/(landlord)/my-listing")}
                         seeAll
                     />
@@ -160,7 +271,7 @@ export default function LandlordHomeScreen() {
                 {/* SERVICE REQUESTS */}
                 <View className="bg-card dark:bg-cardDark px-4 rounded-2xl mt-5 pb-4">
                     <SectionHeader
-                        title="Service Requests"
+                        title={t('service_requests')}
                         onPress={() => router.push("/(landlord)/all-services")}
                         seeAll
                     />
@@ -181,7 +292,7 @@ export default function LandlordHomeScreen() {
                 {/* UPDATES */}
                 <View className="bg-card dark:bg-cardDark px-2 rounded-2xl mt-5 mb-10">
                     <Text className="text-title text-center mt-4 text-text dark:text-textDark">
-                        Updates & Tips
+                        {t('updates_tips')}
                     </Text>
 
                     <View className="bg-card dark:bg-cardDark p-2 rounded-2xl mt-3">
@@ -213,23 +324,26 @@ const StatCard = ({ icon, value, label, isDark }: StatCardProps & { isDark: bool
     </View>
 );
 
-const TenantItem = ({ name, due, next }: TenantItemProps) => (
-    <TouchableOpacity
-        onPress={() => router.push("/(landlord)/tenant-info")}
-        className="bg-[#E5E5E5] dark:bg-[#2A2A2A] p-4 rounded-xl mb-3 flex-row items-center gap-4"
-    >
-        <View className="w-12 h-12 rounded-lg bg-gray-400 dark:bg-gray-600" />
-        <View>
-            <Text className="text-body font-semibold text-text dark:text-textDark">{name}</Text>
-            <Text className="text-caption text-secondary dark:text-secondaryDark">
-                Due Payment : {due}
-            </Text>
-            <Text className="text-caption text-secondary dark:text-secondaryDark">
-                Next Payment : {next}
-            </Text>
-        </View>
-    </TouchableOpacity>
-);
+const TenantItem = ({ name, due, next }: TenantItemProps) => {
+    const { t } = useTranslation();
+    return (
+        <TouchableOpacity
+            onPress={() => router.push("/(landlord)/tenant-info")}
+            className="bg-[#E5E5E5] dark:bg-[#2A2A2A] p-4 rounded-xl mb-3 flex-row items-center gap-4"
+        >
+            <View className="w-12 h-12 rounded-lg bg-gray-400 dark:bg-gray-600" />
+            <View>
+                <Text className="text-body font-semibold text-text dark:text-textDark">{name}</Text>
+                <Text className="text-caption text-secondary dark:text-secondaryDark">
+                    {t('due_payment')} : {due}
+                </Text>
+                <Text className="text-caption text-secondary dark:text-secondaryDark">
+                    {t('next_payment')} : {next}
+                </Text>
+            </View>
+        </TouchableOpacity>
+    );
+}
 
 const PropertyCard = ({ title, price, image, location, person, status }: PropertyCardProps) => (
     <View className="w-40 rounded-2xl overflow-hidden pt-24 relative">
@@ -300,127 +414,17 @@ const SectionHeader = ({
     title: string;
         onPress?: () => void;
         seeAll?: boolean;
-}) => (
-    <View className="flex-row justify-between items-center mt-6">
-        <Text className="text-subtitle font-bold text-text dark:text-textDark">{title}</Text>
+    }) => {
+    const { t } = useTranslation();
+    return (
+        <View className="flex-row justify-between items-center mt-6">
+            <Text className="text-subtitle font-bold text-text dark:text-textDark">{title}</Text>
 
-        {seeAll && (
-            <TouchableOpacity onPress={onPress}>
-                <Text className="text-small text-secondary dark:text-secondaryDark">See All</Text>
-            </TouchableOpacity>
-        )}
-    </View>
-);
-
-//
-// DATA
-//
-
-const tenantList: TenantItemProps[] = [
-    { name: "Alif", due: "SAR 2500", next: "20/07/2024" },
-    { name: "Alif", due: "SAR 2500", next: "20/07/2024" },
-    { name: "Alif", due: "SAR 2500", next: "20/07/2024" },
-];
-
-const properties: PropertyCardProps[] = [
-    {
-        title: "Luxury Villa",
-        price: "SAR 45,000 /month",
-        tag: "Viewing",
-        location: "Al Nakheel, Riyadh",
-        person: "Sarah Abdullah",
-        status: "Viewing",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-    },
-    {
-        title: "Luxury Villa",
-        price: "SAR 45,000 /month",
-        tag: "Viewing",
-        location: "Al Nakheel, Riyadh",
-        person: "Sarah Abdullah",
-        status: "Viewing",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-    },
-    {
-        title: "Luxury Villa",
-        price: "SAR 45,000 /month",
-        tag: "Rental",
-        location: "Al Nakheel, Riyadh",
-        person: "Sarah Abdullah",
-        status: "Rental",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-    },
-];
-
-const services: ServiceCardProps[] = [
-    {
-        title: "Ac",
-        urgency: "High",
-        location: "Al Nakheel, Riyadh",
-        person: "Sarah Abdullah",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-    },
-    {
-        title: "Laundry",
-        urgency: "Low",
-        location: "Al Nakheel, Riyadh",
-        person: "Sarah Abdullah",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-    },
-    {
-        title: "Water",
-        urgency: "Low",
-        location: "Al Nakheel, Riyadh",
-        person: "Sarah Abdullah",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-    },
-    {
-        title: "Electricity",
-        urgency: "Low",
-        location: "Al Nakheel, Riyadh",
-        person: "Sarah Abdullah",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-    },
-    {
-        title: "Gas",
-        urgency: "Low",
-        location: "Al Nakheel, Riyadh",
-        person: "Sarah Abdullah",
-        image: "https://www.bezmirno.com/wp-content/uploads/2019/05/06.-Tiny-Apartments-kitchen.jpg",
-    },
-];
-
-const updates: UpdateItemProps[] = [
-    {
-        icon: "bookmark-outline",
-        title: "Receipt Released",
-        msg: "Your receipt has been released",
-        date: "20/07/2024",
-        bg: "bg-black",
-        color: "#fff",
-    },
-    {
-        icon: "checkmark-done-outline",
-        title: "Payment Success",
-        msg: "Your payment has been successfully",
-        date: "20/07/2024",
-        bg: "bg-green-200",
-        color: "#000",
-    },
-    {
-        icon: "close-outline",
-        title: "Rent Canceled",
-        msg: "Your cancel request has been received",
-        date: "20/07/2024",
-        bg: "bg-red-200",
-        color: "#000",
-    },
-    {
-        icon: "time-outline",
-        title: "Pending Rent",
-        msg: "Your rent has been delayed",
-        date: "20/07/2024",
-        bg: "bg-yellow-200",
-        color: "#000",
-    },
-];
+            {seeAll && (
+                <TouchableOpacity onPress={onPress}>
+                    <Text className="text-small text-secondary dark:text-secondaryDark">{t('see_all')}</Text>
+                </TouchableOpacity>
+            )}
+        </View>
+    );
+}

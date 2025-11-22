@@ -3,6 +3,7 @@ import PropertyOwnerModal from "@/components/shared/PropertyOwnerModal";
 import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     FlatList,
     Image,
@@ -29,8 +30,7 @@ const PHOTOS = [
 ];
 
 export default function HouseDetailScreen() {
-
-
+    const { t } = useTranslation();
     const [showOwner, setShowOwner] = useState(false);
 
     return (
@@ -118,7 +118,7 @@ export default function HouseDetailScreen() {
 
                         {/* Contact person */}
                         <Text className="text-body font-semibold text-text dark:text-textDark mb-2">
-                            Contact Person
+                            {t("contact_person")}
                         </Text>
                         <View className="flex-row items-center justify-between mb-5">
                             <TouchableOpacity onPress={() => setShowOwner(true)} className="flex-row items-center">
@@ -130,11 +130,11 @@ export default function HouseDetailScreen() {
                                         </Text>
                                         <MaterialIcons name="verified" size={14} color="#3B82F6" />
                                         <Text className="ml-1 text-caption text-blue-500">
-                                            VERIFIED
+                                            {t("verified")}
                                         </Text>
                                     </View>
                                     <Text className="text-caption text-secondary dark:text-secondaryDark">
-                                        Property Owner
+                                        {t("property_owner")}
                                     </Text>
                                 </View>
                             </TouchableOpacity>
@@ -150,7 +150,7 @@ export default function HouseDetailScreen() {
                         </View>
 
                         {/* Description */}
-                        <SectionTitle title="Description" />
+                        <SectionTitle title={t("description")} />
                         <Text className="text-small leading-5 text-secondary dark:text-secondaryDark mb-4">
                             Located in the vibrant neighborhood of Park Slope, Brooklyn. The
                             exquisite property perfectly blends historic charm with modern
@@ -159,7 +159,7 @@ export default function HouseDetailScreen() {
                         </Text>
 
                         {/* Amenities */}
-                        <SectionTitle title="Amenities" />
+                        <SectionTitle title={t("amenities")} />
                         <View className="flex-row flex-wrap gap-1 mb-3">
                             {AMENITIES.map((item) => (
                                 <View key={item} className=" mb-2">
@@ -170,7 +170,7 @@ export default function HouseDetailScreen() {
 
 
                         {/* Security Features */}
-                        <SectionTitle title="Security Features" />
+                        <SectionTitle title={t("security_features")} />
                         <View className="flex-row flex-wrap gap-1 mb-3">
                             {SECURITY_FEATURES.map((item) => (
                                 <View key={item} className=" mb-2">
@@ -182,11 +182,11 @@ export default function HouseDetailScreen() {
                         {/* Photos */}
                         <View className="flex-row items-center justify-between mb-3">
                             <Text className="text-body font-semibold text-text dark:text-textDark">
-                                Photo
+                                {t("photo")}
                             </Text>
                             <TouchableOpacity onPress={() => router.push("/(prospectiveTenant)/photo-details")}>
                                 <Text className="text-small font-semibold text-secondary dark:text-secondaryDark">
-                                    See All
+                                    {t("see_all")}
                                 </Text>
                             </TouchableOpacity>
                         </View>
@@ -210,9 +210,9 @@ export default function HouseDetailScreen() {
                 </ScrollView>
                 {/* Bottom sticky buttons */}
                 <BottomButtonsFixed
-                    firstButtonText="Request"
+                    firstButtonText={t("request")}
                     firstButtonOnPress={() => router.push("/(prospectiveTenant)/appointment-request")}
-                    secondButtonText="Apply"
+                    secondButtonText={t("apply")}
                     secondButtonOnPress={() => router.push("/(prospectiveTenant)/appointment-apply")}
                 />
 

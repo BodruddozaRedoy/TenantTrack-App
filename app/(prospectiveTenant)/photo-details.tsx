@@ -1,20 +1,21 @@
 import PageTitle from "@/components/common/PageTitle";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const CATEGORIES = ["All Photos", "Parking Lot", "Living Room", "Washroom"];
-
 export default function PhotosDetailScreen() {
     const router = useRouter();
-    const [active, setActive] = useState("All Photos");
+    const { t } = useTranslation();
+    const CATEGORIES = [t("all_photos"), t("parking_lot"), t("living_room"), t("washroom")];
+    const [active, setActive] = useState(CATEGORIES[0]);
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
             {/* Header */}
-            <PageTitle text="Photos" leftIcon={true} leftOnPress={() => router.back()} />
+            <PageTitle text={t("photos")} leftIcon={true} leftOnPress={() => router.back()} />
 
             <ScrollView>
                 {/* Tabs */}
@@ -55,7 +56,7 @@ export default function PhotosDetailScreen() {
                 {/* Photos Container (render images later) */}
                 <View className="flex-1 items-center justify-center mt-5">
                     <Text className="text-secondary dark:text-secondaryDark">
-                        {active} content appears here...
+                        {active} {t("content_appears_here")}
                     </Text>
                 </View>
             </ScrollView>

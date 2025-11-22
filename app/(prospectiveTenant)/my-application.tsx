@@ -1,10 +1,9 @@
 import PageTitle from "@/components/common/PageTitle";
 import { router } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const TABS = ["Viewing Requests", "Rental Applications"];
 
 // Mock data (will replace with API later)
 const APPLICATIONS = [
@@ -44,7 +43,9 @@ const statusBadgeColor = {
 };
 
 export default function MyApplicationsScreen() {
-    const [activeTab, setActiveTab] = useState("Viewing Requests");
+    const { t } = useTranslation();
+    const TABS = [t("viewing_requests"), t("rental_applications")];
+    const [activeTab, setActiveTab] = useState(TABS[0]);
 
     const handlePressCard = (item: any) => {
         router.push({
@@ -56,7 +57,7 @@ export default function MyApplicationsScreen() {
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
             {/* Header */}
-            <PageTitle text="My Applications" leftIcon={true} leftOnPress={() => router.back()} />
+            <PageTitle text={t("my_applications")} leftIcon={true} leftOnPress={() => router.back()} />
             <View className="border-b border-gray-200 dark:border-gray-700" />
 
             {/* Tabs */}
@@ -107,7 +108,7 @@ export default function MyApplicationsScreen() {
                                 style={{ backgroundColor: statusBadgeColor[item.status] }}
                             >
                                 <Text className="text-[10px] font-medium text-white">
-                                    {item.status}
+                                    {item.status === "Pending" ? t("pending") : item.status === "Approved" ? t("approved") : t("rejected")}
                                 </Text>
                             </View>
                         </View>
@@ -118,7 +119,7 @@ export default function MyApplicationsScreen() {
                             </Text>
                             <Text className="text-caption font-semibold text-secondary dark:text-secondaryDark">
                                 {item.price}
-                                <Text className="font-normal"> /month</Text>
+                                <Text className="font-normal">{t("month")}</Text>
                             </Text>
                             <Text className="text-caption text-secondary dark:text-secondaryDark">
                                 📍 {item.location}

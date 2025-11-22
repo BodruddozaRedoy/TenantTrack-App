@@ -7,15 +7,6 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList, Image, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, useColorScheme, View } from "react-native";
 
-const TYPES = [
-    { id: "house", label: "House" },
-    { id: "apartment", label: "Apartment" },
-    { id: "villa", label: "Villa" },
-    { id: "workspace", label: "Workspace" },
-    { id: "cabin", label: "Cabin" },
-    { id: "cluster", label: "Cluster" },
-];
-
 const FEATURED = [
     {
         id: "f1",
@@ -39,6 +30,15 @@ export default function HomeScreen() {
     const isDark = color === "dark"
     const { t } = useTranslation()
 
+    const TYPES = [
+        { id: "house", label: t("house") },
+        { id: "apartment", label: t("apartment") },
+        { id: "villa", label: t("villa") },
+        { id: "workspace", label: t("workspace") },
+        { id: "cabin", label: t("cabin") },
+        { id: "cluster", label: t("cluster") },
+    ];
+
 
     return (
         <ScrollView
@@ -49,7 +49,7 @@ export default function HomeScreen() {
             {/* Header */}
             <View className="flex-row justify-between items-center mb-8 mt-4 px-5">
                 <Text className="text-title text-start font-bold text-text dark:text-textDark">
-                    {t("Explore")}
+                    {t("explore")}
                 </Text>
 
                 <View className="flex-row gap-3 items-center">
@@ -70,7 +70,7 @@ export default function HomeScreen() {
                 <Ionicons name="search-outline" size={20} color="#999" />
                 <TextInput
 
-                    placeholder="Search anything"
+                    placeholder={t("search_anything")}
                     placeholderTextColor="#9CA3AF"
                     editable={false}
                     className="flex-1 ml-2 text-text dark:text-textDark"
@@ -101,7 +101,7 @@ export default function HomeScreen() {
 
             {/* Featured */}
             <Text className="text-subtitle px-5 text-text dark:text-textDark mb-5">
-                Featured
+                {t("featured")}
             </Text>
 
 

@@ -4,6 +4,7 @@ import GeneralTab from "@/components/shared/GeneralTab";
 import LocationTab from "@/components/shared/LocationTab";
 import { router } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     ScrollView,
     Text,
@@ -17,6 +18,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function ProfileDetailScreen() {
     const colorScheme = useColorScheme();
     const isDark = colorScheme === "dark";
+    const { t } = useTranslation();
 
     const [selectedTab, setSelectedTab] = useState<"general" | "locations">(
         "general"
@@ -45,7 +47,7 @@ export default function ProfileDetailScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
-            <PageTitle text="Profile Detail" leftIcon leftOnPress={() => router.back()} />
+            <PageTitle text={t("profile_detail")} leftIcon leftOnPress={() => router.back()} />
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -79,7 +81,7 @@ export default function ProfileDetailScreen() {
                                 : "text-secondary dark:text-secondaryDark"
                                 }`}
                         >
-                            General
+                            {t("general")}
                         </Text>
                     </TouchableOpacity>
 
@@ -96,7 +98,7 @@ export default function ProfileDetailScreen() {
                                 : "text-secondary dark:text-secondaryDark"
                                 }`}
                         >
-                            Locations
+                            {t("location")}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -108,7 +110,7 @@ export default function ProfileDetailScreen() {
 
                 {/* ------- Save Button -------- */}
                 <View className="mt-4">
-                    <PrimaryButton title="Save Changes" onPress={() => console.log(form)} />
+                    <PrimaryButton title={t("save_changes")} onPress={() => console.log(form)} />
                 </View>
             </ScrollView>
         </SafeAreaView>

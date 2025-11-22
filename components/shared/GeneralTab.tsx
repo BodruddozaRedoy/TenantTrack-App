@@ -1,14 +1,17 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import CountryPicker from "react-native-country-picker-modal";
 
 export default function GeneralTab({form, updateField, isDark, showPurpose, setShowPurpose, purposeOptions}:any) {
+    const { t } = useTranslation();
+
     return (
         <>
             {/* Email */}
             <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                Email
+                {t('email')}
             </Text>
             <TextInput
                 value={form.email}
@@ -18,7 +21,7 @@ export default function GeneralTab({form, updateField, isDark, showPurpose, setS
 
             {/* Full Name */}
             <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                Full Name
+                {t('full_name').replace(' *', '')}
             </Text>
             <TextInput
                 value={form.fullName}
@@ -28,7 +31,7 @@ export default function GeneralTab({form, updateField, isDark, showPurpose, setS
 
             {/* Phone */}
             <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                Phone Number
+                {t('phone_number')}
             </Text>
             <TextInput
                 value={form.phone}
@@ -39,10 +42,10 @@ export default function GeneralTab({form, updateField, isDark, showPurpose, setS
             {/* Country Picker */}
             <View className="flex-row items-center gap-1">
                 <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                    Country
+                    {t('country')}
                 </Text>
                 <Text className="text-xs font-semibold text-gray-400 dark:text-secondaryDark mb-1">
-                    (Select at flag to choose your country)
+                    {t('select_country_flag')}
                 </Text>
             </View>
 
@@ -75,7 +78,7 @@ export default function GeneralTab({form, updateField, isDark, showPurpose, setS
 
             {/* ID */}
             <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                ID
+                {t('id_number')}
             </Text>
             <TextInput
                 value={form.idNumber}
@@ -85,7 +88,7 @@ export default function GeneralTab({form, updateField, isDark, showPurpose, setS
 
             {/* Nationality */}
             <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                Nationality
+                {t('nationality')}
             </Text>
             <TextInput
                 value={form.nationality}
@@ -95,7 +98,7 @@ export default function GeneralTab({form, updateField, isDark, showPurpose, setS
 
             {/* Employment */}
             <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                Employment Status
+                {t('employment_status')}
             </Text>
             <TextInput
                 value={form.employment}
@@ -105,7 +108,7 @@ export default function GeneralTab({form, updateField, isDark, showPurpose, setS
 
             {/* Expired Date */}
             <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                Expired Date
+                {t('expired_date')}
             </Text>
             <TextInput
                 value={form.expiredDate}
@@ -116,7 +119,7 @@ export default function GeneralTab({form, updateField, isDark, showPurpose, setS
 
             {/* Purpose Dropdown */}
             <Text className="text-small font-semibold text-secondary dark:text-secondaryDark mb-1">
-                Purpose
+                {t('purpose')}
             </Text>
 
             <TouchableOpacity
@@ -124,7 +127,7 @@ export default function GeneralTab({form, updateField, isDark, showPurpose, setS
                 className="border border-gray-200 dark:border-gray-700 bg-background dark:bg-cardDark rounded-xl px-4 py-3 flex-row justify-between items-center mb-4"
             >
                 <Text className="text-body text-text dark:text-textDark">
-                    {form.purpose || "N/A"}
+                    {form.purpose || t('na')}
                 </Text>
                 <Ionicons
                     name="chevron-down"

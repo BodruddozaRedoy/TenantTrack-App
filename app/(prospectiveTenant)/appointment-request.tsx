@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Image,
     Modal,
@@ -15,9 +16,9 @@ import {
     View
 } from "react-native";
 
-const PAYMENT_TERMS = ["Monthly", "Quarterly", "Yearly"];
-
 export default function AppointmentRequestScreen() {
+    const { t } = useTranslation();
+    const PAYMENT_TERMS = [t("monthly"), t("quarterly"), t("yearly")];
     const [form, setForm] = useState({
         date: null as Date | null,
         paymentTerm: "",
@@ -93,7 +94,7 @@ export default function AppointmentRequestScreen() {
                     {/* Select Date */}
                     <FormButton
                         icon="calendar-outline"
-                        label={formattedDate || "Select Date"}
+                        label={formattedDate || t("select_date_appointment")}
                         onPress={() => setShowDatePicker(true)}
                     />
 
@@ -112,7 +113,7 @@ export default function AppointmentRequestScreen() {
                     {/* Payment Term */}
                     <FormButton
                         icon="wallet-outline"
-                        label={form.paymentTerm || "Payment Term"}
+                        label={form.paymentTerm || t("payment_term")}
                         onPress={() => setDropdownOpen(true)}
                     />
 
@@ -141,14 +142,14 @@ export default function AppointmentRequestScreen() {
 
                     <FormInput
                         icon="home-outline"
-                        placeholder="Desired Move-in Date"
+                        placeholder={t("desired_move_in_date")}
                         value={form.moveIn}
                         onChange={(v) => update("moveIn", v)}
                     />
 
                     <FormInput
                         icon="receipt-outline"
-                        placeholder="Lease Duration (months)"
+                        placeholder={t("lease_duration_months")}
                         value={form.leaseDuration}
                         keyboardType="numeric"
                         onChange={(v) => update("leaseDuration", v)}
@@ -156,14 +157,14 @@ export default function AppointmentRequestScreen() {
 
                     <FormInput
                         icon="briefcase-outline"
-                        placeholder="Employment Status"
+                        placeholder={t("employment_status")}
                         value={form.employmentStatus}
                         onChange={(v) => update("employmentStatus", v)}
                     />
 
                     <FormInput
                         icon="call-outline"
-                        placeholder="Your phone number"
+                        placeholder={t("your_phone_number")}
                         value={form.phone}
                         keyboardType="phone-pad"
                         onChange={(v) => update("phone", v)}
@@ -171,7 +172,7 @@ export default function AppointmentRequestScreen() {
 
                     <FormInput
                         icon="mail-outline"
-                        placeholder="Your email"
+                        placeholder={t("your_email")}
                         value={form.email}
                         keyboardType="email-address"
                         onChange={(v) => update("email", v)}
@@ -185,7 +186,7 @@ export default function AppointmentRequestScreen() {
                     Continue
                 </Text>
             </TouchableOpacity> */}
-            <BottomButtonsFixed secondButtonText="Continue" secondButtonOnPress={() => router.push("/(prospectiveTenant)/appointment-success")} />
+            <BottomButtonsFixed secondButtonText={t("continue")} secondButtonOnPress={() => router.push("/(prospectiveTenant)/appointment-success")} />
 
         </View>
     );

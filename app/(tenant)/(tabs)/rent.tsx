@@ -3,18 +3,28 @@ import PrimaryButton from "@/components/common/PrimaryButton";
 import SecondaryButton from "@/components/common/SecondaryButton";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
+import { useTranslation } from "react-i18next";
 import { Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RentScreen() {
     const { colorScheme } = useColorScheme();
     const isDark = colorScheme === "dark";
+    const { t } = useTranslation();
+
+    const historyList = [
+        { month: "October 2025", paid: "10/10/2025" },
+        { month: "September 2025", paid: "09/10/2025" },
+        { month: "August 2025", paid: "08/10/2025" },
+        { month: "August 2025", paid: "08/10/2025" },
+        { month: "August 2025", paid: "08/10/2025" },
+    ];
 
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
             <StatusBar barStyle={"dark-content"} />
             {/* Header */}
-            <PageTitle text="Pay Rent" />
+            <PageTitle text={t('pay_rent')} />
             <View className="mb-5 border-b border-gray-200 dark:border-gray-700" />
 
             <ScrollView
@@ -27,7 +37,7 @@ export default function RentScreen() {
 
                     {/* Property Title */}
                     <Text className="text-subtitle font-bold text-text dark:text-textDark">
-                        Next Payment Due
+                        {t('next_payment_due')}
                     </Text>
 
                     <View className="mt-5 flex-row justify-between items-center">
@@ -41,15 +51,15 @@ export default function RentScreen() {
                         </View>
 
                         <Text className="mt-1 text-body font-semibold text-text dark:text-textDark">
-                            SAR 45,000 <Text className="text-small text-gray-400">/month</Text>
+                            SAR 45,000 <Text className="text-small text-gray-400">{t('month')}</Text>
                         </Text>
                     </View>
 
                     {/* Badges */}
                     <View className="flex-row flex-wrap gap-2 mb-3 mt-3">
-                        <Badge icon="people-outline" label="6 Guest" />
-                        <Badge icon="bed-outline" label="3 Bedrooms" />
-                        <Badge icon="car-outline" label="2 Baths" />
+                        <Badge icon="people-outline" label={`6 ${t('guest')}`} />
+                        <Badge icon="bed-outline" label={`3 ${t('bedrooms')}`} />
+                        <Badge icon="car-outline" label={`2 ${t('baths')}`} />
                     </View>
 
                     {/* Rating */}
@@ -60,13 +70,13 @@ export default function RentScreen() {
                             color={isDark ? "#FFD700" : "#FFD700"}
                         />
                         <Text className="ml-1 text-small text-secondary dark:text-secondaryDark">
-                            4.9 (426 Reviews)
+                            4.9 (426 {t('reviews')})
                         </Text>
                     </View>
 
                     {/* Contact Person */}
                     <Text className="text-body font-semibold text-text dark:text-textDark mb-2">
-                        Contact Person
+                        {t('contact_person')}
                     </Text>
 
                     <View className="flex-row items-center mb-4">
@@ -76,7 +86,7 @@ export default function RentScreen() {
                                 <Text className="text-small font-semibold text-text dark:text-textDark mr-1">Steven Adams</Text>
                                 <MaterialCommunityIcons name="check-decagram" size={14} color="#3B82F6" />
                             </View>
-                            <Text className="text-caption text-secondary dark:text-secondaryDark">Property Owner</Text>
+                            <Text className="text-caption text-secondary dark:text-secondaryDark">{t('property_owner')}</Text>
                         </View>
 
                         <TouchableOpacity className="mr-3">
@@ -86,32 +96,32 @@ export default function RentScreen() {
 
                     {/* Information */}
                     <View className="mt-6">
-                        <Text className="text-body font-semibold text-text dark:text-textDark mb-2">Information</Text>
+                        <Text className="text-body font-semibold text-text dark:text-textDark mb-2">{t('information')}</Text>
                         <Text className="mb-1 flex-row gap-2 items-center text-text dark:text-textDark">
-                            <Text className="text-caption font-semibold text-gray-400">Next Payment:</Text> 10/14/2025
+                            <Text className="text-caption font-semibold text-gray-400">{t('next_payment')}:</Text> 10/14/2025
                         </Text>
                         <Text className="mb-1 flex-row gap-2 items-center text-text dark:text-textDark">
-                            <Text className="text-caption font-semibold text-gray-400">Payment Term:</Text> Monthly
+                            <Text className="text-caption font-semibold text-gray-400">{t('payment_term')}:</Text> Monthly
                         </Text>
                         <Text className="mb-1 flex-row gap-2 items-center text-text dark:text-textDark">
-                            <Text className="text-caption font-semibold text-gray-400">Lease Duration:</Text> 12 months
+                            <Text className="text-caption font-semibold text-gray-400">{t('lease_duration')}:</Text> 12 months
                         </Text>
                         <Text className="mb-1 flex-row gap-2 items-center text-text dark:text-textDark">
-                            <Text className="text-caption font-semibold text-gray-400">Size:</Text> 120 m²
+                            <Text className="text-caption font-semibold text-gray-400">{t('size')}:</Text> 120 m²
                         </Text>
                     </View>
 
                     {/* Buttons */}
                     <View className="mt-4 gap-3">
-                        <PrimaryButton title="Pay Rent" />
-                        <SecondaryButton title="Upload Payment Receipt" />
+                        <PrimaryButton title={t('pay_rent')} />
+                        <SecondaryButton title={t('upload_payment_receipt')} />
                     </View>
                 </View>
 
                 {/* Payment History */}
                 <View className="bg-card dark:bg-cardDark p-4 rounded-2xl">
                     <Text className="text-subtitle font-bold text-text dark:text-textDark mb-3">
-                        Payment History
+                        {t('payment_history')}
                     </Text>
 
                     {/** Example Items — you will map dynamically later */}
@@ -125,13 +135,13 @@ export default function RentScreen() {
                                     {item.month}
                                 </Text>
                                 <Text className="text-small text-secondary dark:text-secondaryDark">
-                                    Paid on {item.paid}
+                                    {t('paid_on')} {item.paid}
                                 </Text>
                             </View>
 
                             <TouchableOpacity className="bg-primary dark:bg-primaryDark px-3 py-1 rounded-full">
                                 <Text className="text-small text-background dark:text-backgroundDark">
-                                    Download
+                                    {t('download')}
                                 </Text>
                             </TouchableOpacity>
                         </View>
@@ -149,10 +159,3 @@ const Badge = ({ label, icon }: any) => (
     </View>
 );
 
-const historyList = [
-    { month: "October 2025", paid: "10/10/2025" },
-    { month: "September 2025", paid: "09/10/2025" },
-    { month: "August 2025", paid: "08/10/2025" },
-    { month: "August 2025", paid: "08/10/2025" },
-    { month: "August 2025", paid: "08/10/2025" },
-];

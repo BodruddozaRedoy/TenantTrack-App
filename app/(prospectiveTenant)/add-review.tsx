@@ -3,6 +3,7 @@ import PageTitle from "@/components/common/PageTitle";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Image,
     ScrollView,
@@ -14,6 +15,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AddReviewScreen() {
+    const { t } = useTranslation();
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
     const [image] = useState<string | null>(null);
@@ -25,8 +27,8 @@ export default function AddReviewScreen() {
     };
 
     const handleSubmit = () => {
-        if (!rating) return alert("Please select your rating");
-        if (!review.trim()) return alert("Please write your feedback");
+        if (!rating) return alert(t("please_select_rating"));
+        if (!review.trim()) return alert(t("please_write_feedback"));
 
         console.log({
             rating,
@@ -40,7 +42,7 @@ export default function AddReviewScreen() {
     return (
         <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark">
             {/* Header */}
-            <PageTitle text="Add Review" leftIcon={true} leftOnPress={() => router.back()} />
+            <PageTitle text={t("add_review")} leftIcon={true} leftOnPress={() => router.back()} />
             <View className="border-b border-gray-200 dark:border-gray-700" />
 
             <ScrollView
@@ -73,7 +75,7 @@ export default function AddReviewScreen() {
                     onChangeText={setReview}
                     multiline
                     textAlignVertical="top"
-                    placeholder="Tell us more..."
+                    placeholder={t("tell_us_more")}
                     placeholderTextColor="#A3A3A3"
                     className="min-h-[130px] p-4 rounded-xl bg-gray-100 dark:bg-gray-800 text-text dark:text-textDark mb-6"
                 />
@@ -94,7 +96,7 @@ export default function AddReviewScreen() {
                         <View className="items-center">
                             <Ionicons name="add" size={28} color="#A3A3A3" />
                             <Text className="text-secondary mt-1 dark:text-secondaryDark">
-                                Add Image
+                                {t("add_image")}
                             </Text>
                         </View>
                     )}
@@ -102,7 +104,7 @@ export default function AddReviewScreen() {
             </ScrollView>
 
             {/* Submit Button */}
-            <BottomButtonsFixed secondButtonOnPress={handleSubmit} secondButtonText="Submit" />
+            <BottomButtonsFixed secondButtonOnPress={handleSubmit} secondButtonText={t("submit")} />
         </SafeAreaView>
     );
 }

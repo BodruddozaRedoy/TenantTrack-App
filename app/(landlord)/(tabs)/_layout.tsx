@@ -1,10 +1,12 @@
 import { FontAwesome, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
     const insets = useSafeAreaInsets();
+    const { t } = useTranslation();
 
     return (
         <Tabs
@@ -66,7 +68,7 @@ export default function TabLayout() {
                                 } rounded-full justify-center`}
                         >
                             <Ionicons name="chatbox-ellipses" size={26} color={focused ? "white" : "#CCCCCC"} />
-                            {focused && <Text className="text-white font-semibold">Chat</Text>}
+                            {focused && <Text className="text-white font-semibold">{t('chat')}</Text>}
                         </View>
                     ),
                 }}
@@ -81,7 +83,7 @@ export default function TabLayout() {
                                 } rounded-full justify-center`}
                         >
                             <FontAwesome name="user-circle" size={26} color={focused ? "white" : "#CCCCCC"} />
-                            {focused && <Text className="text-white font-semibold">Profile</Text>}
+                            {focused && <Text className="text-white font-semibold">{t('profile')}</Text>}
                         </View>
                     ),
                 }}

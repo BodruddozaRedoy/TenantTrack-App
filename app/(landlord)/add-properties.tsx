@@ -6,6 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   Image,
@@ -159,6 +160,7 @@ function DatePickerField({
 export default function AddPropertyScreen() {
   const { colorScheme } = useColorScheme();
   const isDark = colorScheme === "dark";
+  const { t } = useTranslation();
 
   const [propertyData, setPropertyData] = useState<PropertyData>({
     photoUri: null,
@@ -185,7 +187,7 @@ export default function AddPropertyScreen() {
     (async () => {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
-        Alert.alert("Permission required", "We need access to your photos to upload property images.");
+        Alert.alert(t("permission_required"), t("permission_required_photos"));
       }
     })();
   }, []);
@@ -212,7 +214,7 @@ export default function AddPropertyScreen() {
     try {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
       if (status !== "granted") {
-        Alert.alert("Camera permission required");
+        Alert.alert(t("camera_permission_required"));
         return;
       }
 
@@ -246,14 +248,14 @@ export default function AddPropertyScreen() {
   function onSubmit() {
     // Basic validation example
     if (!propertyData.title.trim()) {
-      Alert.alert("Validation", "Please enter property title.");
+      Alert.alert(t("error"), t("validation_enter_title"));
       return;
     }
 
     // Prepare payload (you can transform as needed)
     const payload = { ...propertyData };
     console.log("PROPERTY PAYLOAD:", payload);
-    Alert.alert("Success", "Property object is ready (check console).");
+    Alert.alert("Success", t("success_property_ready"));
 
     // TODO: call API here
 
@@ -263,15 +265,15 @@ export default function AddPropertyScreen() {
 
   /* shared dropdown data (examples) */
   const statusOptions: DropdownOption[] = [
-    { label: "Available", value: "available" },
-    { label: "Rented", value: "rented" },
-    { label: "Under Maintenance", value: "maintenance" },
+    { label: t("available"), value: "available" },
+    { label: t("rented"), value: "rented" },
+    { label: t("under_maintenance"), value: "maintenance" },
   ];
 
   const rentalTermOptions: DropdownOption[] = [
-    { label: "Monthly", value: "monthly" },
-    { label: "Quarterly", value: "quarterly" },
-    { label: "Yearly", value: "yearly" },
+    { label: t("monthly"), value: "monthly" },
+    { label: t("quarterly"), value: "quarterly" },
+    { label: t("yearly"), value: "yearly" },
   ];
 
   const bedroomsOptions: DropdownOption[] = [
@@ -289,8 +291,8 @@ export default function AddPropertyScreen() {
   ];
 
   const propertyTypeOptions: DropdownOption[] = [
-    { label: "Apartment", value: "apartment" },
-    { label: "Villa", value: "villa" },
+    { label: t("apartment"), value: "apartment" },
+    { label: t("villa"), value: "villa" },
     { label: "Shop", value: "shop" },
   ];
 
@@ -301,14 +303,14 @@ export default function AddPropertyScreen() {
   ];
 
   const furnishingOptions: DropdownOption[] = [
-    { label: "Furnished", value: "furnished" },
-    { label: "Semi-furnished", value: "semi" },
-    { label: "Unfurnished", value: "unfurnished" },
+    { label: t("furnished"), value: "furnished" },
+    { label: t("semi_furnished"), value: "semi" },
+    { label: t("unfurnished"), value: "unfurnished" },
   ];
 
   const petsOptions: DropdownOption[] = [
-    { label: "Allowed", value: "allowed" },
-    { label: "Not Allowed", value: "not_allowed" },
+    { label: t("allowed"), value: "allowed" },
+    { label: t("not_allowed"), value: "not_allowed" },
   ];
 
   const amenitiesList = [
@@ -357,7 +359,7 @@ export default function AddPropertyScreen() {
       <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
       <ScrollView contentContainerStyle={{ paddingBottom: 140 }} className="px-4">
         {/* Header */}
-        <PageTitle text="Add Properties" leftIcon leftOnPress={() => router.back()} />
+        <PageTitle text={t("add_properties")} leftIcon leftOnPress={() => router.back()} />
         <View className="border-b border-gray-200 dark:border-gray-700 mb-5" />
         {/* Photo uploader */}
         <View className="mb-5">
@@ -372,7 +374,7 @@ export default function AddPropertyScreen() {
             ) : (
                 <TouchableOpacity onPress={takePhoto} className="items-center">
                 <Ionicons name="camera" size={36} color="#ffffffb3" />
-                <Text className="text-body text-white/80 mt-2">Upload Photo</Text>
+                <Text className="text-body text-white/80 mt-2">{t("upload_photo")}</Text>
                 <View className="flex-row mt-2">
                     {/* <TouchableOpacity onPress={takePhoto} className="px-3 py-2 bg-black/20 rounded-md mr-2">
                     <Text className="text-sm text-white">Take</Text>
@@ -384,43 +386,43 @@ export default function AddPropertyScreen() {
         </View>
 
         {/* Form fields */}
-        <TextField label="Property title" value={propertyData.title} onChangeText={(v) => setPropertyData((p) => ({ ...p, title: v }))} placeholder="Any" />
-        <TextField label="Description" value={propertyData.description} onChangeText={(v) => setPropertyData((p) => ({ ...p, description: v }))} placeholder="Any" />
-        <TextField label="Monthly rent" value={propertyData.monthlyRent} onChangeText={(v) => setPropertyData((p) => ({ ...p, monthlyRent: v }))} placeholder="Any" numeric />
-        <TextField label="Area (sqm)" value={propertyData.area} onChangeText={(v) => setPropertyData((p) => ({ ...p, area: v }))} placeholder="Any" numeric />
+        <TextField label={t("property_title")} value={propertyData.title} onChangeText={(v) => setPropertyData((p) => ({ ...p, title: v }))} placeholder="Any" />
+        <TextField label={t("description")} value={propertyData.description} onChangeText={(v) => setPropertyData((p) => ({ ...p, description: v }))} placeholder="Any" />
+        <TextField label={t("monthly_rent")} value={propertyData.monthlyRent} onChangeText={(v) => setPropertyData((p) => ({ ...p, monthlyRent: v }))} placeholder="Any" numeric />
+        <TextField label={t("area_sqm")} value={propertyData.area} onChangeText={(v) => setPropertyData((p) => ({ ...p, area: v }))} placeholder="Any" numeric />
 
-        <DropdownField label="Status" options={statusOptions} selected={propertyData.status} onSelect={(v) => setPropertyData((p) => ({ ...p, status: v }))} />
-        <DropdownField label="Rental Term" options={rentalTermOptions} selected={propertyData.rentalTerm} onSelect={(v) => setPropertyData((p) => ({ ...p, rentalTerm: v }))} />
-
-        <View className="flex-row gap-3">
-          <View style={{ flex: 1 }}>
-            <DropdownField label="Bedrooms (min)" options={bedroomsOptions} selected={propertyData.bedrooms} onSelect={(v) => setPropertyData((p) => ({ ...p, bedrooms: v }))} />
-          </View>
-          <View style={{ flex: 1 }}>
-            <DropdownField label="Bathrooms (min)" options={bathroomsOptions} selected={propertyData.bathrooms} onSelect={(v) => setPropertyData((p) => ({ ...p, bathrooms: v }))} />
-          </View>
-        </View>
-
-        <DropdownField label="Property Type" options={propertyTypeOptions} selected={propertyData.propertyType} onSelect={(v) => setPropertyData((p) => ({ ...p, propertyType: v }))} />
+        <DropdownField label={t("status")} options={statusOptions} selected={propertyData.status} onSelect={(v) => setPropertyData((p) => ({ ...p, status: v }))} />
+        <DropdownField label={t("rental_term")} options={rentalTermOptions} selected={propertyData.rentalTerm} onSelect={(v) => setPropertyData((p) => ({ ...p, rentalTerm: v }))} />
 
         <View className="flex-row gap-3">
           <View style={{ flex: 1 }}>
-            <DropdownField label="City" options={cityOptions} selected={propertyData.city} onSelect={(v) => setPropertyData((p) => ({ ...p, city: v }))} />
+            <DropdownField label={t("bedrooms_min")} options={bedroomsOptions} selected={propertyData.bedrooms} onSelect={(v) => setPropertyData((p) => ({ ...p, bedrooms: v }))} />
           </View>
           <View style={{ flex: 1 }}>
-            <TextField label="District" value={propertyData.district} onChangeText={(v) => setPropertyData((p) => ({ ...p, district: v }))} placeholder="Any" />
+            <DropdownField label={t("bathrooms_min")} options={bathroomsOptions} selected={propertyData.bathrooms} onSelect={(v) => setPropertyData((p) => ({ ...p, bathrooms: v }))} />
           </View>
         </View>
 
-        <TextField label="Zip Code" value={propertyData.zipCode} onChangeText={(v) => setPropertyData((p) => ({ ...p, zipCode: v }))} placeholder="Any" />
-        <DropdownField label="Furnishing" options={furnishingOptions} selected={propertyData.furnishing} onSelect={(v) => setPropertyData((p) => ({ ...p, furnishing: v }))} />
-        <DropdownField label="Pets Allowed" options={petsOptions} selected={propertyData.petsAllowed} onSelect={(v) => setPropertyData((p) => ({ ...p, petsAllowed: v }))} />
+        <DropdownField label={t("property_type")} options={propertyTypeOptions} selected={propertyData.propertyType} onSelect={(v) => setPropertyData((p) => ({ ...p, propertyType: v }))} />
 
-        <DatePickerField label="Available From" date={propertyData.availableFrom} onChange={(d) => setPropertyData((p) => ({ ...p, availableFrom: d }))} />
+        <View className="flex-row gap-3">
+          <View style={{ flex: 1 }}>
+            <DropdownField label={t("city")} options={cityOptions} selected={propertyData.city} onSelect={(v) => setPropertyData((p) => ({ ...p, city: v }))} />
+          </View>
+          <View style={{ flex: 1 }}>
+            <TextField label={t("district")} value={propertyData.district} onChangeText={(v) => setPropertyData((p) => ({ ...p, district: v }))} placeholder="Any" />
+          </View>
+        </View>
+
+        <TextField label={t("zip_code")} value={propertyData.zipCode} onChangeText={(v) => setPropertyData((p) => ({ ...p, zipCode: v }))} placeholder="Any" />
+        <DropdownField label={t("furnishing")} options={furnishingOptions} selected={propertyData.furnishing} onSelect={(v) => setPropertyData((p) => ({ ...p, furnishing: v }))} />
+        <DropdownField label={t("pets_allowed")} options={petsOptions} selected={propertyData.petsAllowed} onSelect={(v) => setPropertyData((p) => ({ ...p, petsAllowed: v }))} />
+
+        <DatePickerField label={t("available_from")} date={propertyData.availableFrom} onChange={(d) => setPropertyData((p) => ({ ...p, availableFrom: d }))} />
 
         {/* Amenities */}
         <View className="mt-4 mb-2">
-          <Text className="text-subtitle font-semibold text-text dark:text-textDark">Amenities</Text>
+          <Text className="text-subtitle font-semibold text-text dark:text-textDark">{t("amenities")}</Text>
           <View className="border-b border-gray-200 dark:border-gray-700 my-3" />
           <View className="flex-row flex-wrap justify-between">
             {amenitiesList.map((a) => {
@@ -455,7 +457,7 @@ export default function AddPropertyScreen() {
 
         {/* Security Features */}
         <View className="mt-4 mb-2">
-          <Text className="text-subtitle font-semibold text-text dark:text-textDark">Security Features</Text>
+          <Text className="text-subtitle font-semibold text-text dark:text-textDark">{t("security_features")}</Text>
           <View className="border-b border-gray-200 dark:border-gray-700 my-3" />
           <View className="flex-row flex-wrap justify-between">
             {securityList.map((s) => {
@@ -491,7 +493,7 @@ export default function AddPropertyScreen() {
         {/* Continue button */}
         <View className="mt-6 mb-12">
           <TouchableOpacity onPress={onSubmit} className="bg-primary dark:bg-primaryDark py-4 rounded-full items-center">
-            <Text className="text-background dark:text-backgroundDark font-semibold">Continue</Text>
+            <Text className="text-background dark:text-backgroundDark font-semibold">{t("continue")}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

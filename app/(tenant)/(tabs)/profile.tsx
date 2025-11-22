@@ -3,6 +3,7 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   ScrollView,
   Switch,
@@ -16,6 +17,7 @@ export default function ProfileScreen() {
   const [darkMode, setDarkMode] = useState(false);
   const [allowSMS, setAllowSMS] = useState(false);
   const [allowEmail, setAllowEmail] = useState(true);
+  const { t } = useTranslation();
 
   const handleSignOut = async () => {
     try {
@@ -28,7 +30,7 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background dark:bg-backgroundDark ">
-      <PageTitle text="Profile" />
+      <PageTitle text={t('profile')} />
 
       <View className="border-b border-gray-200 dark:border-gray-700" />
 
@@ -56,12 +58,12 @@ export default function ProfileScreen() {
         {/* General Section */}
         <View className="bg-card dark:bg-cardDark rounded-3xl p-4 mb-4">
           <Text className="text-body font-semibold text-text dark:text-textDark mb-3">
-            General
+            {t('general')}
           </Text>
 
           <View className="flex-row items-center justify-between mb-2">
             <Text className="text-small text-secondary dark:text-secondaryDark">
-              Language
+              {t('language')}
             </Text>
             <Text className="text-small text-text dark:text-textDark">English</Text>
           </View>
@@ -70,12 +72,12 @@ export default function ProfileScreen() {
         {/* Theme Section */}
         <View className="bg-card dark:bg-cardDark rounded-3xl p-4 mb-4">
           <Text className="text-body font-semibold text-text dark:text-textDark mb-3">
-            Theme
+            {t('theme')}
           </Text>
 
           <View className="flex-row items-center justify-between">
             <Text className="text-small text-secondary dark:text-secondaryDark">
-              Dark Mode
+              {t('dark_mode')}
             </Text>
             <Switch
               value={darkMode}
@@ -93,12 +95,12 @@ export default function ProfileScreen() {
         {/* Notifications */}
         <View className="bg-card dark:bg-cardDark rounded-3xl p-4 mb-4">
           <Text className="text-body font-semibold text-text dark:text-textDark mb-3">
-            Notifications
+            {t('notifications')}
           </Text>
 
           <View className="flex-row items-center justify-between mb-4">
             <Text className="text-small text-secondary dark:text-secondaryDark">
-              Allow SMS
+              {t('allow_sms')}
             </Text>
             <Switch
               value={allowSMS}
@@ -114,7 +116,7 @@ export default function ProfileScreen() {
 
           <View className="flex-row items-center justify-between">
             <Text className="text-small text-secondary dark:text-secondaryDark">
-              Allow Email Notification
+              {t('allow_email_notification')}
             </Text>
             <Switch
               value={allowEmail}
@@ -132,12 +134,12 @@ export default function ProfileScreen() {
         {/* Forget Password */}
         <View className="bg-card dark:bg-cardDark rounded-3xl p-4 mb-4">
           <Text className="text-body font-semibold text-text dark:text-textDark mb-3">
-            Forget Password
+            {t('forget_password')}
           </Text>
 
           <TouchableOpacity className="flex-row justify-between items-center">
             <Text className="text-small font-semibold text-red-500 mr-2">
-              Forget Password
+              {t('forget_password')}
             </Text>
             <MaterialCommunityIcons name="lock-reset" size={20} color="red" />
           </TouchableOpacity>
@@ -146,16 +148,15 @@ export default function ProfileScreen() {
         {/* Danger Zone */}
         <View className="bg-card dark:bg-cardDark rounded-3xl p-4 mb-4">
           <Text className="text-body font-semibold text-text dark:text-textDark mb-1">
-            Danger Zone
+            {t('danger_zone')}
           </Text>
           <Text className="text-caption text-secondary dark:text-secondaryDark mb-3">
-            Once you delete your account, there is no going back. Please be
-            certain.
+            {t('delete_account_warning')}
           </Text>
 
           <TouchableOpacity className="flex-row items-center justify-between">
             <Text className="text-small font-semibold text-red-500 mr-2">
-              Delete Account
+              {t('delete_account')}
             </Text>
             <MaterialCommunityIcons name="delete-alert-outline" size={20} color="red" />
           </TouchableOpacity>
@@ -164,12 +165,12 @@ export default function ProfileScreen() {
         {/* Sign Out */}
         <View className="bg-card dark:bg-cardDark rounded-3xl p-4">
           <Text className="text-body font-semibold text-text dark:text-textDark mb-3">
-            Sign Out
+            {t('sign_out')}
           </Text>
 
           <TouchableOpacity onPress={handleSignOut} className="flex-row items-center justify-between">
             <Text className="text-small font-semibold text-red-500 mr-2">
-              Sign Out
+              {t('sign_out')}
             </Text>
             <MaterialCommunityIcons name="logout" size={20} color="red" />
           </TouchableOpacity>

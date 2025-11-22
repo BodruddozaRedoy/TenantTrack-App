@@ -1,6 +1,7 @@
 import PageTitle from '@/components/common/PageTitle'
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { FlatList, Image, Text, useColorScheme, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -65,9 +66,10 @@ const FavoriteCard = ({ item }: any) => {
 }
 
 export default function FavoriteScreen() {
+  const { t } = useTranslation();
   return (
     <SafeAreaView className='flex-1 bg-background dark:bg-backgroundDark mb-5'>
-      <PageTitle text='Favorites' />
+      <PageTitle text={t("favorite")} />
       <View className='border-b border-gray-200 dark:border-gray-700 mb-4' />
 
       <FlatList

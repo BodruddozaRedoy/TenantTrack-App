@@ -1,8 +1,11 @@
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 
 export default function TabLayout() {
+    const { t } = useTranslation();
+
     return (
         <Tabs
             screenOptions={{
@@ -36,7 +39,7 @@ export default function TabLayout() {
                                 size={26}
                                 color={focused ? "white" : "#CCCCCC"}
                             />
-                            {focused && <Text className="text-white font-semibold">Explore</Text>}
+                            {focused && <Text className="text-white font-semibold">{t('explore')}</Text>}
                         </View>
                     ),
                 }}
@@ -47,7 +50,7 @@ export default function TabLayout() {
                     tabBarIcon: ({ focused }) => (
                         <View className={`items-center flex-row gap-2 ${focused ? "bg-backgroundDark h-20 w-28 rounded-full" : "bg-background size-20"} rounded-full justify-center `}>
                             <MaterialCommunityIcons name="bookmark-minus" size={26} color={focused ? "white" : "#CCCCCC"} />
-                            {focused && <Text className="text-white font-semibold">Favorite</Text>}
+                            {focused && <Text className="text-white font-semibold">{t('favorite')}</Text>}
                         </View>
                     ),
                 }}
@@ -63,13 +66,11 @@ export default function TabLayout() {
                                 size={26}
                                 color={focused ? "white" : "#CCCCCC"}
                             />
-                            {focused && <Text className="text-white font-semibold">Chat</Text>}
+                            {focused && <Text className="text-white font-semibold">{t('chat')}</Text>}
                         </View>
                     ),
                 }}
             />
-
-
 
             <Tabs.Screen
                 name="profile"
@@ -81,7 +82,7 @@ export default function TabLayout() {
                                 size={26}
                                 color={focused ? "white" : "#CCCCCC"}
                             />
-                            {focused && <Text className="text-white font-semibold">Profile</Text>}
+                            {focused && <Text className="text-white font-semibold">{t('profile')}</Text>}
                         </View>
                     ),
                 }}
